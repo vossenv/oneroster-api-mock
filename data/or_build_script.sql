@@ -51,12 +51,12 @@ CREATE TABLE Courses(
     `status` VARCHAR(255) NULL DEFAULT 'active',
     dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,	
 	metadata VARCHAR(255) NULL,
+	grade VARCHAR(255) NULL,
     title VARCHAR(255) NULL,
     schoolYear VARCHAR(512) NULL,
     courseCode VARCHAR(255) NULL,
-    grade VARCHAR(255) NULL,
     subjects VARCHAR(512) NULL,
-    orgID INT NULL,
+    orgId INT NULL,
     PRIMARY KEY (courseId),
     UNIQUE (sourcedId),
     FOREIGN KEY (orgId) REFERENCES Orgs(orgId)    
@@ -69,12 +69,12 @@ CREATE TABLE Classes(
     `status` VARCHAR(255) NULL DEFAULT 'active',
     dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,	
 	metadata VARCHAR(255) NULL,
+    term VARCHAR(255) NULL,
 	classCode VARCHAR(255) NULL,
     classType VARCHAR(255) NULL DEFAULT 'scheduled',
     location VARCHAR(255) NULL,
 	courseId INT NULL,
     orgId INT NULL,
-    term VARCHAR(255) NULL,
     periods VARCHAR(255) NULL,
     PRIMARY KEY (classId),
     UNIQUE (sourcedId),
@@ -91,7 +91,6 @@ CREATE TABLE Enrollments(
 	metadata VARCHAR(255) NULL,
     userId INT NULL,
     classId INT NULL,
-    role VARCHAR(255) NULL DEFAULT 'student',
     `primary` BOOLEAN NULL,
     beginDate DATETIME DEFAULT CURRENT_TIMESTAMP NULL,	
     endDate DATETIME DEFAULT CURRENT_TIMESTAMP NULL,	
@@ -102,7 +101,7 @@ CREATE TABLE Enrollments(
 );
 
 
-LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\orgs.csv'
+LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\Orgs.csv'
 REPLACE
 INTO TABLE Orgs
 fields terminated BY ','
@@ -110,9 +109,33 @@ optionally enclosed by '"'
 lines terminated BY '\n'
 IGNORE 1 LINES;
 
-LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\users.csv'
+LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\Users.csv'
 REPLACE
 INTO TABLE Users
+fields terminated BY ','
+optionally enclosed by '"'
+lines terminated BY '\n'
+IGNORE 1 LINES;
+
+LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\Courses.csv'
+REPLACE
+INTO TABLE Courses
+fields terminated BY ','
+optionally enclosed by '"'
+lines terminated BY '\n'
+IGNORE 1 LINES;
+
+LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\Classes.csv'
+REPLACE
+INTO TABLE Classes
+fields terminated BY ','
+optionally enclosed by '"'
+lines terminated BY '\n'
+IGNORE 1 LINES;
+
+LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\Enrollments.csv'
+REPLACE
+INTO TABLE Enrollments
 fields terminated BY ','
 optionally enclosed by '"'
 lines terminated BY '\n'
