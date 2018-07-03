@@ -1,13 +1,9 @@
-DROP DATABASE IF EXISTS oneroster;
-CREATE DATABASE oneroster;
-USE oneroster;
-
 
 CREATE TABLE Orgs(
 	orgId INT NOT NULL AUTO_INCREMENT,
     sourcedId VARCHAR(512) NOT NULL,
     `status` VARCHAR(255) NULL DEFAULT 'active',
-    dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,	
+    dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
 	metadata VARCHAR(255) NULL,
 	`name` VARCHAR(255) NULL,
     identifier VARCHAR(255) NULL,
@@ -25,9 +21,9 @@ CREATE TABLE Users (
     dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
     metadata VARCHAR(255) NULL,
     enabledUser BOOLEAN NULL DEFAULT TRUE,
-    userIds VARCHAR (512) NULL,   
+    userIds VARCHAR (512) NULL,
     identifier VARCHAR(255) NULL,
-    orgId INT NULL,    
+    orgId INT NULL,
     givenName VARCHAR(255) NULL,
     familyName VARCHAR(255) NULL,
     middleName VARCHAR(255) NULL,
@@ -46,10 +42,10 @@ CREATE TABLE Users (
 
 
 CREATE TABLE Courses(
-	courseId INT NOT NULL AUTO_INCREMENT,	
+	courseId INT NOT NULL AUTO_INCREMENT,
 	sourcedId VARCHAR(512) NOT NULL,
     `status` VARCHAR(255) NULL DEFAULT 'active',
-    dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,	
+    dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
 	metadata VARCHAR(255) NULL,
 	grade VARCHAR(255) NULL,
     title VARCHAR(255) NULL,
@@ -59,7 +55,7 @@ CREATE TABLE Courses(
     orgId INT NULL,
     PRIMARY KEY (courseId),
     UNIQUE (sourcedId),
-    FOREIGN KEY (orgId) REFERENCES Orgs(orgId)    
+    FOREIGN KEY (orgId) REFERENCES Orgs(orgId)
 );
 
 
@@ -67,7 +63,7 @@ CREATE TABLE Classes(
 	classId INT NOT NULL AUTO_INCREMENT,
     sourcedId VARCHAR(512) NOT NULL,
     `status` VARCHAR(255) NULL DEFAULT 'active',
-    dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,	
+    dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
 	metadata VARCHAR(255) NULL,
     term VARCHAR(255) NULL,
 	classCode VARCHAR(255) NULL,
@@ -79,7 +75,7 @@ CREATE TABLE Classes(
     PRIMARY KEY (classId),
     UNIQUE (sourcedId),
     FOREIGN KEY (orgId) REFERENCES Orgs(orgId),
-    FOREIGN KEY (courseId) REFERENCES Courses(courseId)    
+    FOREIGN KEY (courseId) REFERENCES Courses(courseId)
 );
 
 
@@ -87,56 +83,16 @@ CREATE TABLE Enrollments(
 	enrollmentId INT NOT NULL AUTO_INCREMENT,
     sourcedId VARCHAR(512) NOT NULL,
     `status` VARCHAR(255) NULL DEFAULT 'active',
-    dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,	
+    dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
 	metadata VARCHAR(255) NULL,
     userId INT NULL,
     classId INT NULL,
     `primary` BOOLEAN NULL,
-    beginDate DATETIME DEFAULT CURRENT_TIMESTAMP NULL,	
-    endDate DATETIME DEFAULT CURRENT_TIMESTAMP NULL,	
+    beginDate DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
+    endDate DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
 	PRIMARY KEY (enrollmentId),
     UNIQUE (sourcedId),
     FOREIGN KEY (classId) REFERENCES Classes(classId),
-	FOREIGN KEY (userId) REFERENCES Users(userId)            
+	FOREIGN KEY (userId) REFERENCES Users(userId)
 );
 
-
-LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\Orgs.csv'
-REPLACE
-INTO TABLE Orgs
-fields terminated BY ','
-optionally enclosed by '"'
-lines terminated BY '\n'
-IGNORE 1 LINES;
-
-LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\Users.csv'
-REPLACE
-INTO TABLE Users
-fields terminated BY ','
-optionally enclosed by '"'
-lines terminated BY '\n'
-IGNORE 1 LINES;
-
-LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\Courses.csv'
-REPLACE
-INTO TABLE Courses
-fields terminated BY ','
-optionally enclosed by '"'
-lines terminated BY '\n'
-IGNORE 1 LINES;
-
-LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\Classes.csv'
-REPLACE
-INTO TABLE Classes
-fields terminated BY ','
-optionally enclosed by '"'
-lines terminated BY '\n'
-IGNORE 1 LINES;
-
-LOAD DATA INFILE 'D:\Repositories\\Adobe\\oneroster-api-mock\\data\\Enrollments_out.csv'
-REPLACE
-INTO TABLE Enrollments
-fields terminated BY ','
-optionally enclosed by '"'
-lines terminated BY '\n'
-IGNORE 1 LINES;

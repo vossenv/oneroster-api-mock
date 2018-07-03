@@ -54,6 +54,9 @@ public class FileHandler {
                             case "class":
                                 resultList.add(setClassProperies(currentTokens));
                                 break;
+                            case "enrollment":
+                                resultList.add(setEnrollmentProperies(currentTokens));
+                                break;
                         }
 
                     }
@@ -94,11 +97,22 @@ public class FileHandler {
         return o;
     }
 
+    private Enrollment setEnrollmentProperies(String [] line){
+
+        Enrollment o = new Enrollment();
+
+        o.setEnrollmentId(line[0]);
+        o.setSourceId(line[1]);
+        o.setStatus(line[2]);
+        o.setDateLastModified(line[3]);
+
+        return o;
+    }
 
 
     public void writeAllEnrollments(List<Enrollment> enrollmentList, String filename) throws FileIOException {
         PrintWriter out = null;
-        String header = "UserId,ClassId,Primary,BeginDate,EndDate";
+        String header = "EnrollmentId,SourcedId,status,datLastModified,Metadata,UserId,ClassId,Primary,BeginDate,EndDate";
 
         try {
             out = new PrintWriter(new FileWriter(filename));
@@ -123,7 +137,12 @@ public class FileHandler {
     private String outputFormat(Enrollment e) {
 
        return (
-                 e.getUserId() + DELIMITER
+                 e.getEnrollmentId() + DELIMITER
+               + e.getSourceId() + DELIMITER
+               + e.getStatus() + DELIMITER
+               + e.getDateLastModified() + DELIMITER
+               + e.getMetadata() + DELIMITER
+               + e.getUserId() + DELIMITER
                + e.getClassId() + DELIMITER
                + e.getPrimary() + DELIMITER
                + e.getBegindate() + DELIMITER

@@ -21,6 +21,7 @@ public class Comparator {
 
         List<User> userList = (List<User>)(List<?>) f.readDataFromFile("./Users.csv", "user");
         List<SClass> classList = (List<SClass>)(List<?>) f.readDataFromFile("./Classes.csv", "class");
+        List<Enrollment> enrollmentPool = (List<Enrollment>)(List<?>) f.readDataFromFile("./Enrollments_Template.csv", "enrollment");
 
         for (SClass c : classList){
 
@@ -34,14 +35,17 @@ public class Comparator {
 
             for (User u : userList) {
 
-                if (u.getGrades().equals(level) || u.getGrades().equals("UG")){
+                if ((
+                        u.getGrades().equals(level)
+                        && u.getOrgId().equals(c.getOrgId()))
+                        || u.getGrades().equals("UG")){
 
                     String courseName = c.getClassCode().split(" ")[0];
 
                     if (c.getTerm().equals("Fall")){
                         if (u.getFallMap().get(courseName)){
 
-                            Enrollment e = new Enrollment();
+                            Enrollment e = enrollmentPool.remove(0);
                             e.setClassId(c.getClassId());
                             e.setUserId(u.getUserId());
                             e.setBegindate("2018-09-01 00:00");
@@ -57,7 +61,7 @@ public class Comparator {
                     } else {
                         if (u.getSpringMap().get(courseName)){
 
-                            Enrollment e = new Enrollment();
+                            Enrollment e = enrollmentPool.remove(0);
                             e.setClassId(c.getClassId());
                             e.setUserId(u.getUserId());
                             e.setBegindate("2019-01-15 00:00");
@@ -88,7 +92,7 @@ public class Comparator {
         }
 
         FileHandler f = new FileHandler();
-        f.writeAllEnrollments(enrollmentList,"Enrollments.csv");
+        f.writeAllEnrollments(enrollmentList,"Enrollments_out.csv");
 
     }
 

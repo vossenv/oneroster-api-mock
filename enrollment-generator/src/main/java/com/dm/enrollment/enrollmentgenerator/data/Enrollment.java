@@ -8,6 +8,51 @@ public class Enrollment {
     private String begindate;
     private String enddate;
 
+    private String enrollmentId;
+    private String sourceId;
+    private String status;
+    private String dateLastModified;
+    private String metadata = "";
+
+    public String getEnrollmentId() {
+        return enrollmentId;
+    }
+
+    public void setEnrollmentId(String enrollmentId) {
+        this.enrollmentId = enrollmentId;
+    }
+
+    public String getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDateLastModified() {
+        return dateLastModified;
+    }
+
+    public void setDateLastModified(String dateLastModified) {
+        this.dateLastModified = dateLastModified;
+    }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
 
     public String getUserId() {
         return userId;
