@@ -1,13 +1,15 @@
 package com.dm.onerosterapi.model;
 
 
+import sun.nio.cs.US_ASCII;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,6 +74,17 @@ public class User {
             fetch = FetchType.LAZY,
             mappedBy = "user")
     private List<Enrollment> enrollmentList;
+
+    @Transient
+    private List<ClassOfCourse> classList = new ArrayList<>();
+
+    public List<ClassOfCourse> getClassList() {
+        return classList;
+    }
+
+    public void setClassList(List<ClassOfCourse> classList) {
+        this.classList = classList;
+    }
 
     public List<Enrollment> getEnrollmentList() {
         return enrollmentList;
@@ -241,6 +254,7 @@ public class User {
         this.password = password;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -267,7 +281,10 @@ public class User {
         if (role != null ? !role.equals(user.role) : user.role != null) return false;
         if (grades != null ? !grades.equals(user.grades) : user.grades != null) return false;
         if (type != null ? !type.equals(user.type) : user.type != null) return false;
-        return password != null ? password.equals(user.password) : user.password == null;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (enrollmentList != null ? !enrollmentList.equals(user.enrollmentList) : user.enrollmentList != null)
+            return false;
+        return classList != null ? classList.equals(user.classList) : user.classList == null;
     }
 
     @Override
@@ -291,6 +308,8 @@ public class User {
         result = 31 * result + (grades != null ? grades.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (enrollmentList != null ? enrollmentList.hashCode() : 0);
+        result = 31 * result + (classList != null ? classList.hashCode() : 0);
         return result;
     }
 }

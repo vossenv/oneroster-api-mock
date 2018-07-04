@@ -1,5 +1,6 @@
 package com.dm.onerosterapi;
 
+import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.RosterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class OnerosterApiApplication implements CommandLineRunner {
     @Override
     public void run(String... arg0) throws Exception {
 
-          List<User> allUsers = rosterService.getAllUsers();
-          User u = rosterService.repGetUserById(5);
+	    List<User> allUsers = rosterService.getAllUsers();
+        ClassOfCourse c = rosterService.getClassById(1);
         System.out.println();
     }
 

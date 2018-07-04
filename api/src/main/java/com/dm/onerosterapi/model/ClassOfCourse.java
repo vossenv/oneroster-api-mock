@@ -3,11 +3,13 @@ package com.dm.onerosterapi.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "classes")
 public class ClassOfCourse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String classId;
+    @Column(name = "classid")
+    private int classId;
 
     @Column(name = "sourcedid")
     private String sourcedId;
@@ -43,11 +45,11 @@ public class ClassOfCourse {
     private String periods;
 
 
-    public String getClassId() {
+    public int getClassId() {
         return classId;
     }
 
-    public void setClassId(String classId) {
+    public void setClassId(int classId) {
         this.classId = classId;
     }
 
@@ -146,7 +148,7 @@ public class ClassOfCourse {
 
         ClassOfCourse that = (ClassOfCourse) o;
 
-        if (classId != null ? !classId.equals(that.classId) : that.classId != null) return false;
+        if (classId != that.classId) return false;
         if (sourcedId != null ? !sourcedId.equals(that.sourcedId) : that.sourcedId != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (dateLastModified != null ? !dateLastModified.equals(that.dateLastModified) : that.dateLastModified != null)
@@ -163,7 +165,7 @@ public class ClassOfCourse {
 
     @Override
     public int hashCode() {
-        int result = classId != null ? classId.hashCode() : 0;
+        int result = classId;
         result = 31 * result + (sourcedId != null ? sourcedId.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (dateLastModified != null ? dateLastModified.hashCode() : 0);

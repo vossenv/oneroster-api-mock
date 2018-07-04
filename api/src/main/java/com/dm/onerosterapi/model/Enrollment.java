@@ -42,7 +42,6 @@ public class Enrollment {
     @JoinColumn(name = "userid", nullable = false)
     private User user;
 
-
     public String getEnrollmentId() {
         return enrollmentId;
     }
