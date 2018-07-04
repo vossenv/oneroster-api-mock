@@ -1,11 +1,10 @@
-package com.dm.onerosterapi.dao;
+package com.dm.onerosterapi.repository;
 
 import com.dm.onerosterapi.model.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -29,8 +28,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
 
-        // String hql = "from User u join fetch u.enrollmentList";
-        String hql = "From User";
+         String hql = "from User u join fetch u.enrollmentList";
+        // String hql = "From User";
         return (List<User>) entityManager.createQuery(hql).getResultList();
     }
 }

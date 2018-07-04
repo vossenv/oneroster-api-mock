@@ -1,4 +1,4 @@
-package com.dm.onerosterapi.Service;
+package com.dm.onerosterapi.service;
 
 import com.dm.onerosterapi.model.User;
 
@@ -10,5 +10,6 @@ public interface RosterService {
 
     List<User> getAllUsers();
 
+    User repGetUserById(int userId);
 
 }

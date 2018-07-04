@@ -1,7 +1,6 @@
-package com.dm.onerosterapi.dao;
+package com.dm.onerosterapi.repository;
 
 import com.dm.onerosterapi.model.User;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

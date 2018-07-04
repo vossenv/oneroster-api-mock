@@ -123,5 +123,36 @@ public class Enrollment {
         this.endDate = endDate;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Enrollment that = (Enrollment) o;
+
+        if (enrollmentId != null ? !enrollmentId.equals(that.enrollmentId) : that.enrollmentId != null) return false;
+        if (sourcedId != null ? !sourcedId.equals(that.sourcedId) : that.sourcedId != null) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (dateLastModified != null ? !dateLastModified.equals(that.dateLastModified) : that.dateLastModified != null)
+            return false;
+        if (metadata != null ? !metadata.equals(that.metadata) : that.metadata != null) return false;
+        if (classId != null ? !classId.equals(that.classId) : that.classId != null) return false;
+        if (beginDate != null ? !beginDate.equals(that.beginDate) : that.beginDate != null) return false;
+        if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
+        return user != null ? user.equals(that.user) : that.user == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = enrollmentId != null ? enrollmentId.hashCode() : 0;
+        result = 31 * result + (sourcedId != null ? sourcedId.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (dateLastModified != null ? dateLastModified.hashCode() : 0);
+        result = 31 * result + (metadata != null ? metadata.hashCode() : 0);
+        result = 31 * result + (classId != null ? classId.hashCode() : 0);
+        result = 31 * result + (beginDate != null ? beginDate.hashCode() : 0);
+        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
+    }
 }
