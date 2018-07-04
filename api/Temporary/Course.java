@@ -6,8 +6,7 @@ import javax.persistence.*;
 public class Course {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "course_Sequence")
-    @SequenceGenerator(name = "course_Sequence", sequenceName = "COURSE_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String courseId;
 
     @Column(name = "sourcedId")

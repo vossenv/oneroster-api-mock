@@ -1,4 +1,3 @@
-
 CREATE TABLE Orgs(
 	orgId INT NOT NULL AUTO_INCREMENT,
     sourcedId VARCHAR(512) NOT NULL,
@@ -95,4 +94,3 @@ CREATE TABLE Enrollments(
     FOREIGN KEY (classId) REFERENCES Classes(classId),
 	FOREIGN KEY (userId) REFERENCES Users(userId)
 );
-
