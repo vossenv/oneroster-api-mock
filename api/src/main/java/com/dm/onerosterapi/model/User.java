@@ -2,6 +2,7 @@ package com.dm.onerosterapi.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -66,6 +67,19 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private List<Enrollment> enrollmentList;
+
+    public List<Enrollment> getEnrollmentList() {
+        return enrollmentList;
+    }
+
+    public void setEnrollmentList(List<Enrollment> enrollmentList) {
+        this.enrollmentList = enrollmentList;
+    }
 
     public int getUserId() {
         return userId;

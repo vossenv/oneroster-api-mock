@@ -7,16 +7,16 @@ public class Org {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orgId")
+    @Column(name = "orgid")
     private String orgId;
 
-    @Column(name = "sourcedId")
+    @Column(name = "sourcedid")
     private String sourcedId;
 
     @Column(name = "status")
     private String status;
 
-    @Column(name = "dateLastModified")
+    @Column(name = "datelastmodified")
     private String dateLastModified;
 
     @Column(name = "metadata")

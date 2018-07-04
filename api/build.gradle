@@ -29,13 +29,12 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.springframework.boot:spring-boot-devtools")
-    compile('mysql:mysql-connector-java:8.0.11')
 
 	runtime('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
 
-
+//    compile('mysql:mysql-connector-java:8.0.11')
 //    compile('org.springframework.boot:spring-boot-starter-jdbc')
 
 }

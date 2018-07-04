@@ -5,12 +5,15 @@ import com.dm.onerosterapi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class RosterServiceImpl implements RosterService {
 
     private UserDao userDao;
+   // private UserRepository userRepository;
 
     @Autowired
     public RosterServiceImpl (UserDao userDao){
@@ -26,4 +29,6 @@ public class RosterServiceImpl implements RosterService {
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
+
+
 }

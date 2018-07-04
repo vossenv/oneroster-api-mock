@@ -9,13 +9,13 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String courseId;
 
-    @Column(name = "sourcedId")
+    @Column(name = "sourcedid")
     private String sourcedId;
 
     @Column(name = "status")
     private String status;
 
-    @Column(name = "dateLastModified")
+    @Column(name = "dateLastmodified")
     private String dateLastModified;
 
     @Column(name = "metadata")
@@ -27,16 +27,16 @@ public class Course {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "schoolYear")
+    @Column(name = "schoolyear")
     private String schoolYear;
 
-    @Column(name = "courseCode")
+    @Column(name = "coursecode")
     private String courseCode;
 
     @Column(name = "subjects")
     private String subjects;
 
-    @Column(name = "orgId")
+    @Column(name = "orgid")
     private String orgId;
 
     public String getCourseId() {
