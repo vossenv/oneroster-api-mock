@@ -70,29 +70,29 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "user")
-    private List<Enrollment> enrollmentList;
+//    @OneToMany(cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY,
+//            mappedBy = "user")
+//    private List<Enrollment> enrollmentList;
+//
+//    @Transient
+//    private List<ClassOfCourse> classList = new ArrayList<>();
+//
+//    public List<ClassOfCourse> getClassList() {
+//        return classList;
+//    }
+//
+//    public void setClassList(List<ClassOfCourse> classList) {
+//        this.classList = classList;
+//    }
 
-    @Transient
-    private List<ClassOfCourse> classList = new ArrayList<>();
-
-    public List<ClassOfCourse> getClassList() {
-        return classList;
-    }
-
-    public void setClassList(List<ClassOfCourse> classList) {
-        this.classList = classList;
-    }
-
-    public List<Enrollment> getEnrollmentList() {
-        return enrollmentList;
-    }
-
-    public void setEnrollmentList(List<Enrollment> enrollmentList) {
-        this.enrollmentList = enrollmentList;
-    }
+//    public List<Enrollment> getEnrollmentList() {
+//        return enrollmentList;
+//    }
+//
+//    public void setEnrollmentList(List<Enrollment> enrollmentList) {
+//        this.enrollmentList = enrollmentList;
+//    }
 
     public int getUserId() {
         return userId;
@@ -281,10 +281,7 @@ public class User {
         if (role != null ? !role.equals(user.role) : user.role != null) return false;
         if (grades != null ? !grades.equals(user.grades) : user.grades != null) return false;
         if (type != null ? !type.equals(user.type) : user.type != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (enrollmentList != null ? !enrollmentList.equals(user.enrollmentList) : user.enrollmentList != null)
-            return false;
-        return classList != null ? classList.equals(user.classList) : user.classList == null;
+        return password != null ? password.equals(user.password) : user.password == null;
     }
 
     @Override
@@ -308,8 +305,6 @@ public class User {
         result = 31 * result + (grades != null ? grades.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (enrollmentList != null ? enrollmentList.hashCode() : 0);
-        result = 31 * result + (classList != null ? classList.hashCode() : 0);
         return result;
     }
 }

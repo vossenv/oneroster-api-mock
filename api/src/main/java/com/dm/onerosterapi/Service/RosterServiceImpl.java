@@ -34,32 +34,22 @@ public class RosterServiceImpl implements RosterService {
     }
 
     @Override
-    public User getUserById(int userId) {
-        return rosterDao.getUserById(userId);
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        List<User> userList = new ArrayList<>(new HashSet<>(rosterDao.getAllUsers()));
-
-        for (User u : userList){
-            for (Enrollment e : u.getEnrollmentList()){
-                ClassOfCourse c = getClassById(Integer.parseInt(e.getClassId()));
-                u.getClassList().add(c);
-                //u.getClassList().add(getClassById(1));
-            }
-        }
-
-        return userList;
-    }
-
-    @Override
     public ClassOfCourse getClassById(int classId) {
         return classRepository.findByClassId(classId);
     }
 
     @Override
     public List<ClassOfCourse> getAllClasses() {
-        return null;
+        return classRepository.findAll();
+    }
+
+    @Override
+    public User getUserById(int userId) {
+        return userRepository.findByUserId(userId);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

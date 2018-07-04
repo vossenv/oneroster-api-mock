@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface RosterService {
 
-    User getUserById(int userId);
-    List<User> getAllUsers();
+    public User getUserById(int userId);
+    public List<User> getAllUsers();
 
-    ClassOfCourse getClassById(int classId);
-    List<ClassOfCourse> getAllClasses();
+    public ClassOfCourse getClassById(int classId);
+    public List<ClassOfCourse> getAllClasses();
 
 }

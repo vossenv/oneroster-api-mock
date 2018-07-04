@@ -23,8 +23,8 @@ public class Enrollment {
     @Column(name = "metadata")
     private String metadata;
 
-//    @Column(name = "userid")
-//    private String userId;
+    @Column(name = "userid")
+    private String userId;
 
     @Column(name = "classid")
     private String classId;
@@ -38,9 +38,9 @@ public class Enrollment {
     @Column(name = "enddate")
     private String endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid", nullable = false)
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "userid", nullable = false)
+//    private User user;
 
     public String getEnrollmentId() {
         return enrollmentId;
@@ -82,13 +82,13 @@ public class Enrollment {
         this.metadata = metadata;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public String getClassId() {
         return classId;
@@ -135,10 +135,10 @@ public class Enrollment {
         if (dateLastModified != null ? !dateLastModified.equals(that.dateLastModified) : that.dateLastModified != null)
             return false;
         if (metadata != null ? !metadata.equals(that.metadata) : that.metadata != null) return false;
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
         if (classId != null ? !classId.equals(that.classId) : that.classId != null) return false;
         if (beginDate != null ? !beginDate.equals(that.beginDate) : that.beginDate != null) return false;
-        if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
-        return user != null ? user.equals(that.user) : that.user == null;
+        return endDate != null ? endDate.equals(that.endDate) : that.endDate == null;
     }
 
     @Override
@@ -148,10 +148,10 @@ public class Enrollment {
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (dateLastModified != null ? dateLastModified.hashCode() : 0);
         result = 31 * result + (metadata != null ? metadata.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (classId != null ? classId.hashCode() : 0);
         result = 31 * result + (beginDate != null ? beginDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
 }
