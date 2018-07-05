@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class RosterServiceImpl implements RosterService {
+public class RosterServiceImpl implements com.dm.onerosterapi.service.RosterService {
 
     private RosterDao rosterDao;
     private UserRepository userRepository;
