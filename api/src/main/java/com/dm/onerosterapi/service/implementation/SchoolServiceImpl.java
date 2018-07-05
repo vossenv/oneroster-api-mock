@@ -16,8 +16,8 @@ public class SchoolServiceImpl implements SchoolService {
     @Autowired SchoolRepository schoolRepository;
 
     @Override
-    public School getSchoolById(int orgId) {
-        return schoolRepository.findBySchoolId(orgId);
+    public School getSchoolById(int schoolId) {
+        return schoolRepository.findBySchoolId(schoolId);
     }
 
     @Override
