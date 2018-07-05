@@ -1,7 +1,7 @@
 package com.dm.onerosterapi.service;
 
 import com.dm.onerosterapi.model.Enrollment;
-import com.dm.onerosterapi.service.interfaces.RosterService;
+import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ import static org.junit.Assert.assertEquals;
 public class enrollments {
 
 	@Autowired
-    RosterService rosterService;
+    EnrollmentService enrollmentService;
 
 	@Test
 	public void getAllEnrollments(){
 
-        List<Enrollment> enrollmentList = rosterService.getAllEnrollments();
+        List<Enrollment> enrollmentList = enrollmentService.getAllEnrollments();
         assertEquals(enrollmentList.size(),4200);
 
 	}
@@ -30,7 +30,7 @@ public class enrollments {
     @Test
     public void getEnrollmentById(){
 
-        Enrollment e = rosterService.getEnrollmentById(650);
+        Enrollment e = enrollmentService.getEnrollmentById(650);
 
         assertEquals(e.getEnrollmentId(),650);
         assertEquals(e.getSourcedId(), "44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb");
