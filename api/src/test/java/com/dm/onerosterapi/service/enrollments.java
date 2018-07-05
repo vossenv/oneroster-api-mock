@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.model.ClassOfCourse;
+import com.dm.onerosterapi.model.Enrollment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,25 +13,26 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class classes {
+public class enrollments {
 
 	@Autowired
 	RosterService rosterService;
 
 	@Test
-	public void getAllClassOfCourses(){
+	public void getAllEnrollments(){
 
-        List<ClassOfCourse> userList = rosterService.getAllClasses();
-        assertEquals(userList.size(),84);
+        List<Enrollment> enrollmentList = rosterService.getAllEnrollments();
+        assertEquals(enrollmentList.size(),4200);
 
 	}
 
     @Test
-    public void getClassOfCourseById(){
+    public void getEnrollmentById(){
 
-        ClassOfCourse c = rosterService.getClassById(65);
-        assertEquals(c.getClassId(),65);
-        assertEquals(c.getSourcedId(), "dca81f5a-1d99-491a-85fb-ad9591d4b96d");
+        Enrollment e = rosterService.getEnrollmentById(650);
+
+        assertEquals(e.getEnrollmentId(),650);
+        assertEquals(e.getSourcedId(), "44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb");
 
     }
 

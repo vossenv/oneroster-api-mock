@@ -5,6 +5,7 @@ import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.jpa.ClassRepository;
+import com.dm.onerosterapi.repository.jpa.EnrollmentRepository;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,18 @@ public class RosterServiceImpl implements RosterService {
     private RosterDao rosterDao;
     private UserRepository userRepository;
     private ClassRepository classRepository;
+    private EnrollmentRepository enrollmentRepository;
 
     @Autowired
     public RosterServiceImpl (RosterDao rosterDao,
                               UserRepository userRepository,
-                              ClassRepository classRepository){
+                              ClassRepository classRepository,
+                              EnrollmentRepository enrollmentRepository){
 
         this.rosterDao = rosterDao;
         this.userRepository = userRepository;
         this.classRepository = classRepository;
+        this.enrollmentRepository = enrollmentRepository;
     }
 
     @Override
@@ -51,5 +55,16 @@ public class RosterServiceImpl implements RosterService {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+
+    @Override
+    public Enrollment getEnrollmentById(int enrollmentId) {
+        return enrollmentRepository.findByEnrollmentId(enrollmentId);
+    }
+
+    @Override
+    public List<Enrollment> getAllEnrollments() {
+        return enrollmentRepository.findAll();
     }
 }

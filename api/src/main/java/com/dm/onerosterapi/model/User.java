@@ -1,11 +1,6 @@
 package com.dm.onerosterapi.model;
 
-
-import sun.nio.cs.US_ASCII;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -38,7 +33,7 @@ public class User {
     private String identifier;
 
     @Column(name = "orgid")
-    private String orgId;
+    private int orgId;
 
     @Column(name = "givenname")
     private String givenName;
@@ -69,30 +64,6 @@ public class User {
 
     @Column(name = "password")
     private String password;
-
-//    @OneToMany(cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY,
-//            mappedBy = "user")
-//    private List<Enrollment> enrollmentList;
-//
-//    @Transient
-//    private List<ClassOfCourse> classList = new ArrayList<>();
-//
-//    public List<ClassOfCourse> getClassList() {
-//        return classList;
-//    }
-//
-//    public void setClassList(List<ClassOfCourse> classList) {
-//        this.classList = classList;
-//    }
-
-//    public List<Enrollment> getEnrollmentList() {
-//        return enrollmentList;
-//    }
-//
-//    public void setEnrollmentList(List<Enrollment> enrollmentList) {
-//        this.enrollmentList = enrollmentList;
-//    }
 
     public int getUserId() {
         return userId;
@@ -166,11 +137,11 @@ public class User {
         this.identifier = identifier;
     }
 
-    public String getOrgId() {
+    public int getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(String orgId) {
+    public void setOrgId(int orgId) {
         this.orgId = orgId;
     }
 
@@ -263,6 +234,7 @@ public class User {
         User user = (User) o;
 
         if (userId != user.userId) return false;
+        if (orgId != user.orgId) return false;
         if (sourcedId != null ? !sourcedId.equals(user.sourcedId) : user.sourcedId != null) return false;
         if (status != null ? !status.equals(user.status) : user.status != null) return false;
         if (dateLastModified != null ? !dateLastModified.equals(user.dateLastModified) : user.dateLastModified != null)
@@ -271,7 +243,6 @@ public class User {
         if (enabledUser != null ? !enabledUser.equals(user.enabledUser) : user.enabledUser != null) return false;
         if (userIds != null ? !userIds.equals(user.userIds) : user.userIds != null) return false;
         if (identifier != null ? !identifier.equals(user.identifier) : user.identifier != null) return false;
-        if (orgId != null ? !orgId.equals(user.orgId) : user.orgId != null) return false;
         if (givenName != null ? !givenName.equals(user.givenName) : user.givenName != null) return false;
         if (familyName != null ? !familyName.equals(user.familyName) : user.familyName != null) return false;
         if (middleName != null ? !middleName.equals(user.middleName) : user.middleName != null) return false;
@@ -294,7 +265,7 @@ public class User {
         result = 31 * result + (enabledUser != null ? enabledUser.hashCode() : 0);
         result = 31 * result + (userIds != null ? userIds.hashCode() : 0);
         result = 31 * result + (identifier != null ? identifier.hashCode() : 0);
-        result = 31 * result + (orgId != null ? orgId.hashCode() : 0);
+        result = 31 * result + orgId;
         result = 31 * result + (givenName != null ? givenName.hashCode() : 0);
         result = 31 * result + (familyName != null ? familyName.hashCode() : 0);
         result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
@@ -309,3 +280,30 @@ public class User {
     }
 }
 
+
+// Old
+
+
+//    @OneToMany(cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY,
+//            mappedBy = "user")
+//    private List<Enrollment> enrollmentList;
+//
+//    @Transient
+//    private List<ClassOfCourse> classList = new ArrayList<>();
+//
+//    public List<ClassOfCourse> getClassList() {
+//        return classList;
+//    }
+//
+//    public void setClassList(List<ClassOfCourse> classList) {
+//        this.classList = classList;
+//    }
+
+//    public List<Enrollment> getEnrollmentList() {
+//        return enrollmentList;
+//    }
+//
+//    public void setEnrollmentList(List<Enrollment> enrollmentList) {
+//        this.enrollmentList = enrollmentList;
+//    }

@@ -86,7 +86,7 @@ CREATE TABLE Enrollments(
 	metadata VARCHAR(255) NULL,
     userId INT NULL,
     classId INT NULL,
-    `primary` BOOLEAN NULL,
+    isPrimary BOOLEAN NULL,
     beginDate DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
     endDate DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
 	PRIMARY KEY (enrollmentId),
