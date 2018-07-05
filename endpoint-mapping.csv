@@ -1,0 +1,35 @@
+Done,Method,Endpoint,Type,Description
+x,getAllClasses,/classes,GET,Return collection of classes.
+x,getClass,/classes/{id},GET,Return specific class.
+x,getAllCourses,/courses,GET,Return collection of courses.
+x,getCourse,/courses/{id},GET,Return specific course.
+x,getAllEnrollments,/enrollments,GET,Return collection of all enrollments.
+x,getEnrollment,/enrollments/{id},GET,Return specific enrollment.
+x,getAllSchools,/schools,GET,Return collection of schools. A School is an instance of an Org.
+x,getSchool,/schools/{id},GET,Return specific school. A School is an instance of an Org.
+x,getAllStudents,/students,GET,Return collection of students. A Student is an instance of a User.
+x,getStudent,/students/{id},GET,Return specific student. A Student is an instance of a User.
+x,getAllTeachers,/teachers,GET,Return collection of teachers. A Teacher is an instance of a User.
+x,getTeacher,/teachers/{id},GET,Return specific teacher.
+x,getAllUsers,/users,GET,Return collection of users
+x,getUser,/users/{id},GET,Return specific user
+,getCoursesForSchool,/schools/{id}/courses,GET,Return the collection of courses taught by this school.
+,getEnrollmentsForClassInSchool,/schools/{school_id}/classes/,GET,Return the collection of all enrollments into this class.
+,,{class_id}/enrollments,,
+,getStudentsForClassInSchool,/schools/{school_id}/classes/,GET,Return the collection of students taking this class in this school.
+,,{class_id}/students,,
+,getTeachersForClassInSchool,/schools/{school_id}/classes/,GET,Return the collection of teachers taking this class in this school.
+,,{class_id}/teachers,,
+,getEnrollmentsForSchool,/schools/{school_id}/enrollments,GET,Return the collection of all enrollments for this school.
+,getStudentsForSchool,/schools/{school_id}/students,GET,Return the collection of students attending this school.
+,getTeachersForSchool,/schools/{school_id}/teachers,GET,Return the collection of teachers teaching at this school.
+,getTermsForSchool,/schools/{school_id}/terms,GET,Return the collection of terms that are used by this school.
+,getClassesForTerm,/terms/{term_id}/classes,GET,Return the collection of classes that are taught in this term.
+,getGradingPeriodsForTerm,/terms/{term_id}/gradingPeriods,GET,Return the collection of Grading Periods that are part of this term.
+,getClassesForCourse,/courses/{course_id}/classes,GET,Return the collection of classes that are teaching this course.
+x,getClassesForStudent,/students/{student_id}/classes,GET,Return the collection of classes that this student is taking.
+x,getClassesForTeacher,/teachers/{teacher_id}/classes,GET,Return the collection of classes that this teacher is teaching.
+,getClassesForSchool,/schools/{school_id}/classes,GET,Return the collection of classes taught by this school.
+x,getClassesForUser,/users/{user_id}/classes,GET,Return the collection of classes attended by this user.
+,getStudentsForClass,/classes/{class_id}/students,GET,Return the collection of students that are taking this class.
+,getTeachersForClass,/classes/{class_id}/teachers,GET,Return the collection of teachers that are teaching this class.
