@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+
 public class RosterServiceImpl implements com.dm.onerosterapi.service.RosterService {
 
     private RosterDao rosterDao;
@@ -58,7 +58,15 @@ public class RosterServiceImpl implements com.dm.onerosterapi.service.RosterServ
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+
+        List<User> userList = new ArrayList<>();
+
+        for (User u : userRepository.findAll()){
+            u.setOrgId(getOrgById(Integer.parseInt(u.getOrgId())).getSourcedId());
+            userList.add(u);
+        }
+
+        return userList;
     }
 
 

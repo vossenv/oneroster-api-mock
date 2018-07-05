@@ -39,8 +39,7 @@ public class Course {
     private String subjects;
 
     @Column(name = "orgid")
-    private int orgId;
-
+    private String orgId;
 
     public int getCourseId() {
         return courseId;
@@ -122,11 +121,11 @@ public class Course {
         this.subjects = subjects;
     }
 
-    public int getOrgId() {
+    public String getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(int orgId) {
+    public void setOrgId(String orgId) {
         this.orgId = orgId;
     }
 
@@ -138,7 +137,6 @@ public class Course {
         Course course = (Course) o;
 
         if (courseId != course.courseId) return false;
-        if (orgId != course.orgId) return false;
         if (sourcedId != null ? !sourcedId.equals(course.sourcedId) : course.sourcedId != null) return false;
         if (status != null ? !status.equals(course.status) : course.status != null) return false;
         if (dateLastModified != null ? !dateLastModified.equals(course.dateLastModified) : course.dateLastModified != null)
@@ -148,7 +146,8 @@ public class Course {
         if (title != null ? !title.equals(course.title) : course.title != null) return false;
         if (schoolYear != null ? !schoolYear.equals(course.schoolYear) : course.schoolYear != null) return false;
         if (courseCode != null ? !courseCode.equals(course.courseCode) : course.courseCode != null) return false;
-        return subjects != null ? subjects.equals(course.subjects) : course.subjects == null;
+        if (subjects != null ? !subjects.equals(course.subjects) : course.subjects != null) return false;
+        return orgId != null ? orgId.equals(course.orgId) : course.orgId == null;
     }
 
     @Override
@@ -163,7 +162,7 @@ public class Course {
         result = 31 * result + (schoolYear != null ? schoolYear.hashCode() : 0);
         result = 31 * result + (courseCode != null ? courseCode.hashCode() : 0);
         result = 31 * result + (subjects != null ? subjects.hashCode() : 0);
-        result = 31 * result + orgId;
+        result = 31 * result + (orgId != null ? orgId.hashCode() : 0);
         return result;
     }
 }

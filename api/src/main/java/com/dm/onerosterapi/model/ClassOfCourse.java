@@ -36,13 +36,14 @@ public class ClassOfCourse {
     private String location;
 
     @Column(name = "courseid")
-    private int courseId;
+    private String courseId;
 
     @Column(name = "orgid")
-    private int orgId;
+    private String orgId;
 
     @Column(name = "periods")
     private String periods;
+
 
     public int getClassId() {
         return classId;
@@ -116,19 +117,19 @@ public class ClassOfCourse {
         this.location = location;
     }
 
-    public int getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
-    public int getOrgId() {
+    public String getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(int orgId) {
+    public void setOrgId(String orgId) {
         this.orgId = orgId;
     }
 
@@ -148,8 +149,6 @@ public class ClassOfCourse {
         ClassOfCourse that = (ClassOfCourse) o;
 
         if (classId != that.classId) return false;
-        if (courseId != that.courseId) return false;
-        if (orgId != that.orgId) return false;
         if (sourcedId != null ? !sourcedId.equals(that.sourcedId) : that.sourcedId != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (dateLastModified != null ? !dateLastModified.equals(that.dateLastModified) : that.dateLastModified != null)
@@ -159,6 +158,8 @@ public class ClassOfCourse {
         if (classCode != null ? !classCode.equals(that.classCode) : that.classCode != null) return false;
         if (classType != null ? !classType.equals(that.classType) : that.classType != null) return false;
         if (location != null ? !location.equals(that.location) : that.location != null) return false;
+        if (courseId != null ? !courseId.equals(that.courseId) : that.courseId != null) return false;
+        if (orgId != null ? !orgId.equals(that.orgId) : that.orgId != null) return false;
         return periods != null ? periods.equals(that.periods) : that.periods == null;
     }
 
@@ -173,8 +174,8 @@ public class ClassOfCourse {
         result = 31 * result + (classCode != null ? classCode.hashCode() : 0);
         result = 31 * result + (classType != null ? classType.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
-        result = 31 * result + courseId;
-        result = 31 * result + orgId;
+        result = 31 * result + (courseId != null ? courseId.hashCode() : 0);
+        result = 31 * result + (orgId != null ? orgId.hashCode() : 0);
         result = 31 * result + (periods != null ? periods.hashCode() : 0);
         return result;
     }
