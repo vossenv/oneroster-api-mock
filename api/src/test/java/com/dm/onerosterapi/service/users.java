@@ -27,6 +27,11 @@ public class users {
         List<User> userList = rosterService.getAllUsers();
         assertEquals(userList.size(),300);
 
+        List<User> studentList = rosterService.getAllStudents();
+        assertEquals(studentList.size(),292);
+
+        List<User> teacherList = rosterService.getAllTeachers();
+        assertEquals(teacherList.size(),8);
 	}
 
     @Test
@@ -39,4 +44,14 @@ public class users {
 
     }
 
+
+    // Custom Queries
+
+    @Test
+    public void getUsersByClass(){
+
+        List<User> userList = rosterService.getUsersByClass("cee2f870-852c-47e8-988a-73e2c296fc77");
+        assertEquals(userList.size(),55);
+
+    }
 }

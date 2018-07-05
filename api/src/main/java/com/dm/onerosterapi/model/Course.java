@@ -3,11 +3,13 @@ package com.dm.onerosterapi.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "courses")
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String courseId;
+    @Column(name = "courseid")
+    private int courseId;
 
     @Column(name = "sourcedid")
     private String sourcedId;
@@ -15,7 +17,7 @@ public class Course {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "dateLastmodified")
+    @Column(name = "datelastmodified")
     private String dateLastModified;
 
     @Column(name = "metadata")
@@ -37,13 +39,14 @@ public class Course {
     private String subjects;
 
     @Column(name = "orgid")
-    private String orgId;
+    private int orgId;
 
-    public String getCourseId() {
+
+    public int getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
@@ -119,11 +122,11 @@ public class Course {
         this.subjects = subjects;
     }
 
-    public String getOrgId() {
+    public int getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(String orgId) {
+    public void setOrgId(int orgId) {
         this.orgId = orgId;
     }
 
@@ -134,7 +137,8 @@ public class Course {
 
         Course course = (Course) o;
 
-        if (courseId != null ? !courseId.equals(course.courseId) : course.courseId != null) return false;
+        if (courseId != course.courseId) return false;
+        if (orgId != course.orgId) return false;
         if (sourcedId != null ? !sourcedId.equals(course.sourcedId) : course.sourcedId != null) return false;
         if (status != null ? !status.equals(course.status) : course.status != null) return false;
         if (dateLastModified != null ? !dateLastModified.equals(course.dateLastModified) : course.dateLastModified != null)
@@ -144,13 +148,12 @@ public class Course {
         if (title != null ? !title.equals(course.title) : course.title != null) return false;
         if (schoolYear != null ? !schoolYear.equals(course.schoolYear) : course.schoolYear != null) return false;
         if (courseCode != null ? !courseCode.equals(course.courseCode) : course.courseCode != null) return false;
-        if (subjects != null ? !subjects.equals(course.subjects) : course.subjects != null) return false;
-        return orgId != null ? orgId.equals(course.orgId) : course.orgId == null;
+        return subjects != null ? subjects.equals(course.subjects) : course.subjects == null;
     }
 
     @Override
     public int hashCode() {
-        int result = courseId != null ? courseId.hashCode() : 0;
+        int result = courseId;
         result = 31 * result + (sourcedId != null ? sourcedId.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (dateLastModified != null ? dateLastModified.hashCode() : 0);
@@ -160,7 +163,7 @@ public class Course {
         result = 31 * result + (schoolYear != null ? schoolYear.hashCode() : 0);
         result = 31 * result + (courseCode != null ? courseCode.hashCode() : 0);
         result = 31 * result + (subjects != null ? subjects.hashCode() : 0);
-        result = 31 * result + (orgId != null ? orgId.hashCode() : 0);
+        result = 31 * result + orgId;
         return result;
     }
 }

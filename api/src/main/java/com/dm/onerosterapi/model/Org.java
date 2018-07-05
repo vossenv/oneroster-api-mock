@@ -3,12 +3,13 @@ package com.dm.onerosterapi.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "orgs")
 public class Org {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orgid")
-    private String orgId;
+    private int orgId;
 
     @Column(name = "sourcedid")
     private String sourcedId;
@@ -32,11 +33,11 @@ public class Org {
     private String type;
 
 
-    public String getOrgId() {
+    public int getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(String orgId) {
+    public void setOrgId(int orgId) {
         this.orgId = orgId;
     }
 
@@ -96,6 +97,7 @@ public class Org {
         this.type = type;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,7 +105,7 @@ public class Org {
 
         Org org = (Org) o;
 
-        if (orgId != null ? !orgId.equals(org.orgId) : org.orgId != null) return false;
+        if (orgId != org.orgId) return false;
         if (sourcedId != null ? !sourcedId.equals(org.sourcedId) : org.sourcedId != null) return false;
         if (status != null ? !status.equals(org.status) : org.status != null) return false;
         if (dateLastModified != null ? !dateLastModified.equals(org.dateLastModified) : org.dateLastModified != null)
@@ -116,7 +118,7 @@ public class Org {
 
     @Override
     public int hashCode() {
-        int result = orgId != null ? orgId.hashCode() : 0;
+        int result = orgId;
         result = 31 * result + (sourcedId != null ? sourcedId.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (dateLastModified != null ? dateLastModified.hashCode() : 0);
