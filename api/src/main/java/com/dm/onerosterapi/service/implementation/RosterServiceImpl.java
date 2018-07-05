@@ -1,9 +1,9 @@
-package com.dm.onerosterapi.service2.implementation;
+package com.dm.onerosterapi.service.implementation;
 
 import com.dm.onerosterapi.model.*;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.*;
-import com.dm.onerosterapi.service2.interfaces.RosterService;
+import com.dm.onerosterapi.service.interfaces.RosterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

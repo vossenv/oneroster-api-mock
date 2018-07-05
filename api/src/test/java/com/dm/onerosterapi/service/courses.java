@@ -1,7 +1,7 @@
-package com.dm.onerosterapi.service2;
+package com.dm.onerosterapi.service;
 
 import com.dm.onerosterapi.model.Course;
-import com.dm.onerosterapi.service2.interfaces.RosterService;
+import com.dm.onerosterapi.service.interfaces.RosterService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
