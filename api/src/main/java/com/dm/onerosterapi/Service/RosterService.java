@@ -17,4 +17,6 @@ public interface RosterService {
     public Enrollment getEnrollmentById(int enrollmentId);
     public List<Enrollment> getAllEnrollments();
 
+    public List<User> getUsersByClass(String classSourcedId);
+
 }

@@ -67,4 +67,9 @@ public class RosterServiceImpl implements RosterService {
     public List<Enrollment> getAllEnrollments() {
         return enrollmentRepository.findAll();
     }
+
+    @Override
+    public List<User> getUsersByClass(String classSourcedId) {
+        return rosterDao.getUsersByClass(classSourcedId);
+    }
 }

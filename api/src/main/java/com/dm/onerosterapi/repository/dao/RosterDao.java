@@ -9,9 +9,6 @@ import java.util.List;
 
 public interface RosterDao {
 
-    public List<User> getAllUsers();
-    public User getUserById(int userId);
-    public ClassOfCourse getClassById(int classId);
-    public List<ClassOfCourse> getAllClasses();
+    public List<User> getUsersByClass(String classSourcedId);
 
 }
