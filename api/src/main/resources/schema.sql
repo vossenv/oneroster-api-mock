@@ -1,5 +1,5 @@
-CREATE TABLE Orgs(
-	orgId INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE Schools(
+	schoolId INT NOT NULL AUTO_INCREMENT,
     sourcedId VARCHAR(512) NOT NULL,
     `status` VARCHAR(255) NULL DEFAULT 'active',
     dateLastModified DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
@@ -7,7 +7,7 @@ CREATE TABLE Orgs(
 	`name` VARCHAR(255) NULL,
     identifier VARCHAR(255) NULL,
     `type` VARCHAR(255) NULL DEFAULT 'school',
-    PRIMARY KEY (orgId),
+    PRIMARY KEY (schoolId),
     UNIQUE (sourcedId),
     UNIQUE (identifier)
 );
@@ -22,7 +22,7 @@ CREATE TABLE Users (
     enabledUser BOOLEAN NULL DEFAULT TRUE,
     userIds VARCHAR (512) NULL,
     identifier VARCHAR(255) NULL,
-    orgId INT NULL,
+    schoolId INT NULL,
     givenName VARCHAR(255) NULL,
     familyName VARCHAR(255) NULL,
     middleName VARCHAR(255) NULL,
@@ -36,7 +36,7 @@ CREATE TABLE Users (
     PRIMARY KEY (userId),
     UNIQUE (sourcedId),
     UNIQUE (identifier),
-    FOREIGN KEY (orgId) REFERENCES Orgs(orgId)
+    FOREIGN KEY (schoolId) REFERENCES Schools(schoolId)
 );
 
 
@@ -51,10 +51,10 @@ CREATE TABLE Courses(
     schoolYear VARCHAR(512) NULL,
     courseCode VARCHAR(255) NULL,
     subjects VARCHAR(512) NULL,
-    orgId INT NULL,
+    schoolId INT NULL,
     PRIMARY KEY (courseId),
     UNIQUE (sourcedId),
-    FOREIGN KEY (orgId) REFERENCES Orgs(orgId)
+    FOREIGN KEY (schoolId) REFERENCES Schools(schoolId)
 );
 
 
@@ -69,11 +69,11 @@ CREATE TABLE Classes(
     classType VARCHAR(255) NULL DEFAULT 'scheduled',
     location VARCHAR(255) NULL,
 	courseId INT NULL,
-    orgId INT NULL,
+    schoolId INT NULL,
     periods VARCHAR(255) NULL,
     PRIMARY KEY (classId),
     UNIQUE (sourcedId),
-    FOREIGN KEY (orgId) REFERENCES Orgs(orgId),
+    FOREIGN KEY (schoolId) REFERENCES Schools(schoolId),
     FOREIGN KEY (courseId) REFERENCES Courses(courseId)
 );
 

@@ -3,13 +3,13 @@ package com.dm.onerosterapi.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "orgs")
-public class Org {
+@Table(name = "schools")
+public class School {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orgid")
-    private int orgId;
+    @Column(name = "schoolid")
+    private int schoolId;
 
     @Column(name = "sourcedid")
     private String sourcedId;
@@ -33,12 +33,12 @@ public class Org {
     private String type;
 
 
-    public int getOrgId() {
-        return orgId;
+    public int getSchoolId() {
+        return schoolId;
     }
 
-    public void setOrgId(int orgId) {
-        this.orgId = orgId;
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
     }
 
     public String getSourcedId() {
@@ -103,22 +103,22 @@ public class Org {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Org org = (Org) o;
+        School school = (School) o;
 
-        if (orgId != org.orgId) return false;
-        if (sourcedId != null ? !sourcedId.equals(org.sourcedId) : org.sourcedId != null) return false;
-        if (status != null ? !status.equals(org.status) : org.status != null) return false;
-        if (dateLastModified != null ? !dateLastModified.equals(org.dateLastModified) : org.dateLastModified != null)
+        if (schoolId != school.schoolId) return false;
+        if (sourcedId != null ? !sourcedId.equals(school.sourcedId) : school.sourcedId != null) return false;
+        if (status != null ? !status.equals(school.status) : school.status != null) return false;
+        if (dateLastModified != null ? !dateLastModified.equals(school.dateLastModified) : school.dateLastModified != null)
             return false;
-        if (metadata != null ? !metadata.equals(org.metadata) : org.metadata != null) return false;
-        if (name != null ? !name.equals(org.name) : org.name != null) return false;
-        if (identifier != null ? !identifier.equals(org.identifier) : org.identifier != null) return false;
-        return type != null ? type.equals(org.type) : org.type == null;
+        if (metadata != null ? !metadata.equals(school.metadata) : school.metadata != null) return false;
+        if (name != null ? !name.equals(school.name) : school.name != null) return false;
+        if (identifier != null ? !identifier.equals(school.identifier) : school.identifier != null) return false;
+        return type != null ? type.equals(school.type) : school.type == null;
     }
 
     @Override
     public int hashCode() {
-        int result = orgId;
+        int result = schoolId;
         result = 31 * result + (sourcedId != null ? sourcedId.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (dateLastModified != null ? dateLastModified.hashCode() : 0);

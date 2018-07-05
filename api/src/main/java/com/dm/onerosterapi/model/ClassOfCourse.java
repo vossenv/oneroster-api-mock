@@ -38,8 +38,8 @@ public class ClassOfCourse {
     @Column(name = "courseid")
     private String courseId;
 
-    @Column(name = "orgid")
-    private String orgId;
+    @Column(name = "schoolid")
+    private String schoolId;
 
     @Column(name = "periods")
     private String periods;
@@ -125,12 +125,12 @@ public class ClassOfCourse {
         this.courseId = courseId;
     }
 
-    public String getOrgId() {
-        return orgId;
+    public String getSchoolId() {
+        return schoolId;
     }
 
-    public void setOrgId(String orgId) {
-        this.orgId = orgId;
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
     }
 
     public String getPeriods() {
@@ -159,7 +159,7 @@ public class ClassOfCourse {
         if (classType != null ? !classType.equals(that.classType) : that.classType != null) return false;
         if (location != null ? !location.equals(that.location) : that.location != null) return false;
         if (courseId != null ? !courseId.equals(that.courseId) : that.courseId != null) return false;
-        if (orgId != null ? !orgId.equals(that.orgId) : that.orgId != null) return false;
+        if (schoolId != null ? !schoolId.equals(that.schoolId) : that.schoolId != null) return false;
         return periods != null ? periods.equals(that.periods) : that.periods == null;
     }
 
@@ -175,7 +175,7 @@ public class ClassOfCourse {
         result = 31 * result + (classType != null ? classType.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (courseId != null ? courseId.hashCode() : 0);
-        result = 31 * result + (orgId != null ? orgId.hashCode() : 0);
+        result = 31 * result + (schoolId != null ? schoolId.hashCode() : 0);
         result = 31 * result + (periods != null ? periods.hashCode() : 0);
         return result;
     }

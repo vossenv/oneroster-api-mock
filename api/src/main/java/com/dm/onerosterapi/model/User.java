@@ -32,8 +32,8 @@ public class User {
     @Column(name = "identifier")
     private String identifier;
 
-    @Column(name = "orgid")
-    private String orgId;
+    @Column(name = "schoolid")
+    private String schoolId;
 
     @Column(name = "givenname")
     private String givenName;
@@ -129,12 +129,12 @@ public class User {
         this.identifier = identifier;
     }
 
-    public String getOrgId() {
-        return orgId;
+    public String getSchoolId() {
+        return schoolId;
     }
 
-    public void setOrgId(String orgId) {
-        this.orgId = orgId;
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
     }
 
     public String getGivenName() {
@@ -234,7 +234,7 @@ public class User {
         if (enabledUser != null ? !enabledUser.equals(user.enabledUser) : user.enabledUser != null) return false;
         if (userIds != null ? !userIds.equals(user.userIds) : user.userIds != null) return false;
         if (identifier != null ? !identifier.equals(user.identifier) : user.identifier != null) return false;
-        if (orgId != null ? !orgId.equals(user.orgId) : user.orgId != null) return false;
+        if (schoolId != null ? !schoolId.equals(user.schoolId) : user.schoolId != null) return false;
         if (givenName != null ? !givenName.equals(user.givenName) : user.givenName != null) return false;
         if (familyName != null ? !familyName.equals(user.familyName) : user.familyName != null) return false;
         if (middleName != null ? !middleName.equals(user.middleName) : user.middleName != null) return false;
@@ -257,7 +257,7 @@ public class User {
         result = 31 * result + (enabledUser != null ? enabledUser.hashCode() : 0);
         result = 31 * result + (userIds != null ? userIds.hashCode() : 0);
         result = 31 * result + (identifier != null ? identifier.hashCode() : 0);
-        result = 31 * result + (orgId != null ? orgId.hashCode() : 0);
+        result = 31 * result + (schoolId != null ? schoolId.hashCode() : 0);
         result = 31 * result + (givenName != null ? givenName.hashCode() : 0);
         result = 31 * result + (familyName != null ? familyName.hashCode() : 0);
         result = 31 * result + (middleName != null ? middleName.hashCode() : 0);

@@ -38,8 +38,8 @@ public class Course {
     @Column(name = "subjects")
     private String subjects;
 
-    @Column(name = "orgid")
-    private String orgId;
+    @Column(name = "schoolid")
+    private String schoolId;
 
     public int getCourseId() {
         return courseId;
@@ -121,12 +121,12 @@ public class Course {
         this.subjects = subjects;
     }
 
-    public String getOrgId() {
-        return orgId;
+    public String getSchoolId() {
+        return schoolId;
     }
 
-    public void setOrgId(String orgId) {
-        this.orgId = orgId;
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
     }
 
     @Override
@@ -147,7 +147,7 @@ public class Course {
         if (schoolYear != null ? !schoolYear.equals(course.schoolYear) : course.schoolYear != null) return false;
         if (courseCode != null ? !courseCode.equals(course.courseCode) : course.courseCode != null) return false;
         if (subjects != null ? !subjects.equals(course.subjects) : course.subjects != null) return false;
-        return orgId != null ? orgId.equals(course.orgId) : course.orgId == null;
+        return schoolId != null ? schoolId.equals(course.schoolId) : course.schoolId == null;
     }
 
     @Override
@@ -162,7 +162,7 @@ public class Course {
         result = 31 * result + (schoolYear != null ? schoolYear.hashCode() : 0);
         result = 31 * result + (courseCode != null ? courseCode.hashCode() : 0);
         result = 31 * result + (subjects != null ? subjects.hashCode() : 0);
-        result = 31 * result + (orgId != null ? orgId.hashCode() : 0);
+        result = 31 * result + (schoolId != null ? schoolId.hashCode() : 0);
         return result;
     }
 }

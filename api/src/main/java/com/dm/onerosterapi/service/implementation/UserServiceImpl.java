@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 //        List<User> userList = new ArrayList<>();
 //
 //        for (User u : userRepository.findAll()){
-//           // u.setOrgId(getOrgById(Integer.parseInt(u.getOrgId())).getSourcedId());
+//           // u.setSchoolId(getSchoolById(Integer.parseInt(u.getSchoolId())).getSourcedId());
 //            userList.add(u);
 //        }
 //

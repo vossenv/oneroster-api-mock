@@ -1,7 +1,7 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.model.Org;
-import com.dm.onerosterapi.service.interfaces.OrgService;
+import com.dm.onerosterapi.model.School;
+import com.dm.onerosterapi.service.interfaces.SchoolService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +14,24 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class orgs {
+public class schools {
 
 	@Autowired
-    OrgService orgService;
+    SchoolService schoolService;
 
 	@Test
-	public void getAllOrgs(){
+	public void getAllSchools(){
 
-        List<Org> orgList = orgService.getAllOrgs();
-        assertEquals(orgList.size(),2);
+        List<School> schoolList = schoolService.getAllSchools();
+        assertEquals(schoolList.size(),2);
 
 	}
 
     @Test
-    public void getOrgById(){
+    public void getSchoolById(){
 
-        Org o = orgService.getOrgById(1);
-        assertEquals(o.getOrgId(),1);
+        School o = schoolService.getSchoolById(1);
+        assertEquals(o.getSchoolId(),1);
         assertEquals(o.getSourcedId(), "f9a75f84-130b-419e-bbe6-463585e930e9");
 
     }
