@@ -1,7 +1,5 @@
 package com.dm.onerosterapi;
 
-import com.dm.onerosterapi.service.RosterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

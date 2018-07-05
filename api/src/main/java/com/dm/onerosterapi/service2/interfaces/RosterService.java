@@ -1,4 +1,4 @@
-package com.dm.onerosterapi.service;
+package com.dm.onerosterapi.service2.interfaces;
 
 import com.dm.onerosterapi.model.*;
 

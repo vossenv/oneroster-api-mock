@@ -1,13 +1,12 @@
-package com.dm.onerosterapi.service;
+package com.dm.onerosterapi.service2;
 
 import com.dm.onerosterapi.model.User;
+import com.dm.onerosterapi.service2.interfaces.RosterService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -21,7 +20,7 @@ import java.util.List;
 public class users {
 
 	@Autowired
-	RosterService rosterService;
+    RosterService rosterService;
 
 	@Test
 	public void getAllUsers(){

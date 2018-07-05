@@ -1,6 +1,7 @@
-package com.dm.onerosterapi.service;
+package com.dm.onerosterapi.service2;
 
 import com.dm.onerosterapi.model.ClassOfCourse;
+import com.dm.onerosterapi.service2.interfaces.RosterService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class classes {
 
 	@Autowired
-	RosterService rosterService;
+    RosterService rosterService;
 
 	@Test
 	public void getAllClassOfCourses(){

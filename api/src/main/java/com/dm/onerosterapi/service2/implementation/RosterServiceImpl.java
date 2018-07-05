@@ -1,21 +1,19 @@
-package com.dm.onerosterapi.service;
+package com.dm.onerosterapi.service2.implementation;
 
 import com.dm.onerosterapi.model.*;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.*;
+import com.dm.onerosterapi.service2.interfaces.RosterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 
-public class RosterServiceImpl implements com.dm.onerosterapi.service.RosterService {
+public class RosterServiceImpl implements RosterService {
 
     private RosterDao rosterDao;
     private UserRepository userRepository;
