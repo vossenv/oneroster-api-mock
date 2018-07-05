@@ -24,5 +24,7 @@ public interface RosterService {
     public List<Enrollment> getAllEnrollments();
 
     public List<User> getUsersByClass(String classSourcedId);
+    public List<User> getStudentsByClass(String classSourcedId);
+    public List<User> getTeachersByClass(String classSourcedId);
 
 }

@@ -30,8 +30,16 @@ public class users {
         List<User> studentList = rosterService.getAllStudents();
         assertEquals(studentList.size(),292);
 
+        for (User u : studentList){
+            assertEquals(u.getRole(),"student");
+        }
+
         List<User> teacherList = rosterService.getAllTeachers();
         assertEquals(teacherList.size(),8);
+
+        for (User u : teacherList){
+            assertEquals(u.getRole(),"teacher");
+        }
 	}
 
     @Test
@@ -52,6 +60,12 @@ public class users {
 
         List<User> userList = rosterService.getUsersByClass("cee2f870-852c-47e8-988a-73e2c296fc77");
         assertEquals(userList.size(),55);
+
+        List<User> studentList = rosterService.getStudentsByClass("cee2f870-852c-47e8-988a-73e2c296fc77");
+        List<User> teacherList = rosterService.getTeachersByClass("cee2f870-852c-47e8-988a-73e2c296fc77");
+
+        assertEquals(studentList.size(),47);
+        assertEquals(teacherList.size(),8);
 
     }
 }

@@ -78,17 +78,23 @@ public class RosterServiceImpl implements RosterService {
     }
 
     @Override
+    public List<User> getStudentsByClass(String classSourcedId){
+        return userTypeFilter(getUsersByClass(classSourcedId),"student");
+    }
+
+    @Override
+    public List<User> getTeachersByClass(String classSourcedId){
+        return userTypeFilter(getUsersByClass(classSourcedId),"teacher");
+    }
+
+    @Override
     public List<User> getAllStudents(){
-        return getAllUsers().stream()
-                .filter(u -> u.getRole().equals("student"))
-                .collect(Collectors.toList());
+        return userTypeFilter(getAllUsers(),"student");
     }
 
     @Override
     public List<User> getAllTeachers(){
-        return getAllUsers().stream()
-                .filter(u -> u.getRole().equals("teacher"))
-                .collect(Collectors.toList());
+        return userTypeFilter(getAllUsers(),"teacher");
     }
 
     @Override
@@ -110,4 +116,11 @@ public class RosterServiceImpl implements RosterService {
     public List<Org> getAllOrgs() {
         return orgRepository.findAll();
     }
+
+    private static List<User> userTypeFilter(List<User> userList, String role){
+        return userList.stream()
+                .filter(u -> u.getRole().equals(role))
+                .collect(Collectors.toList());
+    }
+
 }
