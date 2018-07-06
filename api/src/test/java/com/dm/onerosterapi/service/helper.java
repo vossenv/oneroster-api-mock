@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -28,16 +27,13 @@ public class helper {
     UserService userService;
 
 	@Test
-	public void helperTest(){
+	public void userHelperTest(){
 
 	    User u = new User();
 	    u.setSchoolId("1");
 
-	    try {
-            helperService.idFieldSwap(u);
-            assertEquals(u.getSchoolId(), "f9a75f84-130b-419e-bbe6-463585e930e9");
-        } catch (IllegalAccessException e){ fail();  }
-
+	    helperService.idFieldSwap(u);
+	    assertEquals(u.getSchoolId(),"f9a75f84-130b-419e-bbe6-463585e930e9");
 
 	    List<User> userList = new ArrayList<>();
 	    userList.add(new User());
@@ -46,12 +42,9 @@ public class helper {
 	    userList.get(0).setSchoolId("1");
 	    userList.get(1).setSchoolId("2");
 
-	    try {
 	    helperService.idFieldSwap(userList);
 	    assertEquals(userList.get(0).getSchoolId(), "f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(userList.get(1).getSchoolId(), "f5897384-9488-466f-b049-1992f7a53f15");
-        } catch (IllegalAccessException e){ fail();  }
-
 
  	}
 
