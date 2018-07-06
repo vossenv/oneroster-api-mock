@@ -44,6 +44,7 @@ public class HelperService {
                 try{
 
                     int fieldVal = Integer.parseInt(field.get(o).toString());
+
                     switch (field.getName()) {
                         case "schoolId": field.set(o,schoolRepository.findBySchoolId(fieldVal).getSourcedId()); break;
                         case "userId": field.set(o,userRepository.findByUserId(fieldVal).getSourcedId()); break;
@@ -56,8 +57,8 @@ public class HelperService {
                 } catch (IllegalAccessException e){
                     System.out.println(e.getMessage());
 
-                // Null here just indicates an empty field
-                } catch (NullPointerException e){
+                // NPE or NFE here just indicates a non-numeric field - Move to the next one!
+                } catch (NullPointerException | NumberFormatException e){
                     System.out.print("");
                 }
             }

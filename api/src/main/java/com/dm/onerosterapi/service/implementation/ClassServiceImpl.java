@@ -10,29 +10,33 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@SuppressWarnings("unchecked")
 public class ClassServiceImpl implements ClassService {
 
+    private HelperService h;
     private RosterDao rosterDao;
     private ClassRepository classRepository;
 
     @Autowired
     public ClassServiceImpl(
             RosterDao rosterDao,
-            ClassRepository classRepository
+            ClassRepository classRepository,
+            HelperService h
     ){
         this.rosterDao = rosterDao;
         this.classRepository = classRepository;
+        this.h = h;
     }
 
 
     @Override
     public ClassOfCourse getClassById(int classId) {
-        return classRepository.findByClassId(classId);
+        return (ClassOfCourse) h.idFieldSwap(classRepository.findByClassId(classId));
     }
 
     @Override
     public List<ClassOfCourse> getAllClasses() {
-        return classRepository.findAll();
+        return (List<ClassOfCourse>) h.idFieldSwap(classRepository.findAll());
     }
 
 }
