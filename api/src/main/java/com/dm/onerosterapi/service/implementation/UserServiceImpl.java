@@ -15,9 +15,20 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unchecked")
 public class UserServiceImpl implements UserService {
 
-    @Autowired HelperService h;
-    @Autowired RosterDao rosterDao;
-    @Autowired UserRepository userRepository;
+    private HelperService h;
+    private RosterDao rosterDao;
+    private UserRepository userRepository;
+
+    @Autowired
+    public UserServiceImpl(
+            HelperService h,
+            RosterDao rosterDao,
+            UserRepository userRepository
+    ){
+        this.h = h;
+        this.rosterDao = rosterDao;
+        this.userRepository = userRepository;
+    }
 
 
     @Override
@@ -62,13 +73,3 @@ public class UserServiceImpl implements UserService {
     }
 }
 
-
-
-//        List<User> userList = new ArrayList<>();
-//
-//        for (User u : userRepository.findAll()){
-//           // u.setSchoolId(getSchoolById(Integer.parseInt(u.getSchoolId())).getSourcedId());
-//            userList.add(u);
-//        }
-//
-//        return userList;

@@ -1,26 +1,40 @@
 package com.dm.onerosterapi.service.implementation;
 
 import com.dm.onerosterapi.model.User;
+import com.dm.onerosterapi.repository.jpa.*;
 import com.dm.onerosterapi.service.interfaces.CourseService;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
-import com.dm.onerosterapi.service.interfaces.SchoolService;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class HelperService {
 
 
-    @Autowired SchoolService schoolService;
-    @Autowired ClassServiceImpl classService;
-    @Autowired UserService userService;
-    @Autowired CourseService courseService;
-    @Autowired EnrollmentService enrollmentService;
+    private SchoolRepository schoolRepository;
+    private ClassRepository classRepository;
+    private UserRepository userRepository;
+    private CourseRepository courseRepository;
+    private EnrollmentRepository enrollmentRepository;
+
+    @Autowired
+    public HelperService (
+            SchoolRepository schoolRepository,
+            ClassRepository classRepository,
+            UserRepository userRepository,
+            CourseRepository courseRepository,
+            EnrollmentRepository enrollmentRepository
+    ){
+        this.schoolRepository = schoolRepository;
+        this.classRepository = classRepository;
+        this.userRepository = userRepository;
+        this.courseRepository = courseRepository;
+        this.enrollmentRepository = enrollmentRepository;
+    }
+
 
 
     public List<?> idFieldSwap(List<?> objectList){
@@ -32,7 +46,7 @@ public class HelperService {
 
         switch (getClassName(o)){
             case "User":
-                ((User) o).setSchoolId(schoolService.getSchoolById(Integer.parseInt(((User) o).getSchoolId())).getSourcedId());
+                ((User) o).setSchoolId(schoolRepository.findBySchoolId(Integer.parseInt(((User) o).getSchoolId())).getSourcedId());
                 break;
         }
 

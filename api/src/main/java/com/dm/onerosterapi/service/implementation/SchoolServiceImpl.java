@@ -12,8 +12,17 @@ import java.util.List;
 @Service
 public class SchoolServiceImpl implements SchoolService {
 
-    @Autowired RosterDao rosterDao;
-    @Autowired SchoolRepository schoolRepository;
+    private RosterDao rosterDao;
+    private SchoolRepository schoolRepository;
+
+    @Autowired
+    public SchoolServiceImpl(
+            RosterDao rosterDao,
+            SchoolRepository schoolRepository
+    ){
+        this.rosterDao = rosterDao;
+        this.schoolRepository = schoolRepository;
+    }
 
     @Override
     public School getSchoolById(int schoolId) {

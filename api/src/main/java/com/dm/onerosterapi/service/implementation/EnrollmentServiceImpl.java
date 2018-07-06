@@ -12,8 +12,17 @@ import java.util.List;
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService {
 
-    @Autowired RosterDao rosterDao;
-    @Autowired EnrollmentRepository enrollmentRepository;
+    private RosterDao rosterDao;
+    private EnrollmentRepository enrollmentRepository;
+
+    @Autowired
+    public EnrollmentServiceImpl(
+            RosterDao rosterDao,
+            EnrollmentRepository enrollmentRepository
+    ){
+        this.rosterDao = rosterDao;
+        this.enrollmentRepository = enrollmentRepository;
+    }
 
     @Override
     public Enrollment getEnrollmentById(int enrollmentId) {

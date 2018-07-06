@@ -12,8 +12,18 @@ import java.util.List;
 @Service
 public class ClassServiceImpl implements ClassService {
 
-    @Autowired RosterDao rosterDao;
-    @Autowired ClassRepository classRepository;
+    private RosterDao rosterDao;
+    private ClassRepository classRepository;
+
+    @Autowired
+    public ClassServiceImpl(
+            RosterDao rosterDao,
+            ClassRepository classRepository
+    ){
+        this.rosterDao = rosterDao;
+        this.classRepository = classRepository;
+    }
+
 
     @Override
     public ClassOfCourse getClassById(int classId) {
