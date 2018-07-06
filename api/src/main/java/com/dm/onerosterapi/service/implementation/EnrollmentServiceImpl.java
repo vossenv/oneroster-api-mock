@@ -10,28 +10,32 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@SuppressWarnings("unchecked")
 public class EnrollmentServiceImpl implements EnrollmentService {
 
+    private HelperService h;
     private RosterDao rosterDao;
     private EnrollmentRepository enrollmentRepository;
 
     @Autowired
     public EnrollmentServiceImpl(
             RosterDao rosterDao,
-            EnrollmentRepository enrollmentRepository
+            EnrollmentRepository enrollmentRepository,
+            HelperService h
     ){
+        this.h = h;
         this.rosterDao = rosterDao;
         this.enrollmentRepository = enrollmentRepository;
     }
 
     @Override
     public Enrollment getEnrollmentById(int enrollmentId) {
-        return enrollmentRepository.findByEnrollmentId(enrollmentId);
+        return (Enrollment) h.idFieldSwap(enrollmentRepository.findByEnrollmentId(enrollmentId));
     }
 
     @Override
     public List<Enrollment> getAllEnrollments() {
-        return enrollmentRepository.findAll();
+        return (List<Enrollment>) h.idFieldSwap(enrollmentRepository.findAll());
     }
 
 }
