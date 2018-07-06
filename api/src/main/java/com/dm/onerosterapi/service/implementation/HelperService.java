@@ -8,6 +8,7 @@ import com.dm.onerosterapi.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
@@ -21,13 +22,13 @@ public class HelperService {
     private EnrollmentRepository enrollmentRepository;
 
     @Autowired
-    public HelperService (
+    public HelperService(
             SchoolRepository schoolRepository,
             ClassRepository classRepository,
             UserRepository userRepository,
             CourseRepository courseRepository,
             EnrollmentRepository enrollmentRepository
-    ){
+    ) {
         this.schoolRepository = schoolRepository;
         this.classRepository = classRepository;
         this.userRepository = userRepository;
@@ -36,30 +37,30 @@ public class HelperService {
     }
 
 
-
-    public List<?> idFieldSwap(List<?> objectList){
-        objectList.forEach(this::idFieldSwap);
+    public List<?> idFieldSwap(List<?> objectList) throws IllegalAccessException {
+        for (Object o : objectList) { idFieldSwap(o); }
         return objectList;
     }
 
-    public Object idFieldSwap(Object o){
+    public Object idFieldSwap(Object o) throws IllegalAccessException {
 
-        switch (getClassName(o)){
-            case "User":
-                ((User) o).setSchoolId(schoolRepository.findBySchoolId(Integer.parseInt(((User) o).getSchoolId())).getSourcedId());
-                break;
+        for (Field field : o.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+
+            if (!field.getType().toString().equals("int")) {
+
+                int fieldVal = Integer.parseInt(field.get(o).toString());
+                switch (field.getName()) {
+                    case "schoolId": field.set(o, schoolRepository.findBySchoolId(fieldVal).getSourcedId()); break;
+                    case "userId": field.set(o, userRepository.findByUserId(fieldVal).getSourcedId()); break;
+                    case "courseId": field.set(o, courseRepository.findByCourseId(fieldVal).getSourcedId()); break;
+                    case "classId": field.set(o, classRepository.findByClassId(fieldVal).getSourcedId()); break;
+                }
+            }
         }
 
         return o;
     }
-
-    private String getClassName(Object o){
-
-        String [] temp = o.getClass().toString().split("[.]");
-        return temp[temp.length - 1];
-
-    }
-
 
 
 }
