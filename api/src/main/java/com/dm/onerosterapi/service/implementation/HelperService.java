@@ -52,7 +52,7 @@ public class HelperService {
                         case "classId": field.set(o,classRepository.findByClassId(fieldVal).getSourcedId()); break;
                     }
 
-                // We don't want to throw an error if we skip a field due to access
+                // We don't want to throw an error if we skip a field due to access failure
                 // Original field value will be maintained.
                 } catch (IllegalAccessException e){
                     System.out.println(e.getMessage());
