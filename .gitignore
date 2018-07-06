@@ -1,6 +1,7 @@
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
+api/target/surefire-reports/
 
 
 ### STS ###
@@ -29,3 +30,4 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
