@@ -12,25 +12,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@SuppressWarnings("unchecked")
 public class UserServiceImpl implements UserService {
 
+    @Autowired HelperService h;
     @Autowired RosterDao rosterDao;
     @Autowired UserRepository userRepository;
 
 
     @Override
     public User getUserById(int userId) {
-        return userRepository.findByUserId(userId);
+        return (User) h.idFieldSwap(userRepository.findByUserId(userId));
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return (List<User>) h.idFieldSwap(userRepository.findAll());
     }
 
     @Override
     public List<User> getUsersByClass(String classSourcedId) {
-        return rosterDao.getUsersByClass(classSourcedId);
+        return (List<User>) h.idFieldSwap(rosterDao.getUsersByClass(classSourcedId));
     }
 
     @Override

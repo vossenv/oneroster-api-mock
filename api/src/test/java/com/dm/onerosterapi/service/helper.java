@@ -28,11 +28,10 @@ public class helper {
 	@Test
 	public void helperTest(){
 
-	    User u = userService.getUserById(2);
+	    User u = userService.getUserById(25);
+	    List<User> userList = userService.getAllUsers();
 
-	    helperService.idFieldSwap(u);
 
-        System.out.println();
  	}
 
 
