@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface ClassService {
 
-    public ClassOfCourse getClassById(String classId);
     public ClassOfCourse getBySourcedId(String classId);
+    public List<ClassOfCourse> getClassesByUser(String userSourcedId);
+    public List<ClassOfCourse> getClassesByStudent(String userSourcedId);
+    public List<ClassOfCourse> getClassesByTeacher(String userSourcedId);
     public List<ClassOfCourse> getAllClasses();
 
 }

@@ -26,11 +26,6 @@ public class schools {
     private static final String tstId = "1";
 
     @Test
-    public void getSchoolById(){
-        assertTrue(checkValues(schoolService.getSchoolById(tstId)));
-    }
-
-    @Test
     public void getSchoolBySourcedId(){
         assertTrue(checkValues(schoolService.getBySourcedId(tstSId)));
     }
@@ -45,7 +40,7 @@ public class schools {
     @Test
     public void testFailedSearch(){
         try {
-            School o = schoolService.getSchoolById("12");
+            School o = schoolService.getBySourcedId("12");
             fail("NP Exception expected");
         } catch (Exception e){
             // pass

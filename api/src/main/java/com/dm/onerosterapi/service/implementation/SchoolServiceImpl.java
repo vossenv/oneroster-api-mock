@@ -29,11 +29,6 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public School getSchoolById(String schoolId) {
-        return (School) h.idFieldSwap(schoolRepository.findBySchoolId(schoolId));
-    }
-
-    @Override
     public List<School> getAllSchools() {
         return (List<School>) h.idFieldSwap(schoolRepository.findAll());
     }

@@ -27,9 +27,9 @@ x,getUser,,/users/{id},GET,Return specific user
 ,getClassesForTerm,,/terms/{term_id}/classes,GET,Return the collection of classes that are taught in this term.
 ,getGradingPeriodsForTerm,,/terms/{term_id}/gradingPeriods,GET,Return the collection of Grading Periods that are part of this term.
 ,getClassesForCourse,,/courses/{course_id}/classes,GET,Return the collection of classes that are teaching this course.
-x,getClassesForStudent,,/students/{student_id}/classes,GET,Return the collection of classes that this student is taking.
-x,getClassesForTeacher,,/teachers/{teacher_id}/classes,GET,Return the collection of classes that this teacher is teaching.
+,getClassesForStudent,,/students/{student_id}/classes,GET,Return the collection of classes that this student is taking.
+,getClassesForTeacher,,/teachers/{teacher_id}/classes,GET,Return the collection of classes that this teacher is teaching.
 ,getClassesForSchool,,/schools/{school_id}/classes,GET,Return the collection of classes taught by this school.
-x,getClassesForUser,,/users/{user_id}/classes,GET,Return the collection of classes attended by this user.
-,getStudentsForClass,,/classes/{class_id}/students,GET,Return the collection of students that are taking this class.
-,getTeachersForClass,,/classes/{class_id}/teachers,GET,Return the collection of teachers that are teaching this class.
+,getClassesForUser,,/users/{user_id}/classes,GET,Return the collection of classes attended by this user.
+x,getStudentsForClass,,/classes/{class_id}/students,GET,Return the collection of students that are taking this class.
+x,getTeachersForClass,,/classes/{class_id}/teachers,GET,Return the collection of teachers that are teaching this class.

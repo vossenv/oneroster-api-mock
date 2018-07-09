@@ -11,12 +11,16 @@ import java.util.List;
 
 
 @Repository
+@SuppressWarnings("unchecked")
 public class RosterDaoImpl implements RosterDao {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @SuppressWarnings("unchecked")
+    private static String surround (String s){
+        return "\'" + s + "\'";
+    }
+
     @Override
     public List<User> getUsersByClass(String classSourcedId) {
 
@@ -26,8 +30,22 @@ public class RosterDaoImpl implements RosterDao {
         return (List<User>) entityManager.createQuery(queryText).getResultList();
     }
 
-    public static String surround (String s){
-        return "\'" + s + "\'";
+    @Override
+    public List<ClassOfCourse> getClassesByUser(String userSourcedId, String role) {
+
+        String roleString;
+
+        if (role.equals("student") || role.equals("teacher")){
+            roleString = " and u.role = " + surround(role);
+        } else {
+            roleString = "";
+        }
+
+
+        String queryText = "select c from ClassOfCourse c join fetch Enrollment e on c.classId=e.classId join fetch " +
+                "User u on e.userId=u.userId where u.sourcedId = " + surround(userSourcedId) + roleString;
+
+        return (List<ClassOfCourse>) entityManager.createQuery(queryText).getResultList();
     }
 
 }

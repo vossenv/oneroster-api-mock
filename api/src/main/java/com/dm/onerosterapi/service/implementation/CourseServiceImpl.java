@@ -29,11 +29,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course getCourseById(String courseId) {
-        return (Course)  h.idFieldSwap(courseRepository.findByCourseId(courseId));
-    }
-
-    @Override
     public List<Course> getAllCourses() {
         return (List<Course>) h.idFieldSwap(courseRepository.findAll());
     }

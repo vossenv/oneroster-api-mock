@@ -30,11 +30,6 @@ public class ClassServiceImpl implements ClassService {
 
 
     @Override
-    public ClassOfCourse getClassById(String classId) {
-        return (ClassOfCourse) h.idFieldSwap(classRepository.findByClassId(classId));
-    }
-
-    @Override
     public List<ClassOfCourse> getAllClasses() {
         return (List<ClassOfCourse>) h.idFieldSwap(classRepository.findAll());
     }
@@ -42,6 +37,24 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public ClassOfCourse getBySourcedId(String classId) {
         return (ClassOfCourse) h.idFieldSwap(classRepository.findBySourcedId(classId));
+    }
+
+    public List<ClassOfCourse> getClassesByUser(String userSourcedId){
+        return getClassesByUser(userSourcedId,"any");
+    }
+
+    @Override
+    public List<ClassOfCourse> getClassesByStudent(String userSourcedId) {
+        return getClassesByUser(userSourcedId,"student");
+    }
+
+    @Override
+    public List<ClassOfCourse> getClassesByTeacher(String userSourcedId) {
+        return getClassesByUser(userSourcedId,"teacher");
+    }
+
+    private List<ClassOfCourse> getClassesByUser(String userSourcedId, String role) {
+        return (List<ClassOfCourse>) h.idFieldSwap(rosterDao.getClassesByUser(userSourcedId, role));
     }
 
 }

@@ -27,11 +27,6 @@ public class enrollments {
     private static final String tstId = "650";
 
     @Test
-    public void getEnrollmentById(){
-        assertTrue(checkValues(enrollmentService.getEnrollmentById(tstId)));
-    }
-
-    @Test
     public void getEnrollmentBySourcedId(){
         assertTrue(checkValues(enrollmentService.getBySourcedId(tstSId)));
     }
@@ -46,7 +41,7 @@ public class enrollments {
     @Test
     public void testFailedSearch(){
         try {
-            Enrollment e = enrollmentService.getEnrollmentById("-1");
+            Enrollment e = enrollmentService.getBySourcedId("-1");
             fail("NP Exception expected");
         } catch (Exception e){
             // pass

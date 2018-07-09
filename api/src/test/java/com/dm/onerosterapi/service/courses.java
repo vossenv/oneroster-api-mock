@@ -26,11 +26,6 @@ public class courses {
     private static final String tstId = "11";
 
     @Test
-    public void getCourseById(){
-        assertTrue(checkValues(courseService.getCourseById(tstId)));
-    }
-
-    @Test
     public void getCourseBySourcedId(){
         assertTrue(checkValues(courseService.getBySourcedId(tstSId)));
     }
@@ -45,7 +40,7 @@ public class courses {
     @Test
     public void testFailedSearch(){
         try {
-            Course c = courseService.getCourseById("500");
+            Course c = courseService.getBySourcedId("500");
             fail("NP Exception expected");
         } catch (Exception e){
             // pass

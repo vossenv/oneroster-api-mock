@@ -25,11 +25,6 @@ public class users {
     private static final String tstId = "65";
 
     @Test
-    public void getUserById(){
-        assertTrue(checkValues(userService.getUserById(tstId)));
-    }
-
-    @Test
     public void getUserBySourcedId(){
         assertTrue(checkValues(userService.getBySourcedId(tstSId)));
     }
@@ -68,7 +63,7 @@ public class users {
     @Test
     public void testFailedSearch(){
         try {
-            User u = userService.getUserById("1265");
+            User u = userService.getBySourcedId("1265");
             fail("NP Exception expected");
         } catch (Exception e){
             // pass
