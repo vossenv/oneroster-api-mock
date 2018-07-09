@@ -9,7 +9,7 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "courseid")
-    private int courseId;
+    private String courseId;
 
     @Column(name = "sourcedid")
     private String sourcedId;
@@ -41,11 +41,11 @@ public class Course {
     @Column(name = "schoolid")
     private String schoolId;
 
-    public int getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
@@ -136,7 +136,6 @@ public class Course {
 
         Course course = (Course) o;
 
-        if (courseId != course.courseId) return false;
         if (sourcedId != null ? !sourcedId.equals(course.sourcedId) : course.sourcedId != null) return false;
         if (status != null ? !status.equals(course.status) : course.status != null) return false;
         if (dateLastModified != null ? !dateLastModified.equals(course.dateLastModified) : course.dateLastModified != null)
@@ -152,8 +151,7 @@ public class Course {
 
     @Override
     public int hashCode() {
-        int result = courseId;
-        result = 31 * result + (sourcedId != null ? sourcedId.hashCode() : 0);
+        int result = sourcedId != null ? sourcedId.hashCode() : 0;
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (dateLastModified != null ? dateLastModified.hashCode() : 0);
         result = 31 * result + (metadata != null ? metadata.hashCode() : 0);

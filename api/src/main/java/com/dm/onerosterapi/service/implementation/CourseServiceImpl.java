@@ -29,7 +29,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course getCourseById(int courseId) {
+    public Course getCourseById(String courseId) {
         return (Course)  h.idFieldSwap(courseRepository.findByCourseId(courseId));
     }
 
@@ -38,4 +38,8 @@ public class CourseServiceImpl implements CourseService {
         return (List<Course>) h.idFieldSwap(courseRepository.findAll());
     }
 
+    @Override
+    public Course getBySourcedId(String sourcedId) {
+        return (Course) h.idFieldSwap(courseRepository.findBySourcedId(sourcedId));
+    }
 }
