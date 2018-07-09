@@ -9,7 +9,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-				
+				dir("api") {
+					sh './gradlew clean unitTest'
+					sh './gradlew clean assemble'
+				}
             }
         }
         stage('Test') {
@@ -23,4 +26,9 @@ pipeline {
             }
         }
     }
+	post {
+			always {
+				archiveArtifacts artifacts: '**/*.jar', fingerprint:true
+			}
+		}
 }
