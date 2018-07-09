@@ -26,6 +26,11 @@ public class enrollments {
     private static final String tstSId = "44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb";
     private static final String tstId = "650";
 
+    @Test
+    public void getEnrollmentBySourcedId(){
+        assertTrue(checkValues(enrollmentService.getBySourcedId(tstSId)));
+    }
+
 	@Test
 	public void getAllEnrollments(){
         List<Enrollment> enrollmentList = enrollmentService.getAllEnrollments();
@@ -34,15 +39,9 @@ public class enrollments {
 	}
 
     @Test
-    public void getEnrollmentById(){
-        Enrollment e = enrollmentService.getEnrollmentById(tstId);
-        assertTrue(checkValues(e));
-    }
-
-    @Test
     public void testFailedSearch(){
         try {
-            Enrollment e = enrollmentService.getEnrollmentById("-1");
+            Enrollment e = enrollmentService.getBySourcedId("-1");
             fail("NP Exception expected");
         } catch (Exception e){
             // pass

@@ -23,6 +23,11 @@ public class classes {
 	private static final String tstSId = "dca81f5a-1d99-491a-85fb-ad9591d4b96d";
 	private static final String tstId = "65";
 
+    @Test
+    public void getClassOfCourseBySourcedId(){
+        assertTrue(checkValues(classService.getBySourcedId(tstSId)));
+    }
+
 	@Test
 	public void getAllClassOfCourses(){
         List<ClassOfCourse> classList = classService.getAllClasses();
@@ -30,22 +35,33 @@ public class classes {
         assertTrue(checkValues(classList.get(64)));
 	}
 
-    @Test
-    public void getClassOfCourseById(){
-        ClassOfCourse c = classService.getClassById(tstId);
-        assertTrue(checkValues(c));
+	@Test
+    public void getClassesByUser(){
+        List<ClassOfCourse> classList = classService.getClassesByUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
+        assertEquals(classList.size(),14);
     }
 
     @Test
-    public void getClassOfCourseBySourcedId(){
-        ClassOfCourse c = classService.getBySourcedId(tstSId);
-        assertTrue(checkValues(c));
+    public void getClassesByStudent(){
+        List<ClassOfCourse> classList = classService.getClassesByStudent("cda272c0-bf6c-4e72-8b13-5f1f3be72339");
+        assertEquals(classList.size(),14);
     }
+
+    @Test
+    public void getClassesByTeacher(){
+        List<ClassOfCourse> classList = classService.getClassesByTeacher("f1e4b385-b0c9-4054-ad08-95c580ac715d");
+        assertEquals(classList.size(),14);
+
+        classList = classService.getClassesByTeacher("cda272c0-bf6c-4e72-8b13-5f1f3be72339");
+        assertEquals(classList.size(),0);
+
+    }
+
 
     @Test
     public void testFailedSearch(){
 	    try {
-            ClassOfCourse c = classService.getClassById("300");
+            ClassOfCourse c = classService.getBySourcedId("300");
             fail("NP Exception expected");
         } catch (Exception e){
 	        // pass

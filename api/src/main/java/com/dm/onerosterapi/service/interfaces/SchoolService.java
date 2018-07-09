@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface SchoolService {
 
-    public School getSchoolById(String schoolId);
     public School getBySourcedId(String schoolId);
     public List<School> getAllSchools();
 

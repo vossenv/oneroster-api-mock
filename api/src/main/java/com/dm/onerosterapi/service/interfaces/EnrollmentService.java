@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface EnrollmentService {
 
-    public Enrollment getEnrollmentById(String enrollmentId);
     public Enrollment getBySourcedId(String enrollmentId);
     public List<Enrollment> getAllEnrollments();
 

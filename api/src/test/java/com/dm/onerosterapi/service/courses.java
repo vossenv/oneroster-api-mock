@@ -25,6 +25,11 @@ public class courses {
     private static final String tstSId = "2441eeb2-4df0-4726-a882-f0e722d129c6";
     private static final String tstId = "11";
 
+    @Test
+    public void getCourseBySourcedId(){
+        assertTrue(checkValues(courseService.getBySourcedId(tstSId)));
+    }
+
 	@Test
 	public void getAllCourses(){
         List<Course> courseList = courseService.getAllCourses();
@@ -33,15 +38,9 @@ public class courses {
 	}
 
     @Test
-    public void getCourseById(){
-        Course c = courseService.getCourseById(tstId);
-        assertTrue(checkValues(c));
-    }
-
-    @Test
     public void testFailedSearch(){
         try {
-            Course c = courseService.getCourseById("500");
+            Course c = courseService.getBySourcedId("500");
             fail("NP Exception expected");
         } catch (Exception e){
             // pass
