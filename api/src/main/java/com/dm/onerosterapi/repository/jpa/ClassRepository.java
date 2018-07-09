@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ClassRepository extends JpaRepository<ClassOfCourse, Integer>{
 
     public ClassOfCourse findByClassId(int classId);
+    public ClassOfCourse findBySourcedId(String classId);
 
 }

@@ -37,6 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getBySourcedId(String userId) {
+        return (User) h.idFieldSwap(userRepository.findBySourcedId(userId));
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return (List<User>) h.idFieldSwap(userRepository.findAll());
     }

@@ -38,4 +38,8 @@ public class SchoolServiceImpl implements SchoolService {
         return (List<School>) h.idFieldSwap(schoolRepository.findAll());
     }
 
+    @Override
+    public School getBySourcedId(String schoolId) {
+        return (School) h.idFieldSwap(schoolRepository.findBySourcedId(schoolId));
+    }
 }

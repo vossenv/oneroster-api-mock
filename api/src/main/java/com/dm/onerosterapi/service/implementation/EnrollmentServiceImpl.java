@@ -38,4 +38,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         return (List<Enrollment>) h.idFieldSwap(enrollmentRepository.findAll());
     }
 
+    @Override
+    public Enrollment getBySourcedId(String enrollmentId) {
+        return (Enrollment) h.idFieldSwap(enrollmentRepository.findBySourcedId(enrollmentId));
+    }
 }

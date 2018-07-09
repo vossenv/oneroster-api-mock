@@ -7,6 +7,8 @@ import java.util.List;
 public interface UserService {
 
     public User getUserById(int userId);
+    public User getBySourcedId(String userId);
+
     public List<User> getAllUsers();
     public List<User> getAllStudents();
     public List<User> getAllTeachers();
