@@ -8,3 +8,4 @@ Feature: Basic Karate Testing
     Given url URL
     When method GET
     Then status 200
+    Dummy Text
