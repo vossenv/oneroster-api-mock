@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
+import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.CourseRepository;
@@ -36,5 +37,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course getBySourcedId(String sourcedId) {
         return (Course) h.idFieldSwap(courseRepository.findBySourcedId(sourcedId));
+    }
+
+    @Override
+    public List<Course> getCoursesBySchool(String schoolSourcedId) {
+        return (List<Course>) h.idFieldSwap(rosterDao.getCoursesBySchool(schoolSourcedId));
     }
 }

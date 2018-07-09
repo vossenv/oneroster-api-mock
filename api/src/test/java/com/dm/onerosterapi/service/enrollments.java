@@ -38,6 +38,16 @@ public class enrollments {
         assertTrue(checkValues(enrollmentList.get(649)));
 	}
 
+	@Test
+    public void getEnrollmentsForSchool(){
+        List<Enrollment> enrollmentList = enrollmentService.getEnrollmentsForSchool("f9a75f84-130b-419e-bbe6-463585e930e9");
+        assertEquals(enrollmentList.size(),2076);
+
+        enrollmentList = enrollmentService.getEnrollmentsForSchool("f5897384-9488-466f-b049-1992f7a53f15");
+        assertEquals(enrollmentList.size(),2124);
+
+    }
+
     @Test
     public void testFailedSearch(){
         try {

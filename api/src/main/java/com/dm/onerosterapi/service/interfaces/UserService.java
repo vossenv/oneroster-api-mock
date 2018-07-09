@@ -15,4 +15,7 @@ public interface UserService {
     public List<User> getUsersByClass(String classSourcedId);
     public List<User> getStudentsByClass(String classSourcedId);
     public List<User> getTeachersByClass(String classSourcedId);
+    public List<User> getUsersForSchool(String schoolId);
+    public List<User> getStudentsForSchool(String schoolId);
+    public List<User> getTeachersForSchool(String schoolId);
 }

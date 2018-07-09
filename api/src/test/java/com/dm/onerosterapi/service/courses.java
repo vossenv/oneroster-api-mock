@@ -37,6 +37,12 @@ public class courses {
         assertTrue(checkValues(courseList.get(10)));
 	}
 
+	@Test
+    public void getCoursesBySchool(){
+        List<Course> courseList = courseService.getCoursesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9");
+        assertEquals(courseList.size(),21);
+    }
+
     @Test
     public void testFailedSearch(){
         try {

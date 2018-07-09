@@ -8,5 +8,5 @@ public interface CourseService {
 
     public Course getBySourcedId(String sourcedId);
     public List<Course> getAllCourses();
-
+    public List<Course> getCoursesBySchool(String schoolSourcedId);
 }

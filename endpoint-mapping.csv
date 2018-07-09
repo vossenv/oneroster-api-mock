@@ -21,12 +21,12 @@ x,getClassesForSchool,,/schools/{school_id}/classes,,GET,Return the collection o
 x,getClassesForUser,,/users/{user_id}/classes,,GET,Return the collection of classes attended by this user.
 x,getStudentsForClass,,/classes/{class_id}/students,,GET,Return the collection of students that are taking this class.
 x,getTeachersForClass,,/classes/{class_id}/teachers,,GET,Return the collection of teachers that are teaching this class.
+x,getCoursesForSchool,,/schools/{id}/courses,,GET,Return the collection of courses taught by this school.
 ,,,,,,
-,getCoursesForSchool,,/schools/{id}/courses,,GET,Return the collection of courses taught by this school.
 ,getEnrollmentsForClassInSchool,,/schools/{school_id}/classes/{class_id}/enrollments,,GET,Return the collection of all enrollments into this class.
 ,getStudentsForClassInSchool,,/schools/{school_id}/classes/{class_id}/students,,GET,Return the collection of students taking this class in this school.
 ,getTeachersForClassInSchool,,/schools/{school_id}/classes/{class_id}/teachers,,GET,Return the collection of teachers taking this class in this school.
-,getEnrollmentsForSchool,,/schools/{school_id}/enrollments,,GET,Return the collection of all enrollments for this school.
+,,,,,,
+x,getEnrollmentsForSchool,,/schools/{school_id}/enrollments,,GET,Return the collection of all enrollments for this school.
 ,getStudentsForSchool,,/schools/{school_id}/students,,GET,Return the collection of students attending this school.
 ,getTeachersForSchool,,/schools/{school_id}/teachers,,GET,Return the collection of teachers teaching at this school.
-,getTermsForSchool,,/schools/{school_id}/terms,,GET,Return the collection of terms that are used by this school.
