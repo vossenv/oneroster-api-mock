@@ -22,16 +22,16 @@ public class RosterDaoImpl implements RosterDao {
     }
 
     @Override
-    public List<User> getUsersByClass(String classSourcedId) {
+    public List<User> getUsersByClass(String sourcedId) {
 
         String queryText = "select u from User u join fetch Enrollment e on u.userId=e.userId join fetch " +
-                "ClassOfCourse c on e.classId=c.classId where c.sourcedId = " + surround(classSourcedId);
+                "ClassOfCourse c on e.classId=c.classId where c.sourcedId = " + surround(sourcedId);
 
         return (List<User>) entityManager.createQuery(queryText).getResultList();
     }
 
     @Override
-    public List<ClassOfCourse> getClassesByUser(String userSourcedId, String role) {
+    public List<ClassOfCourse> getClassesByUser(String sourcedId, String role) {
 
         String roleString;
 
@@ -43,7 +43,23 @@ public class RosterDaoImpl implements RosterDao {
 
 
         String queryText = "select c from ClassOfCourse c join fetch Enrollment e on c.classId=e.classId join fetch " +
-                "User u on e.userId=u.userId where u.sourcedId = " + surround(userSourcedId) + roleString;
+                "User u on e.userId=u.userId where u.sourcedId = " + surround(sourcedId) + roleString;
+
+        return (List<ClassOfCourse>) entityManager.createQuery(queryText).getResultList();
+    }
+
+    @Override
+    public List<ClassOfCourse> getClassesByCourse(String sourcedId) {
+        String queryText = "select c from ClassOfCourse c join fetch Course co on c.courseId=co.courseId " +
+                "where co.sourcedId = " + surround(sourcedId);
+        
+        return (List<ClassOfCourse>) entityManager.createQuery(queryText).getResultList();
+    }
+
+    @Override
+    public List<ClassOfCourse> getClassesBySchool(String sourcedId) {
+        String queryText = "select c from ClassOfCourse c join fetch School s on c.schoolId=s.schoolId " +
+                "where s.sourcedId = " + surround(sourcedId);
 
         return (List<ClassOfCourse>) entityManager.createQuery(queryText).getResultList();
     }

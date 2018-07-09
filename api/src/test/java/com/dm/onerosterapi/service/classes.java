@@ -45,6 +45,9 @@ public class classes {
     public void getClassesByStudent(){
         List<ClassOfCourse> classList = classService.getClassesByStudent("cda272c0-bf6c-4e72-8b13-5f1f3be72339");
         assertEquals(classList.size(),14);
+
+        classList = classService.getClassesByStudent("f1e4b385-b0c9-4054-ad08-95c580ac715d");
+        assertEquals(classList.size(),0);
     }
 
     @Test
@@ -54,7 +57,27 @@ public class classes {
 
         classList = classService.getClassesByTeacher("cda272c0-bf6c-4e72-8b13-5f1f3be72339");
         assertEquals(classList.size(),0);
+    }
 
+    @Test
+    public void getClassesByCourse(){
+        List<ClassOfCourse> classList = classService.getClassesByCourse("7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4");
+        assertEquals(classList.size(),2);
+    }
+
+    @Test
+    public void getClassesByTerm(){
+        List<ClassOfCourse> classList = classService.getClassesByTerm("Fall");
+        assertEquals(classList.size(),42);
+
+        classList = classService.getClassesByTerm("Spring");
+        assertEquals(classList.size(),42);
+    }
+
+    @Test
+    public void getClassesBySchool(){
+        List<ClassOfCourse> classList = classService.getClassesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9");
+        assertEquals(classList.size(),42);
     }
 
 
