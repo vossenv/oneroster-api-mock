@@ -9,7 +9,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userid")
-    private int userId;
+    private String userId;
 
     @Column(name = "sourcedid")
     private String sourcedId;
@@ -65,11 +65,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -225,7 +225,6 @@ public class User {
 
         User user = (User) o;
 
-        if (userId != user.userId) return false;
         if (sourcedId != null ? !sourcedId.equals(user.sourcedId) : user.sourcedId != null) return false;
         if (status != null ? !status.equals(user.status) : user.status != null) return false;
         if (dateLastModified != null ? !dateLastModified.equals(user.dateLastModified) : user.dateLastModified != null)
@@ -249,8 +248,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = userId;
-        result = 31 * result + (sourcedId != null ? sourcedId.hashCode() : 0);
+        int result = sourcedId != null ? sourcedId.hashCode() : 0;
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (dateLastModified != null ? dateLastModified.hashCode() : 0);
         result = 31 * result + (metadata != null ? metadata.hashCode() : 0);

@@ -24,13 +24,13 @@ public class enrollments {
     EnrollmentService enrollmentService;
 
     private static final String tstSId = "44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb";
-    private static final int tstId = 650;
+    private static final String tstId = "650";
 
 	@Test
 	public void getAllEnrollments(){
         List<Enrollment> enrollmentList = enrollmentService.getAllEnrollments();
         assertEquals(enrollmentList.size(),4200);
-        assertTrue(checkValues(enrollmentList.get(tstId - 1)));
+        assertTrue(checkValues(enrollmentList.get(649)));
 	}
 
     @Test
@@ -42,7 +42,7 @@ public class enrollments {
     @Test
     public void testFailedSearch(){
         try {
-            Enrollment e = enrollmentService.getEnrollmentById(-1);
+            Enrollment e = enrollmentService.getEnrollmentById("-1");
             fail("NP Exception expected");
         } catch (Exception e){
             // pass
