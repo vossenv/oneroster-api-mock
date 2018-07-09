@@ -43,7 +43,7 @@ public class HelperService {
 
                 try{
 
-                    int fieldVal = Integer.parseInt(field.get(o).toString());
+                    String fieldVal = field.get(o).toString();
 
                     switch (field.getName()) {
                         case "schoolId": field.set(o,schoolRepository.findBySchoolId(fieldVal).getSourcedId()); break;
@@ -52,7 +52,7 @@ public class HelperService {
                         case "classId": field.set(o,classRepository.findByClassId(fieldVal).getSourcedId()); break;
                     }
 
-                // We don't want to throw an error if we skip a field due to access
+                // We don't want to throw an error if we skip a field due to access failure
                 // Original field value will be maintained.
                 } catch (IllegalAccessException e){
                     System.out.println(e.getMessage());

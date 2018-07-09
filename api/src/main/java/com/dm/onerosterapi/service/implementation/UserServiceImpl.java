@@ -32,8 +32,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User getUserById(int userId) {
+    public User getUserById(String userId) {
         return (User) h.idFieldSwap(userRepository.findByUserId(userId));
+    }
+
+    @Override
+    public User getBySourcedId(String userId) {
+        return (User) h.idFieldSwap(userRepository.findBySourcedId(userId));
     }
 
     @Override

@@ -30,13 +30,18 @@ public class ClassServiceImpl implements ClassService {
 
 
     @Override
-    public ClassOfCourse getClassById(int classId) {
+    public ClassOfCourse getClassById(String classId) {
         return (ClassOfCourse) h.idFieldSwap(classRepository.findByClassId(classId));
     }
 
     @Override
     public List<ClassOfCourse> getAllClasses() {
         return (List<ClassOfCourse>) h.idFieldSwap(classRepository.findAll());
+    }
+
+    @Override
+    public ClassOfCourse getBySourcedId(String classId) {
+        return (ClassOfCourse) h.idFieldSwap(classRepository.findBySourcedId(classId));
     }
 
 }

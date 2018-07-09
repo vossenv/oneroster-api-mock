@@ -33,6 +33,7 @@ public class helper {
 
 	    User u = new User();
 	    u.setSchoolId("1");
+	    u.setUserId("5");
 
 	    helperService.idFieldSwap(u);
 	    assertEquals(u.getSchoolId(),"f9a75f84-130b-419e-bbe6-463585e930e9");
