@@ -35,11 +35,6 @@ dependencies {
 
 	testCompile('com.intuit.karate:karate-junit4:0.7.0')
 	testCompile('com.intuit.karate:karate-apache:0.7.0')
-
-
-//    compile('mysql:mysql-connector-java:8.0.11')
-//    compile('org.springframework.boot:spring-boot-starter-jdbc')
-
 }
 
 task unitTest ( type: Test ) {

@@ -23,24 +23,22 @@ public class classes {
 	private static final String tstSId = "dca81f5a-1d99-491a-85fb-ad9591d4b96d";
 	private static final String tstId = "65";
 
+    @Test
+    public void getClassOfCourseById(){
+        assertTrue(checkValues(classService.getClassById(tstId)));
+    }
+
+    @Test
+    public void getClassOfCourseBySourcedId(){
+        assertTrue(checkValues(classService.getBySourcedId(tstSId)));
+    }
+
 	@Test
 	public void getAllClassOfCourses(){
         List<ClassOfCourse> classList = classService.getAllClasses();
         assertEquals(classList.size(),84);
         assertTrue(checkValues(classList.get(64)));
 	}
-
-    @Test
-    public void getClassOfCourseById(){
-        ClassOfCourse c = classService.getClassById(tstId);
-        assertTrue(checkValues(c));
-    }
-
-    @Test
-    public void getClassOfCourseBySourcedId(){
-        ClassOfCourse c = classService.getBySourcedId(tstSId);
-        assertTrue(checkValues(c));
-    }
 
     @Test
     public void testFailedSearch(){

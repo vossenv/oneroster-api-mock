@@ -25,18 +25,22 @@ public class schools {
     private static final String tstSId = "f9a75f84-130b-419e-bbe6-463585e930e9";
     private static final String tstId = "1";
 
-	@Test
+    @Test
+    public void getSchoolById(){
+        assertTrue(checkValues(schoolService.getSchoolById(tstId)));
+    }
+
+    @Test
+    public void getSchoolBySourcedId(){
+        assertTrue(checkValues(schoolService.getBySourcedId(tstSId)));
+    }
+
+    @Test
 	public void getAllSchools(){
         List<School> schoolList = schoolService.getAllSchools();
         assertEquals(schoolList.size(),2);
         assertTrue(checkValues(schoolList.get(0)));
 	}
-
-    @Test
-    public void getSchoolById(){
-        School o = schoolService.getSchoolById(tstId);
-        assertTrue(checkValues(o));
-    }
 
     @Test
     public void testFailedSearch(){

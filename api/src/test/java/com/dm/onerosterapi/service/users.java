@@ -24,6 +24,16 @@ public class users {
     private static final String tstSId = "8057df9d-72a3-419a-98b5-6eab87ec0a6d";
     private static final String tstId = "65";
 
+    @Test
+    public void getUserById(){
+        assertTrue(checkValues(userService.getUserById(tstId)));
+    }
+
+    @Test
+    public void getUserBySourcedId(){
+        assertTrue(checkValues(userService.getBySourcedId(tstSId)));
+    }
+
 	@Test
 	public void getAllUsers(){
 
@@ -40,12 +50,6 @@ public class users {
         for (User u : teacherList){assertEquals(u.getRole(),"teacher");}
 
 	}
-
-    @Test
-    public void getUserById(){
-        User u = userService.getUserById("65");
-        assertTrue(checkValues(u));
-    }
 
     // Custom Queries
     @Test
