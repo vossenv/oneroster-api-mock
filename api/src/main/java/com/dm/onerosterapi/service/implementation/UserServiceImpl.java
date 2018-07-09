@@ -65,6 +65,21 @@ public class UserServiceImpl implements UserService {
         return userTypeFilter(getAllUsers(),"teacher");
     }
 
+    @Override
+    public List<User> getUsersForSchool(String schoolId) {
+        return (List<User>) h.idFieldSwap(rosterDao.getUsersForSchool(schoolId));
+    }
+
+    @Override
+    public List<User> getStudentsForSchool(String schoolId) {
+        return userTypeFilter(getUsersForSchool(schoolId),"student");
+    }
+
+    @Override
+    public List<User> getTeachersForSchool(String schoolId) {
+        return userTypeFilter(getUsersForSchool(schoolId),"teacher");
+    }
+
     private static List<User> userTypeFilter(List<User> userList, String role){
         return userList.stream()
                 .filter(u -> u.getRole().equals(role))

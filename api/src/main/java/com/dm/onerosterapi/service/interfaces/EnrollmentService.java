@@ -8,5 +8,6 @@ public interface EnrollmentService {
 
     public Enrollment getBySourcedId(String enrollmentId);
     public List<Enrollment> getAllEnrollments();
+    public List<Enrollment> getEnrollmentsForSchool(String schoolId);
 
 }

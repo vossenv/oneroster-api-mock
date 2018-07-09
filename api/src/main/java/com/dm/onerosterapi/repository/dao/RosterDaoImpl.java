@@ -1,6 +1,8 @@
 package com.dm.onerosterapi.repository.dao;
 
 import com.dm.onerosterapi.model.ClassOfCourse;
+import com.dm.onerosterapi.model.Course;
+import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -64,6 +66,27 @@ public class RosterDaoImpl implements RosterDao {
         return (List<ClassOfCourse>) entityManager.createQuery(queryText).getResultList();
     }
 
+    @Override
+    public List<Course> getCoursesBySchool(String sourcedId) {
+        String queryText = "select c from Course c join fetch School s on c.schoolId=s.schoolId " +
+                "where s.sourcedId = " + surround(sourcedId);
+
+        return (List<Course>) entityManager.createQuery(queryText).getResultList();
+    }
+
+    @Override
+    public List<Enrollment> getEnrollmentsForSchool(String sourcedId) {
+        String queryText = "select e from Enrollment e join fetch ClassOfCourse c on e.classId=c.classId " +
+                "join fetch School s on c.schoolId=s.schoolId " +
+                "where s.sourcedId = " + surround(sourcedId);
+
+        return (List<Enrollment>) entityManager.createQuery(queryText).getResultList();
+    }
+
+    @Override
+    public List<User> getUsersForSchool(String schoolId) {
+        return null;
+    }
 }
 
 
