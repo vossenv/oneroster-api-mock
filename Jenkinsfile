@@ -10,6 +10,7 @@ pipeline {
             steps {
                 echo 'Building..'
 				dir("api") {
+					sh 'chmod +x gradlew'
 					sh './gradlew clean unitTest'
 					sh './gradlew clean assemble'
 				}
