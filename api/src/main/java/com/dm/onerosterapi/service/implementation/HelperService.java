@@ -43,7 +43,7 @@ public class HelperService {
 
                 try{
 
-                    int fieldVal = Integer.parseInt(field.get(o).toString());
+                    String fieldVal = field.get(o).toString();
 
                     switch (field.getName()) {
                         case "schoolId": field.set(o,schoolRepository.findBySchoolId(fieldVal).getSourcedId()); break;

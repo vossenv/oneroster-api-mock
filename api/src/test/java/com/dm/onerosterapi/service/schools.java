@@ -23,13 +23,13 @@ public class schools {
     SchoolService schoolService;
 
     private static final String tstSId = "f9a75f84-130b-419e-bbe6-463585e930e9";
-    private static final int tstId = 1;
+    private static final String tstId = "1";
 
 	@Test
 	public void getAllSchools(){
         List<School> schoolList = schoolService.getAllSchools();
         assertEquals(schoolList.size(),2);
-        assertTrue(checkValues(schoolList.get(tstId - 1)));
+        assertTrue(checkValues(schoolList.get(0)));
 	}
 
     @Test
@@ -41,7 +41,7 @@ public class schools {
     @Test
     public void testFailedSearch(){
         try {
-            School o = schoolService.getSchoolById(12);
+            School o = schoolService.getSchoolById("12");
             fail("NP Exception expected");
         } catch (Exception e){
             // pass

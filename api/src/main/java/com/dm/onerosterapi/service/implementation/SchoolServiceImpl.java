@@ -29,7 +29,7 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public School getSchoolById(int schoolId) {
+    public School getSchoolById(String schoolId) {
         return (School) h.idFieldSwap(schoolRepository.findBySchoolId(schoolId));
     }
 

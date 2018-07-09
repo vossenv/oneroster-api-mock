@@ -30,7 +30,7 @@ public class ClassServiceImpl implements ClassService {
 
 
     @Override
-    public ClassOfCourse getClassById(int classId) {
+    public ClassOfCourse getClassById(String classId) {
         return (ClassOfCourse) h.idFieldSwap(classRepository.findByClassId(classId));
     }
 

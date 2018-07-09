@@ -21,13 +21,13 @@ public class classes {
     ClassService classService;
 
 	private static final String tstSId = "dca81f5a-1d99-491a-85fb-ad9591d4b96d";
-	private static final int tstId = 65;
+	private static final String tstId = "65";
 
 	@Test
 	public void getAllClassOfCourses(){
         List<ClassOfCourse> classList = classService.getAllClasses();
         assertEquals(classList.size(),84);
-        assertTrue(checkValues(classList.get(tstId - 1)));
+        assertTrue(checkValues(classList.get(64)));
 	}
 
     @Test
@@ -45,7 +45,7 @@ public class classes {
     @Test
     public void testFailedSearch(){
 	    try {
-            ClassOfCourse c = classService.getClassById(300);
+            ClassOfCourse c = classService.getClassById("300");
             fail("NP Exception expected");
         } catch (Exception e){
 	        // pass

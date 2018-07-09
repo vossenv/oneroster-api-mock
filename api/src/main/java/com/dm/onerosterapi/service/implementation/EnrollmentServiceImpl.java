@@ -29,7 +29,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public Enrollment getEnrollmentById(int enrollmentId) {
+    public Enrollment getEnrollmentById(String enrollmentId) {
         return (Enrollment) h.idFieldSwap(enrollmentRepository.findByEnrollmentId(enrollmentId));
     }
 

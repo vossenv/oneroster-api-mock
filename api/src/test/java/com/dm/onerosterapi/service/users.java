@@ -22,7 +22,7 @@ public class users {
     UserService userService;
 
     private static final String tstSId = "8057df9d-72a3-419a-98b5-6eab87ec0a6d";
-    private static final int tstId = 65;
+    private static final String tstId = "65";
 
 	@Test
 	public void getAllUsers(){
@@ -34,7 +34,7 @@ public class users {
         assertEquals(teacherList.size(),8);
         assertEquals(userList.size(),300);
         assertEquals(studentList.size(),292);
-        assertTrue(checkValues(userList.get(tstId - 1)));
+        assertTrue(checkValues(userList.get(64)));
 
         for (User u : studentList){assertEquals(u.getRole(),"student");}
         for (User u : teacherList){assertEquals(u.getRole(),"teacher");}
@@ -43,7 +43,7 @@ public class users {
 
     @Test
     public void getUserById(){
-        User u = userService.getUserById(65);
+        User u = userService.getUserById("65");
         assertTrue(checkValues(u));
     }
 
@@ -64,7 +64,7 @@ public class users {
     @Test
     public void testFailedSearch(){
         try {
-            User u = userService.getUserById(1265);
+            User u = userService.getUserById("1265");
             fail("NP Exception expected");
         } catch (Exception e){
             // pass
