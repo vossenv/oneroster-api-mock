@@ -12,6 +12,7 @@ pipeline {
 					sh './gradlew clean assemble'
 					dir("build/libs") {
 						stash includes: 'oneroster-api-0.0.1-SNAPSHOT.jar', name: 'oneRoster'
+					}
 				}
             }
         }
