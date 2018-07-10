@@ -34,7 +34,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             return (List<Course>) h.idFieldSwap(courseRepository.findAll());
         } catch (NullPointerException e) {
-            throw new CourseNotFoundException("Search returned no results..." + e.getMessage());
+            throw new CourseNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -43,7 +43,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             return (Course) h.idFieldSwap(courseRepository.findBySourcedId(sourcedId));
         } catch (NullPointerException e) {
-            throw new CourseNotFoundException("Search returned no results..." + e.getMessage());
+            throw new CourseNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -52,7 +52,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             return (List<Course>) h.idFieldSwap(rosterDao.getCoursesBySchool(schoolSourcedId));
         } catch (NullPointerException e) {
-            throw new CourseNotFoundException("Search returned no results..." + e.getMessage());
+            throw new CourseNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 }

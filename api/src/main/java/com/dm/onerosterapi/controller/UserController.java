@@ -2,7 +2,6 @@ package com.dm.onerosterapi.controller;
 
 
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
-import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class UserController {
         this.classService = classService;
     }
 
-    @RequestMapping("/users")
+    @RequestMapping(value="/users", method=RequestMethod.GET)
     @ResponseBody
     public List<?> getAllUsers() throws UserNotFoundException {
         return userService.getAllUsers();
@@ -41,15 +40,10 @@ public class UserController {
         return userService.getAllTeachers();
     }
 
-
     @RequestMapping("/users/{id}")
     @ResponseBody
     public Object getUserById(@PathVariable("id") String id) throws UserNotFoundException {
-        try {
-            return userService.getUserBySourcedId(id);
-        } catch (UserNotFoundException e){
-            return "{}";
-        }
+        return userService.getUserBySourcedId(id);
     }
 
     @RequestMapping("/students/{id}")

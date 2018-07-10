@@ -1,7 +1,10 @@
 package com.dm.onerosterapi.service.implementation;
 
+import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.repository.jpa.*;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
 import java.util.List;
@@ -31,6 +34,7 @@ public class HelperService {
         this.enrollmentRepository = enrollmentRepository;
     }
 
+    public final static String NO_RESULTS_MESSAGE = "Search returned no results...";
 
     public List<?> idFieldSwap(List<?> objectList){
         objectList.forEach(this::idFieldSwap);
@@ -56,7 +60,7 @@ public class HelperService {
 
                 // We don't want to throw an error if we skip a field due to access failure
                 // Original field value will be maintained.
-            } catch (IllegalAccessException e){
+            } catch (IllegalAccessException | DataIntegrityViolationException e){
                 System.out.println(e.getMessage());
 
                 // NPE or NFE here just indicates a non-numeric field - Move to the next one!
@@ -67,6 +71,14 @@ public class HelperService {
 
         }
         return o;
+    }
+
+
+    public List<?> checkListSize(List<?> testList) throws ResourceNotFoundException {
+
+        if (testList.size() == 0) { throw new ResourceNotFoundException(NO_RESULTS_MESSAGE) ; }
+        else return testList;
+
     }
 
 

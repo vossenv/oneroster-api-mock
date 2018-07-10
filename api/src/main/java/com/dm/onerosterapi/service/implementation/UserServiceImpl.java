@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (User) h.idFieldSwap(userRepository.findBySourcedId(userId));
         } catch (NullPointerException e) {
-            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         User u = getUserBySourcedId(userId);
 
         if (u.getRole().equals("student")) return u; else
-            throw new UserNotFoundException("Search returned no results...");
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         User u = getUserBySourcedId(userId);
 
         if (u.getRole().equals("teacher")) return u; else
-            throw new UserNotFoundException("Search returned no results...");
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.idFieldSwap(userRepository.findAll());
         } catch (NullPointerException e) {
-            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.idFieldSwap(rosterDao.getUsersByClass(classSourcedId));
         } catch (NullPointerException e) {
-            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.idFieldSwap(rosterDao.getUsersBySchool(schoolId));
         } catch (NullPointerException e) {
-            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.idFieldSwap(rosterDao.getUsersForClassInSchool(classId, schoolId));
         } catch (NullPointerException e) {
-            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
