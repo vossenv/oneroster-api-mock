@@ -21,6 +21,7 @@ pipeline {
 				node ('stage') {
 					unstash "oneRoster"
 					sh 'java -jar oneroster-api-0.0.1-SNAPSHOT.jar'
+				}
 			}
 		}
         stage('Deploy') {
