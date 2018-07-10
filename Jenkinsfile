@@ -23,7 +23,7 @@ pipeline {
 					unstash "oneRoster"
 					script {
 						withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
-							sh 'nohup java -jar oneroster-api-0.0.1-SNAPSHOT.jar'
+							sh 'nohup java -jar oneroster-api-0.0.1-SNAPSHOT.jar &'
 						}
 					}
 					sh 'echo This is what you want to see'
