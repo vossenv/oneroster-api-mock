@@ -1,7 +1,8 @@
 pipeline {
     agent { label 'local' }
-	
-	jar_file = 'oneroster-api-0.0.1-SNAPSHOT.jar'
+	environment {
+		jar_file = 'oneroster-api-0.0.1-SNAPSHOT.jar'
+	}
 	
     stages {
         stage('Build') {
