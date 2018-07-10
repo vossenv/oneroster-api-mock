@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'local' }
 	tools {
 		maven 'Maven 3.5.4'
 		jdk 'JDK8'
@@ -8,6 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+				sh 'whoami'
                 echo 'Building..'
 				dir("api") {
 					sh 'chmod +x gradlew'
