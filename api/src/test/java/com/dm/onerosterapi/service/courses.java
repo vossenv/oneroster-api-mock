@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.model.ClassOfCourse;
+import com.dm.onerosterapi.exceptions.CourseNotFoundException;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.service.interfaces.CourseService;
 import org.junit.Test;
@@ -25,25 +25,30 @@ public class courses {
     private static final String tstSId = "2441eeb2-4df0-4726-a882-f0e722d129c6";
     private static final String tstId = "11";
 
+    @Test
+    public void getCourseBySourcedId() throws CourseNotFoundException {
+        assertTrue(checkValues(courseService.getBySourcedId(tstSId)));
+    }
+
 	@Test
-	public void getAllCourses(){
+	public void getAllCourses() throws CourseNotFoundException {
         List<Course> courseList = courseService.getAllCourses();
         assertEquals(courseList.size(),42);
         assertTrue(checkValues(courseList.get(10)));
 	}
 
-    @Test
-    public void getCourseById(){
-        Course c = courseService.getCourseById(tstId);
-        assertTrue(checkValues(c));
+	@Test
+    public void getCoursesBySchool() throws CourseNotFoundException {
+        List<Course> courseList = courseService.getCoursesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9");
+        assertEquals(courseList.size(),21);
     }
 
     @Test
     public void testFailedSearch(){
         try {
-            Course c = courseService.getCourseById("500");
+            Course c = courseService.getBySourcedId("500");
             fail("NP Exception expected");
-        } catch (Exception e){
+        } catch (CourseNotFoundException e){
             // pass
         }
     }

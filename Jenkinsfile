@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'local' }
 	environment {
-		jar_file = 'oneroster-api-0.0.1-SNAPSHOT.jar'
+		jar_file = 'oneroster-api-1.0.jar'
 	}
 	
     stages {
@@ -23,10 +23,10 @@ pipeline {
 				echo 'Testing...'
 				node ('stage') {
 					unstash "oneRoster"
-					sh 'pkill -f oneroster-api-0.0.1-SNAPSHOT.jar || true'
+					sh 'pkill -f oneroster-api || true'
 					script {
 						withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
-							sh 'nohup java -jar oneroster-api-0.0.1-SNAPSHOT.jar &'
+							sh 'nohup java -jar oneroster-api-1.0.jar &'
 						}
 					}
 				}

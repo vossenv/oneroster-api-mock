@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
+import com.dm.onerosterapi.exceptions.CourseNotFoundException;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.CourseRepository;
@@ -22,24 +23,36 @@ public class CourseServiceImpl implements CourseService {
             RosterDao rosterDao,
             CourseRepository courseRepository,
             HelperService h
-    ){
+    ) {
         this.rosterDao = rosterDao;
         this.courseRepository = courseRepository;
         this.h = h;
     }
 
     @Override
-    public Course getCourseById(String courseId) {
-        return (Course)  h.idFieldSwap(courseRepository.findByCourseId(courseId));
+    public List<Course> getAllCourses() throws CourseNotFoundException {
+        try {
+            return (List<Course>) h.idFieldSwap(courseRepository.findAll());
+        } catch (NullPointerException e) {
+            throw new CourseNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 
     @Override
-    public List<Course> getAllCourses() {
-        return (List<Course>) h.idFieldSwap(courseRepository.findAll());
+    public Course getBySourcedId(String sourcedId) throws CourseNotFoundException {
+        try {
+            return (Course) h.idFieldSwap(courseRepository.findBySourcedId(sourcedId));
+        } catch (NullPointerException e) {
+            throw new CourseNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 
     @Override
-    public Course getBySourcedId(String sourcedId) {
-        return (Course) h.idFieldSwap(courseRepository.findBySourcedId(sourcedId));
+    public List<Course> getCoursesBySchool(String schoolSourcedId) throws CourseNotFoundException {
+        try {
+            return (List<Course>) h.idFieldSwap(rosterDao.getCoursesBySchool(schoolSourcedId));
+        } catch (NullPointerException e) {
+            throw new CourseNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 }

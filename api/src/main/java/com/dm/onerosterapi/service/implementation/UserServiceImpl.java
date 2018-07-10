@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
+import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
@@ -7,7 +8,6 @@ import com.dm.onerosterapi.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,57 +24,119 @@ public class UserServiceImpl implements UserService {
             HelperService h,
             RosterDao rosterDao,
             UserRepository userRepository
-    ){
+    ) {
         this.h = h;
         this.rosterDao = rosterDao;
         this.userRepository = userRepository;
     }
 
-
     @Override
-    public User getUserById(String userId) {
-        return (User) h.idFieldSwap(userRepository.findByUserId(userId));
+    public User getUserBySourcedId(String userId) throws UserNotFoundException {
+        try {
+            return (User) h.idFieldSwap(userRepository.findBySourcedId(userId));
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 
     @Override
-    public User getBySourcedId(String userId) {
-        return (User) h.idFieldSwap(userRepository.findBySourcedId(userId));
+    public User getStudentBySourcedId(String userId) throws UserNotFoundException {
+        User u = getUserBySourcedId(userId);
+
+        if (u.getRole().equals("student")) return u; else
+            throw new UserNotFoundException("Search returned no results...");
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return (List<User>) h.idFieldSwap(userRepository.findAll());
+    public User getTeacherBySourcedId(String userId) throws UserNotFoundException {
+        User u = getUserBySourcedId(userId);
+
+        if (u.getRole().equals("teacher")) return u; else
+            throw new UserNotFoundException("Search returned no results...");
     }
 
     @Override
-    public List<User> getUsersByClass(String classSourcedId) {
-        return (List<User>) h.idFieldSwap(rosterDao.getUsersByClass(classSourcedId));
+    public List<User> getAllUsers() throws UserNotFoundException {
+        try {
+            return (List<User>) h.idFieldSwap(userRepository.findAll());
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 
     @Override
-    public List<User> getStudentsByClass(String classSourcedId){
-        return userTypeFilter(getUsersByClass(classSourcedId),"student");
+    public List<User> getUsersByClass(String classSourcedId) throws UserNotFoundException {
+        try {
+            return (List<User>) h.idFieldSwap(rosterDao.getUsersByClass(classSourcedId));
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 
     @Override
-    public List<User> getTeachersByClass(String classSourcedId){
-        return userTypeFilter(getUsersByClass(classSourcedId),"teacher");
+    public List<User> getStudentsByClass(String classSourcedId) throws UserNotFoundException {
+        return userTypeFilter(getUsersByClass(classSourcedId), "student");
     }
 
     @Override
-    public List<User> getAllStudents(){
-        return userTypeFilter(getAllUsers(),"student");
+    public List<User> getTeachersByClass(String classSourcedId) throws UserNotFoundException {
+        return userTypeFilter(getUsersByClass(classSourcedId), "teacher");
     }
 
     @Override
-    public List<User> getAllTeachers(){
-        return userTypeFilter(getAllUsers(),"teacher");
+    public List<User> getAllStudents() throws UserNotFoundException {
+        return userTypeFilter(getAllUsers(), "student");
     }
 
-    private static List<User> userTypeFilter(List<User> userList, String role){
+    @Override
+    public List<User> getAllTeachers() throws UserNotFoundException {
+        return userTypeFilter(getAllUsers(), "teacher");
+    }
+
+    @Override
+    public List<User> getUsersBySchool(String schoolId) throws UserNotFoundException {
+        try {
+            return (List<User>) h.idFieldSwap(rosterDao.getUsersBySchool(schoolId));
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<User> getStudentsBySchool(String schoolId) throws UserNotFoundException {
+        return userTypeFilter(getUsersBySchool(schoolId), "student");
+    }
+
+    @Override
+    public List<User> getTeachersBySchool(String schoolId) throws UserNotFoundException {
+        return userTypeFilter(getUsersBySchool(schoolId), "teacher");
+    }
+
+    @Override
+    public List<User> getUsersForClassInSchool(String classId, String schoolId) throws UserNotFoundException {
+        try {
+            return (List<User>) h.idFieldSwap(rosterDao.getUsersForClassInSchool(classId, schoolId));
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<User> getStudentsForClassInSchool(String classId, String schoolId) throws UserNotFoundException {
+        return userTypeFilter(getUsersForClassInSchool(classId, schoolId), "student");
+    }
+
+    @Override
+    public List<User> getTeachersForClassInSchool(String classId, String schoolId) throws UserNotFoundException {
+        return userTypeFilter(getUsersForClassInSchool(classId, schoolId), "teacher");
+    }
+
+    private static List<User> userTypeFilter(List<User> userList, String role) {
         return userList.stream()
                 .filter(u -> u.getRole().equals(role))
                 .collect(Collectors.toList());
     }
+
+
 }
 

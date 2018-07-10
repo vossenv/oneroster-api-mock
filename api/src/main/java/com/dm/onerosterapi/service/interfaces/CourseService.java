@@ -1,13 +1,13 @@
 package com.dm.onerosterapi.service.interfaces;
 
+import com.dm.onerosterapi.exceptions.CourseNotFoundException;
 import com.dm.onerosterapi.model.*;
 
 import java.util.List;
 
 public interface CourseService {
 
-    public Course getCourseById(String courseId);
-    public Course getBySourcedId(String sourcedId);
-    public List<Course> getAllCourses();
-
+    public Course getBySourcedId(String sourcedId) throws CourseNotFoundException;
+    public List<Course> getAllCourses() throws CourseNotFoundException;
+    public List<Course> getCoursesBySchool(String schoolSourcedId) throws CourseNotFoundException;
 }

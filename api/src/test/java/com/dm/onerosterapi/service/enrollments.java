@@ -1,7 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.model.ClassOfCourse;
-import com.dm.onerosterapi.model.Course;
+import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import org.junit.Test;
@@ -26,25 +25,44 @@ public class enrollments {
     private static final String tstSId = "44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb";
     private static final String tstId = "650";
 
+    @Test
+    public void getEnrollmentBySourcedId() throws EnrollmentNotFoundException {
+        assertTrue(checkValues(enrollmentService.getBySourcedId(tstSId)));
+    }
+
 	@Test
-	public void getAllEnrollments(){
+	public void getAllEnrollments() throws EnrollmentNotFoundException {
         List<Enrollment> enrollmentList = enrollmentService.getAllEnrollments();
         assertEquals(enrollmentList.size(),4200);
         assertTrue(checkValues(enrollmentList.get(649)));
 	}
 
-    @Test
-    public void getEnrollmentById(){
-        Enrollment e = enrollmentService.getEnrollmentById(tstId);
-        assertTrue(checkValues(e));
+	@Test
+    public void getEnrollmentsForSchool() throws EnrollmentNotFoundException {
+        List<Enrollment> enrollmentList = enrollmentService.getEnrollmentsForSchool("f9a75f84-130b-419e-bbe6-463585e930e9");
+        assertEquals(enrollmentList.size(),2076);
+
+        enrollmentList = enrollmentService.getEnrollmentsForSchool("f5897384-9488-466f-b049-1992f7a53f15");
+        assertEquals(enrollmentList.size(),2124);
+
     }
+
+    @Test
+    public void getEnrollmentsForClassInSchool() throws EnrollmentNotFoundException {
+        String schoolId = "f9a75f84-130b-419e-bbe6-463585e930e9";
+        String classId = "2ba9f25c-ef54-4072-85ab-2db066988091";
+
+        List<Enrollment> enrollmentList = enrollmentService.getEnrollmentsForClassInSchool(classId,schoolId);
+        assertEquals(enrollmentList.size(),47);
+    }
+
 
     @Test
     public void testFailedSearch(){
         try {
-            Enrollment e = enrollmentService.getEnrollmentById("-1");
+            Enrollment e = enrollmentService.getBySourcedId("-1");
             fail("NP Exception expected");
-        } catch (Exception e){
+        } catch (EnrollmentNotFoundException e){
             // pass
         }
     }

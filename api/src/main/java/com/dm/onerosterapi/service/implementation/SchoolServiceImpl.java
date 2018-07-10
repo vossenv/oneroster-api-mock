@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
+import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.School;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.SchoolRepository;
@@ -22,24 +23,27 @@ public class SchoolServiceImpl implements SchoolService {
             RosterDao rosterDao,
             SchoolRepository schoolRepository,
             HelperService h
-    ){
+    ) {
         this.rosterDao = rosterDao;
         this.schoolRepository = schoolRepository;
         this.h = h;
     }
 
     @Override
-    public School getSchoolById(String schoolId) {
-        return (School) h.idFieldSwap(schoolRepository.findBySchoolId(schoolId));
+    public List<School> getAllSchools() throws SchoolNotFoundException {
+        try {
+            return (List<School>) h.idFieldSwap(schoolRepository.findAll());
+        } catch (NullPointerException e) {
+            throw new SchoolNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 
     @Override
-    public List<School> getAllSchools() {
-        return (List<School>) h.idFieldSwap(schoolRepository.findAll());
-    }
-
-    @Override
-    public School getBySourcedId(String schoolId) {
-        return (School) h.idFieldSwap(schoolRepository.findBySourcedId(schoolId));
+    public School getBySourcedId(String schoolId) throws SchoolNotFoundException {
+        try {
+            return (School) h.idFieldSwap(schoolRepository.findBySourcedId(schoolId));
+        } catch (NullPointerException e) {
+            throw new SchoolNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 }
