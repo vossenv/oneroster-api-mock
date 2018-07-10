@@ -49,6 +49,16 @@ public class enrollments {
     }
 
     @Test
+    public void getEnrollmentsForClassInSchool(){
+        String schoolId = "f9a75f84-130b-419e-bbe6-463585e930e9";
+        String classId = "2ba9f25c-ef54-4072-85ab-2db066988091";
+
+        List<Enrollment> enrollmentList = enrollmentService.getEnrollmentsForClassInSchool(classId,schoolId);
+        assertEquals(enrollmentList.size(),47);
+    }
+
+
+    @Test
     public void testFailedSearch(){
         try {
             Enrollment e = enrollmentService.getBySourcedId("-1");

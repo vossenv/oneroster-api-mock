@@ -7,7 +7,6 @@ import com.dm.onerosterapi.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,18 +65,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsersForSchool(String schoolId) {
-        return (List<User>) h.idFieldSwap(rosterDao.getUsersForSchool(schoolId));
+    public List<User> getUsersBySchool(String schoolId) {
+        return (List<User>) h.idFieldSwap(rosterDao.getUsersBySchool(schoolId));
     }
 
     @Override
-    public List<User> getStudentsForSchool(String schoolId) {
-        return userTypeFilter(getUsersForSchool(schoolId),"student");
+    public List<User> getStudentsBySchool(String schoolId) {
+        return userTypeFilter(getUsersBySchool(schoolId),"student");
     }
 
     @Override
-    public List<User> getTeachersForSchool(String schoolId) {
-        return userTypeFilter(getUsersForSchool(schoolId),"teacher");
+    public List<User> getTeachersBySchool(String schoolId) {
+        return userTypeFilter(getUsersBySchool(schoolId),"teacher");
+    }
+
+    @Override
+    public List<User> getUsersForClassInSchool(String classId, String schoolId) {
+        return (List<User>) h.idFieldSwap(rosterDao.getUsersForClassInSchool(classId, schoolId));
+    }
+
+    @Override
+    public List<User> getStudentsForClassInSchool(String classId, String schoolId) {
+        return userTypeFilter(getUsersForClassInSchool(classId, schoolId),"student");
+    }
+
+    @Override
+    public List<User> getTeachersForClassInSchool(String classId, String schoolId) {
+        return userTypeFilter(getUsersForClassInSchool(classId, schoolId),"teacher");
     }
 
     private static List<User> userTypeFilter(List<User> userList, String role){
@@ -85,5 +99,7 @@ public class UserServiceImpl implements UserService {
                 .filter(u -> u.getRole().equals(role))
                 .collect(Collectors.toList());
     }
+
+
 }
 

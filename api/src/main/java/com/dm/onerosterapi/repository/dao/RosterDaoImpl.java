@@ -75,7 +75,7 @@ public class RosterDaoImpl implements RosterDao {
     }
 
     @Override
-    public List<Enrollment> getEnrollmentsForSchool(String sourcedId) {
+    public List<Enrollment> getEnrollmentsBySchool(String sourcedId) {
         String queryText = "select e from Enrollment e join fetch ClassOfCourse c on e.classId=c.classId " +
                 "join fetch School s on c.schoolId=s.schoolId " +
                 "where s.sourcedId = " + surround(sourcedId);
@@ -84,8 +84,32 @@ public class RosterDaoImpl implements RosterDao {
     }
 
     @Override
-    public List<User> getUsersForSchool(String schoolId) {
-        return null;
+    public List<User> getUsersBySchool(String sourcedId) {
+        String queryText = "select u from User u join fetch School s on u.schoolId=s.schoolId " +
+                "where s.sourcedId = " + surround(sourcedId);
+
+        return (List<User>) entityManager.createQuery(queryText).getResultList();
+    }
+
+    @Override
+    public List<Enrollment> getEnrollmentsForClassInSchool(String classId, String schoolId) {
+        String queryText = "select e from Enrollment e join fetch ClassOfCourse c on e.classId=c.classId " +
+                "join fetch School s on c.schoolId=s.schoolId " +
+                "where s.sourcedId = " + surround(schoolId) + " " +
+                "and c.sourcedId = " + surround(classId);
+
+        return (List<Enrollment>) entityManager.createQuery(queryText).getResultList();
+    }
+
+    @Override
+    public List<User> getUsersForClassInSchool(String classId, String schoolId) {
+        String queryText = "select u from User u join fetch School s on u.schoolId=s.schoolId " +
+                "join fetch Enrollment e on e.userId = u.userId " +
+                "join fetch ClassOfCourse c on c.classId = e.classId " +
+                "where s.sourcedId = " + surround(schoolId) + " " +
+                "and c.sourcedId = " + surround(classId);
+
+        return (List<User>) entityManager.createQuery(queryText).getResultList();
     }
 }
 

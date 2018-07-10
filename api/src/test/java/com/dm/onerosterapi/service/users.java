@@ -1,6 +1,5 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.model.School;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.junit.Test;
@@ -46,7 +45,7 @@ public class users {
 
 	}
 
-    // Custom Queries
+
     @Test
     public void getUsersByClass(){
         String classId = "cee2f870-852c-47e8-988a-73e2c296fc77";
@@ -58,6 +57,38 @@ public class users {
         assertEquals(userList.size(),55);
         assertEquals(studentList.size(),47);
         assertEquals(teacherList.size(),8);
+    }
+
+    @Test
+    public void getUsersForSchool(){
+
+        String schoolId = "f9a75f84-130b-419e-bbe6-463585e930e9";
+
+        List<User> userList = userService.getUsersBySchool(schoolId);
+        List<User> studentList = userService.getStudentsBySchool(schoolId);
+        List<User> teacherList = userService.getTeachersBySchool(schoolId);
+
+        assertEquals(userList.size(),150);
+        assertEquals(studentList.size(),146);
+        assertEquals(teacherList.size(),4);
+
+    }
+
+
+    @Test
+    public void getUsersForClassInSchool(){
+
+        String schoolId = "f5897384-9488-466f-b049-1992f7a53f15";
+        String classId = "de02e4fa-9f8e-4f05-86fb-1173a246594c";
+
+        List<User> userList = userService.getUsersForClassInSchool(classId, schoolId);
+        List<User> studentList = userService.getStudentsForClassInSchool(classId, schoolId);
+        List<User> teacherList = userService.getTeachersForClassInSchool(classId, schoolId);
+
+        assertEquals(userList.size(),54);
+        assertEquals(studentList.size(),50);
+        assertEquals(teacherList.size(),4);
+
     }
 
     @Test

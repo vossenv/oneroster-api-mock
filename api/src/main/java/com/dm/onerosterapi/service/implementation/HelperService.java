@@ -14,18 +14,21 @@ public class HelperService {
     private ClassRepository classRepository;
     private UserRepository userRepository;
     private CourseRepository courseRepository;
+    private EnrollmentRepository enrollmentRepository;
 
     @Autowired
     public HelperService (
             SchoolRepository schoolRepository,
             ClassRepository classRepository,
             UserRepository userRepository,
-            CourseRepository courseRepository
+            CourseRepository courseRepository,
+            EnrollmentRepository enrollmentRepository
     ){
         this.schoolRepository = schoolRepository;
         this.classRepository = classRepository;
         this.userRepository = userRepository;
         this.courseRepository = courseRepository;
+        this.enrollmentRepository = enrollmentRepository;
     }
 
 
@@ -48,6 +51,7 @@ public class HelperService {
                     case "userId": field.set(o,userRepository.findByUserId(fieldVal).getSourcedId()); break;
                     case "courseId": field.set(o,courseRepository.findByCourseId(fieldVal).getSourcedId()); break;
                     case "classId": field.set(o,classRepository.findByClassId(fieldVal).getSourcedId()); break;
+                    case "enrollmentId": field.set(o,enrollmentRepository.findByEnrollmentId(fieldVal).getSourcedId()); break;
                 }
 
                 // We don't want to throw an error if we skip a field due to access failure
