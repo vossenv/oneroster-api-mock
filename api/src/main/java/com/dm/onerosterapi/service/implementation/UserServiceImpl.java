@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.Exceptions.UserNotFoundException;
+import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
@@ -31,12 +31,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getBySourcedId(String userId) throws UserNotFoundException {
+    public User getUserBySourcedId(String userId) throws UserNotFoundException {
         try {
             return (User) h.idFieldSwap(userRepository.findBySourcedId(userId));
         } catch (NullPointerException e) {
-            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
+    }
+
+    @Override
+    public User getStudentBySourcedId(String userId) throws UserNotFoundException {
+        User u = getUserBySourcedId(userId);
+
+        if (u.getRole().equals("student")) return u; else
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
+    }
+
+    @Override
+    public User getTeacherBySourcedId(String userId) throws UserNotFoundException {
+        User u = getUserBySourcedId(userId);
+
+        if (u.getRole().equals("teacher")) return u; else
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
     }
 
     @Override
@@ -44,7 +60,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.idFieldSwap(userRepository.findAll());
         } catch (NullPointerException e) {
-            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -53,7 +69,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.idFieldSwap(rosterDao.getUsersByClass(classSourcedId));
         } catch (NullPointerException e) {
-            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -82,7 +98,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.idFieldSwap(rosterDao.getUsersBySchool(schoolId));
         } catch (NullPointerException e) {
-            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -101,7 +117,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.idFieldSwap(rosterDao.getUsersForClassInSchool(classId, schoolId));
         } catch (NullPointerException e) {
-            throw new UserNotFoundException("Search returned no results..." + e.getMessage());
+            throw new UserNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 

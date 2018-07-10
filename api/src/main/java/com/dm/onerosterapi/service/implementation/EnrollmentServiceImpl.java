@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.Exceptions.EnrollmentNotFoundException;
+import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.EnrollmentRepository;
@@ -34,7 +34,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (List<Enrollment>) h.idFieldSwap(enrollmentRepository.findAll());
         } catch (NullPointerException e) {
-            throw new EnrollmentNotFoundException("Search returned no results..." + e.getMessage());
+            throw new EnrollmentNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -43,7 +43,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (Enrollment) h.idFieldSwap(enrollmentRepository.findBySourcedId(enrollmentId));
         } catch (NullPointerException e) {
-            throw new EnrollmentNotFoundException("Search returned no results..." + e.getMessage());
+            throw new EnrollmentNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -53,7 +53,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (List<Enrollment>) h.idFieldSwap(rosterDao.getEnrollmentsBySchool(schoolId));
         } catch (NullPointerException e) {
-            throw new EnrollmentNotFoundException("Search returned no results..." + e.getMessage());
+            throw new EnrollmentNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
 
     }
@@ -63,7 +63,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (List<Enrollment>) h.idFieldSwap(rosterDao.getEnrollmentsForClassInSchool(classId, schoolId));
         } catch (NullPointerException e) {
-            throw new EnrollmentNotFoundException("Search returned no results..." + e.getMessage());
+            throw new EnrollmentNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 }

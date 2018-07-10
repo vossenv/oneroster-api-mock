@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
+import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.ClassRepository;
@@ -33,9 +34,9 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<ClassOfCourse> getAllClasses() throws ClassNotFoundException {
         try {
-            return (List<ClassOfCourse>) h.idFieldSwap(classRepository.findAll());
-        } catch (NullPointerException e) {
-            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+            return (List<ClassOfCourse>) h.checkListSize(h.idFieldSwap(classRepository.findAll()));
+        } catch (NullPointerException | ResourceNotFoundException e) {
+            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -44,7 +45,7 @@ public class ClassServiceImpl implements ClassService {
         try {
             return (ClassOfCourse) h.idFieldSwap(classRepository.findBySourcedId(classId));
         } catch (NullPointerException e) {
-            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -65,35 +66,35 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<ClassOfCourse> getClassesByCourse(String courseSourcedId) throws ClassNotFoundException {
         try {
-            return (List<ClassOfCourse>) h.idFieldSwap(rosterDao.getClassesByCourse(courseSourcedId));
-        } catch (NullPointerException e) {
-            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+            return (List<ClassOfCourse>) h.checkListSize(h.idFieldSwap(rosterDao.getClassesByCourse(courseSourcedId)));
+        } catch (NullPointerException | ResourceNotFoundException e) {
+            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
     @Override
     public List<ClassOfCourse> getClassesByTerm(String term) throws ClassNotFoundException {
         try {
-            return (List<ClassOfCourse>) h.idFieldSwap(classRepository.findByTerm(term));
-        } catch (NullPointerException e) {
-            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+            return (List<ClassOfCourse>) h.checkListSize(h.idFieldSwap(classRepository.findByTerm(term)));
+        } catch (NullPointerException | ResourceNotFoundException e) {
+            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
     @Override
     public List<ClassOfCourse> getClassesBySchool(String schoolSourcedId) throws ClassNotFoundException {
         try {
-            return (List<ClassOfCourse>) h.idFieldSwap(rosterDao.getClassesBySchool(schoolSourcedId));
-        } catch (NullPointerException e) {
-            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+            return (List<ClassOfCourse>) h.checkListSize(h.idFieldSwap(rosterDao.getClassesBySchool(schoolSourcedId)));
+        } catch (NullPointerException | ResourceNotFoundException e) {
+            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
     private List<ClassOfCourse> getClassesByUser(String userSourcedId, String role) throws ClassNotFoundException {
         try {
-            return (List<ClassOfCourse>) h.idFieldSwap(rosterDao.getClassesByUser(userSourcedId, role));
-        } catch (NullPointerException e) {
-            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+            return (List<ClassOfCourse>) h.checkListSize(h.idFieldSwap(rosterDao.getClassesByUser(userSourcedId, role)));
+        } catch (NullPointerException | ResourceNotFoundException e) {
+            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 

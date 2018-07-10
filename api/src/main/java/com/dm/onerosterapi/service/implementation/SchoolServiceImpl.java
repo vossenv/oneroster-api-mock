@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.Exceptions.SchoolNotFoundException;
+import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.School;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.SchoolRepository;
@@ -34,7 +34,7 @@ public class SchoolServiceImpl implements SchoolService {
         try {
             return (List<School>) h.idFieldSwap(schoolRepository.findAll());
         } catch (NullPointerException e) {
-            throw new SchoolNotFoundException("Search returned no results..." + e.getMessage());
+            throw new SchoolNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 
@@ -43,7 +43,7 @@ public class SchoolServiceImpl implements SchoolService {
         try {
             return (School) h.idFieldSwap(schoolRepository.findBySourcedId(schoolId));
         } catch (NullPointerException e) {
-            throw new SchoolNotFoundException("Search returned no results..." + e.getMessage());
+            throw new SchoolNotFoundException(HelperService.NO_RESULTS_MESSAGE);
         }
     }
 }
