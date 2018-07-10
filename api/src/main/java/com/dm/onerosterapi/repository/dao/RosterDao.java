@@ -15,9 +15,12 @@ public interface RosterDao {
     public List<ClassOfCourse> getClassesByUser(String userSourcedId, String role);
     public List<ClassOfCourse> getClassesByCourse(String courseId);
 
-    public List<ClassOfCourse> getClassesBySchool(String schoolId);
-    public List<Course> getCoursesBySchool(String schoolId);
-    public List<Enrollment> getEnrollmentsForSchool(String schoolId);
-    public List<User> getUsersForSchool(String schoolId);
+    public List<ClassOfCourse> getClassesBySchool(String schoolSourcedId);
+    public List<Course> getCoursesBySchool(String schoolSourcedId);
+    public List<Enrollment> getEnrollmentsBySchool(String schoolSourcedId);
+    public List<User> getUsersBySchool(String schoolSourcedId);
+
+    public List<Enrollment> getEnrollmentsForClassInSchool(String classId, String schoolId);
+    public List<User> getUsersForClassInSchool(String classId, String schoolId);
 
 }

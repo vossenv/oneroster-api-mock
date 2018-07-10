@@ -40,6 +40,11 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
     @Override
     public List<Enrollment> getEnrollmentsForSchool(String schoolId) {
-        return (List<Enrollment>) h.idFieldSwap(rosterDao.getEnrollmentsForSchool(schoolId));
+        return (List<Enrollment>) h.idFieldSwap(rosterDao.getEnrollmentsBySchool(schoolId));
+    }
+
+    @Override
+    public List<Enrollment> getEnrollmentsForClassInSchool(String classId, String schoolId) {
+        return (List<Enrollment>) h.idFieldSwap(rosterDao.getEnrollmentsForClassInSchool(classId, schoolId));
     }
 }
