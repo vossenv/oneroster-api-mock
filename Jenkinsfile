@@ -21,7 +21,11 @@ pipeline {
 				echo 'Testing...'
 				node ('stage') {
 					unstash "oneRoster"
-					sh 'java -jar oneroster-api-0.0.1-SNAPSHOT.jar'
+					script {
+						withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+							sh 'java -jar oneroster-api-0.0.1-SNAPSHOT.jar'
+						}
+					}
 				}
 			}
 		}
