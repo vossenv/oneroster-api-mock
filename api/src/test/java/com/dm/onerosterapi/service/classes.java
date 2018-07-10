@@ -24,25 +24,25 @@ public class classes {
 	private static final String tstId = "65";
 
     @Test
-    public void getClassOfCourseBySourcedId(){
+    public void getClassOfCourseBySourcedId() throws ClassNotFoundException{
         assertTrue(checkValues(classService.getBySourcedId(tstSId)));
     }
 
 	@Test
-	public void getAllClassOfCourses(){
+	public void getAllClassOfCourses() throws ClassNotFoundException {
         List<ClassOfCourse> classList = classService.getAllClasses();
         assertEquals(classList.size(),84);
         assertTrue(checkValues(classList.get(64)));
 	}
 
 	@Test
-    public void getClassesByUser(){
+    public void getClassesByUser() throws ClassNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesByUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
         assertEquals(classList.size(),14);
     }
 
     @Test
-    public void getClassesByStudent(){
+    public void getClassesByStudent() throws ClassNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesByStudent("cda272c0-bf6c-4e72-8b13-5f1f3be72339");
         assertEquals(classList.size(),14);
 
@@ -51,7 +51,7 @@ public class classes {
     }
 
     @Test
-    public void getClassesByTeacher(){
+    public void getClassesByTeacher() throws ClassNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesByTeacher("f1e4b385-b0c9-4054-ad08-95c580ac715d");
         assertEquals(classList.size(),14);
 
@@ -60,13 +60,13 @@ public class classes {
     }
 
     @Test
-    public void getClassesByCourse(){
+    public void getClassesByCourse() throws ClassNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesByCourse("7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4");
         assertEquals(classList.size(),2);
     }
 
     @Test
-    public void getClassesByTerm(){
+    public void getClassesByTerm() throws ClassNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesByTerm("Fall");
         assertEquals(classList.size(),42);
 
@@ -75,7 +75,7 @@ public class classes {
     }
 
     @Test
-    public void getClassesBySchool(){
+    public void getClassesBySchool() throws ClassNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(classList.size(),42);
     }
@@ -86,7 +86,7 @@ public class classes {
 	    try {
             ClassOfCourse c = classService.getBySourcedId("300");
             fail("NP Exception expected");
-        } catch (Exception e){
+        } catch (ClassNotFoundException e){
 	        // pass
         }
     }

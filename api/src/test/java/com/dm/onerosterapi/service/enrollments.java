@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.service;
 
+import com.dm.onerosterapi.Exceptions.EnrollmentNotFoundException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.model.Enrollment;
@@ -27,19 +28,19 @@ public class enrollments {
     private static final String tstId = "650";
 
     @Test
-    public void getEnrollmentBySourcedId(){
+    public void getEnrollmentBySourcedId() throws EnrollmentNotFoundException {
         assertTrue(checkValues(enrollmentService.getBySourcedId(tstSId)));
     }
 
 	@Test
-	public void getAllEnrollments(){
+	public void getAllEnrollments() throws EnrollmentNotFoundException {
         List<Enrollment> enrollmentList = enrollmentService.getAllEnrollments();
         assertEquals(enrollmentList.size(),4200);
         assertTrue(checkValues(enrollmentList.get(649)));
 	}
 
 	@Test
-    public void getEnrollmentsForSchool(){
+    public void getEnrollmentsForSchool() throws EnrollmentNotFoundException {
         List<Enrollment> enrollmentList = enrollmentService.getEnrollmentsForSchool("f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(enrollmentList.size(),2076);
 
@@ -49,7 +50,7 @@ public class enrollments {
     }
 
     @Test
-    public void getEnrollmentsForClassInSchool(){
+    public void getEnrollmentsForClassInSchool() throws EnrollmentNotFoundException {
         String schoolId = "f9a75f84-130b-419e-bbe6-463585e930e9";
         String classId = "2ba9f25c-ef54-4072-85ab-2db066988091";
 
@@ -63,7 +64,7 @@ public class enrollments {
         try {
             Enrollment e = enrollmentService.getBySourcedId("-1");
             fail("NP Exception expected");
-        } catch (Exception e){
+        } catch (EnrollmentNotFoundException e){
             // pass
         }
     }

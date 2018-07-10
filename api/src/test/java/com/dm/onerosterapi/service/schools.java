@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.service;
 
+import com.dm.onerosterapi.Exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.model.School;
 import com.dm.onerosterapi.service.interfaces.SchoolService;
@@ -26,12 +27,12 @@ public class schools {
     private static final String tstId = "1";
 
     @Test
-    public void getSchoolBySourcedId(){
+    public void getSchoolBySourcedId() throws SchoolNotFoundException {
         assertTrue(checkValues(schoolService.getBySourcedId(tstSId)));
     }
 
     @Test
-	public void getAllSchools(){
+	public void getAllSchools() throws SchoolNotFoundException {
         List<School> schoolList = schoolService.getAllSchools();
         assertEquals(schoolList.size(),2);
         assertTrue(checkValues(schoolList.get(0)));
@@ -42,7 +43,7 @@ public class schools {
         try {
             School o = schoolService.getBySourcedId("12");
             fail("NP Exception expected");
-        } catch (Exception e){
+        } catch (SchoolNotFoundException e){
             // pass
         }
     }

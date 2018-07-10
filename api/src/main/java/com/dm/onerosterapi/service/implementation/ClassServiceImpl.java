@@ -22,9 +22,8 @@ public class ClassServiceImpl implements ClassService {
     public ClassServiceImpl(
             RosterDao rosterDao,
             ClassRepository classRepository,
-            CourseRepository courseRepository,
             HelperService h
-    ){
+    ) {
         this.rosterDao = rosterDao;
         this.classRepository = classRepository;
         this.h = h;
@@ -32,48 +31,71 @@ public class ClassServiceImpl implements ClassService {
 
 
     @Override
-    public List<ClassOfCourse> getAllClasses() {
-        return (List<ClassOfCourse>) h.idFieldSwap(classRepository.findAll());
+    public List<ClassOfCourse> getAllClasses() throws ClassNotFoundException {
+        try {
+            return (List<ClassOfCourse>) h.idFieldSwap(classRepository.findAll());
+        } catch (NullPointerException e) {
+            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 
     @Override
-    public ClassOfCourse getBySourcedId(String classId) {
-        return (ClassOfCourse) h.idFieldSwap(classRepository.findBySourcedId(classId));
+    public ClassOfCourse getBySourcedId(String classId) throws ClassNotFoundException {
+        try {
+            return (ClassOfCourse) h.idFieldSwap(classRepository.findBySourcedId(classId));
+        } catch (NullPointerException e) {
+            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 
-    public List<ClassOfCourse> getClassesByUser(String userSourcedId){
-        return getClassesByUser(userSourcedId,"any");
-    }
-
-    @Override
-    public List<ClassOfCourse> getClassesByStudent(String userSourcedId) {
-        return getClassesByUser(userSourcedId,"student");
-    }
-
-    @Override
-    public List<ClassOfCourse> getClassesByTeacher(String userSourcedId) {
-        return getClassesByUser(userSourcedId,"teacher");
+    public List<ClassOfCourse> getClassesByUser(String userSourcedId) throws ClassNotFoundException {
+        return getClassesByUser(userSourcedId, "any");
     }
 
     @Override
-    public List<ClassOfCourse> getClassesByCourse(String courseSourcedId) {
-        return (List<ClassOfCourse>) h.idFieldSwap(rosterDao.getClassesByCourse(courseSourcedId));
+    public List<ClassOfCourse> getClassesByStudent(String userSourcedId) throws ClassNotFoundException {
+        return getClassesByUser(userSourcedId, "student");
     }
 
     @Override
-    public List<ClassOfCourse> getClassesByTerm(String term) {
-        return (List<ClassOfCourse>) h.idFieldSwap(classRepository.findByTerm(term));
+    public List<ClassOfCourse> getClassesByTeacher(String userSourcedId) throws ClassNotFoundException {
+        return getClassesByUser(userSourcedId, "teacher");
     }
 
     @Override
-    public List<ClassOfCourse> getClassesBySchool(String schoolSourcedId) {
-        return (List<ClassOfCourse>) h.idFieldSwap(rosterDao.getClassesBySchool(schoolSourcedId));
+    public List<ClassOfCourse> getClassesByCourse(String courseSourcedId) throws ClassNotFoundException {
+        try {
+            return (List<ClassOfCourse>) h.idFieldSwap(rosterDao.getClassesByCourse(courseSourcedId));
+        } catch (NullPointerException e) {
+            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 
-    private List<ClassOfCourse> getClassesByUser(String userSourcedId, String role) {
-        return (List<ClassOfCourse>) h.idFieldSwap(rosterDao.getClassesByUser(userSourcedId, role));
+    @Override
+    public List<ClassOfCourse> getClassesByTerm(String term) throws ClassNotFoundException {
+        try {
+            return (List<ClassOfCourse>) h.idFieldSwap(classRepository.findByTerm(term));
+        } catch (NullPointerException e) {
+            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+        }
     }
 
+    @Override
+    public List<ClassOfCourse> getClassesBySchool(String schoolSourcedId) throws ClassNotFoundException {
+        try {
+            return (List<ClassOfCourse>) h.idFieldSwap(rosterDao.getClassesBySchool(schoolSourcedId));
+        } catch (NullPointerException e) {
+            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+        }
+    }
+
+    private List<ClassOfCourse> getClassesByUser(String userSourcedId, String role) throws ClassNotFoundException {
+        try {
+            return (List<ClassOfCourse>) h.idFieldSwap(rosterDao.getClassesByUser(userSourcedId, role));
+        } catch (NullPointerException e) {
+            throw new ClassNotFoundException("Search returned no results..." + e.getMessage());
+        }
+    }
 
 
 }
