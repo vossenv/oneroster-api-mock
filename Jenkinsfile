@@ -1,7 +1,6 @@
 pipeline {
     agent { label 'local' }
 	tools {
-		gradle 'Gradle 4.8.1'
 		jdk 'JDK8'
 	}
 
