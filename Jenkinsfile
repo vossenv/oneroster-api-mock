@@ -30,7 +30,9 @@ pipeline {
 						}
 					}
 				}
-				sh './gradlew clean karateTest'
+				dir("api") {
+					sh './gradlew clean karateTest'
+				}
 			}
 		}
         stage('Deploy') {
