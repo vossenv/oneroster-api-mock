@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface ClassService {
 
-    public ClassOfCourse getBySourcedId(String classId);
-    public List<ClassOfCourse> getAllClasses();
-    public List<ClassOfCourse> getClassesByUser(String userSourcedId);
-    public List<ClassOfCourse> getClassesByStudent(String userSourcedId);
-    public List<ClassOfCourse> getClassesByTeacher(String userSourcedId);
-    public List<ClassOfCourse> getClassesByCourse(String courseSourcedId);
-    public List<ClassOfCourse> getClassesByTerm(String term);
-    public List<ClassOfCourse> getClassesBySchool(String schoolSourcedId);
+    public ClassOfCourse getBySourcedId(String classId) throws ClassNotFoundException;
+    public List<ClassOfCourse> getAllClasses() throws ClassNotFoundException;
+    public List<ClassOfCourse> getClassesByUser(String userSourcedId) throws ClassNotFoundException;
+    public List<ClassOfCourse> getClassesByStudent(String userSourcedId) throws ClassNotFoundException;
+    public List<ClassOfCourse> getClassesByTeacher(String userSourcedId) throws ClassNotFoundException;
+    public List<ClassOfCourse> getClassesByCourse(String courseSourcedId) throws ClassNotFoundException;
+    public List<ClassOfCourse> getClassesByTerm(String term) throws ClassNotFoundException;
+    public List<ClassOfCourse> getClassesBySchool(String schoolSourcedId) throws ClassNotFoundException;
 
 }

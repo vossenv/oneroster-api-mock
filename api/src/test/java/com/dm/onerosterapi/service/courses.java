@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.service;
 
+import com.dm.onerosterapi.Exceptions.CourseNotFoundException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.service.interfaces.CourseService;
@@ -26,19 +27,19 @@ public class courses {
     private static final String tstId = "11";
 
     @Test
-    public void getCourseBySourcedId(){
+    public void getCourseBySourcedId() throws CourseNotFoundException {
         assertTrue(checkValues(courseService.getBySourcedId(tstSId)));
     }
 
 	@Test
-	public void getAllCourses(){
+	public void getAllCourses() throws CourseNotFoundException {
         List<Course> courseList = courseService.getAllCourses();
         assertEquals(courseList.size(),42);
         assertTrue(checkValues(courseList.get(10)));
 	}
 
 	@Test
-    public void getCoursesBySchool(){
+    public void getCoursesBySchool() throws CourseNotFoundException {
         List<Course> courseList = courseService.getCoursesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(courseList.size(),21);
     }
@@ -48,7 +49,7 @@ public class courses {
         try {
             Course c = courseService.getBySourcedId("500");
             fail("NP Exception expected");
-        } catch (Exception e){
+        } catch (CourseNotFoundException e){
             // pass
         }
     }
