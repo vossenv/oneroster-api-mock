@@ -1,13 +1,10 @@
 pipeline {
     agent { label 'local' }
-	tools {
-		jdk 'JDK8'
-	}
-
     stages {
         stage('Build') {
             steps {
 				sh 'whoami'
+				sh 'echo $JAVA_HOME'
                 echo 'Building..'
 				dir("api") {
 					sh 'chmod +x gradlew'
