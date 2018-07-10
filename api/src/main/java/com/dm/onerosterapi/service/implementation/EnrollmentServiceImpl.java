@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.Exceptions.EnrollmentNotFoundException;
+import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.EnrollmentRepository;

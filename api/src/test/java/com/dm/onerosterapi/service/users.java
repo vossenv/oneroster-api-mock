@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.Exceptions.UserNotFoundException;
+import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.junit.Test;
@@ -26,8 +26,36 @@ public class users {
 
     @Test
     public void getUserBySourcedId() throws UserNotFoundException {
-        assertTrue(checkValues(userService.getBySourcedId(tstSId)));
+        assertTrue(checkValues(userService.getUserBySourcedId(tstSId)));
     }
+
+    @Test
+    public void getStudentBySourcedId() throws UserNotFoundException {
+        assertTrue(checkValues(userService.getStudentBySourcedId(tstSId)));
+
+        try {
+            userService.getStudentBySourcedId("f1e4b385-b0c9-4054-ad08-95c580ac715d");
+            fail ("Exception expected");
+        } catch (UserNotFoundException e){
+            // pass
+        }
+
+    }
+
+    @Test
+    public void getTeacherBySourcedId() throws UserNotFoundException {
+        assertEquals(userService.getTeacherBySourcedId(
+                "f1e4b385-b0c9-4054-ad08-95c580ac715d").getGivenName(),"Jobi");
+
+        try {
+            userService.getTeacherBySourcedId(tstSId);
+            fail ("Exception expected");
+        } catch (UserNotFoundException e){
+            // pass
+        }
+
+    }
+
 
 	@Test
 	public void getAllUsers() throws UserNotFoundException {
@@ -95,7 +123,7 @@ public class users {
     @Test
     public void testFailedSearch(){
         try {
-            User u = userService.getBySourcedId("1265");
+            User u = userService.getUserBySourcedId("1265");
             fail("NP Exception expected");
         } catch (UserNotFoundException e){
             // pass

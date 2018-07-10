@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service.interfaces;
 
-import com.dm.onerosterapi.Exceptions.CourseNotFoundException;
+import com.dm.onerosterapi.exceptions.CourseNotFoundException;
 import com.dm.onerosterapi.model.*;
 
 import java.util.List;
