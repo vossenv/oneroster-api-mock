@@ -43,12 +43,6 @@ public class classes {
     }
 
     @Test
-    public void getClassesByUser() throws ClassNotFoundException {
-        List<ClassOfCourse> classList = classService.getClassesByUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
-        assertEquals(classList.size(), 14);
-    }
-
-    @Test
     public void getClassesByStudent() throws ClassNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesByStudent("cda272c0-bf6c-4e72-8b13-5f1f3be72339");
         assertEquals(classList.size(), 14);
