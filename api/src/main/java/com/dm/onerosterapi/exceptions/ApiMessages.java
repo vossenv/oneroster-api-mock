@@ -1,4 +1,4 @@
-package com.dm.onerosterapi.exceptions1;
+package com.dm.onerosterapi.exceptions;
 
 public class ApiMessages {
 

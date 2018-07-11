@@ -5,7 +5,7 @@ import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.implementation.HelperService;
-import com.dm.onerosterapi.exceptions1.ResourceNotFoundException;
+import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

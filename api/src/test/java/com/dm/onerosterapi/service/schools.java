@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.exceptions1.SchoolNotFoundException;
+import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.School;
 import com.dm.onerosterapi.service.interfaces.SchoolService;
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.exceptions1.UserNotFoundException;
+import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.junit.Test;

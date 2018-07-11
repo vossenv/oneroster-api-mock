@@ -1,8 +1,8 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions1.ApiMessages;
-import com.dm.onerosterapi.exceptions1.ResourceNotFoundException;
-import com.dm.onerosterapi.exceptions1.SchoolNotFoundException;
+import com.dm.onerosterapi.exceptions.ApiMessages;
+import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
+import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.School;
 import com.dm.onerosterapi.repository.jpa.SchoolRepository;
 import com.dm.onerosterapi.service.interfaces.SchoolService;

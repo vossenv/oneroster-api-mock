@@ -1,8 +1,8 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions1.ApiMessages;
-import com.dm.onerosterapi.exceptions1.ResourceNotFoundException;
-import com.dm.onerosterapi.exceptions1.EnrollmentNotFoundException;
+import com.dm.onerosterapi.exceptions.ApiMessages;
+import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
+import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.EnrollmentRepository;

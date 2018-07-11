@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.exceptions1.EnrollmentNotFoundException;
+import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import org.junit.Test;

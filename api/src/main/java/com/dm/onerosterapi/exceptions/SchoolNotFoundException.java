@@ -1,13 +1,11 @@
-package com.dm.onerosterapi.exceptions1;
-
+package com.dm.onerosterapi.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value= HttpStatus.NOT_FOUND)
-public class ClassNotFoundException extends Exception {
-    public ClassNotFoundException (String message) {
-
+public class SchoolNotFoundException extends Exception {
+    public SchoolNotFoundException(String message) {
         super(message);
     }
 }

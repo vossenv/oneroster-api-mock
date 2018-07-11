@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions1.ResourceNotFoundException;
+import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.repository.jpa.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

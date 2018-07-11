@@ -1,7 +1,7 @@
 package com.dm.onerosterapi.controller;
 
 
-import com.dm.onerosterapi.exceptions1.UserNotFoundException;
+import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
