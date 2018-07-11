@@ -1,4 +1,4 @@
-Feature: Basic Karate Testing
+Feature: User Controller Integration Testing
 
   Background:
     * def URL = apiURL
