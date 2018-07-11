@@ -74,45 +74,23 @@ public class HelperService {
     }
 
     public void validateUser(String sourcedId) throws UserNotFoundException{
-        try {
-            processResults(userRepository.findBySourcedId(sourcedId));
-        } catch (ResourceNotFoundException e){
-            throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);
-        }
+        if (!userRepository.existsBySourcedId(sourcedId)) {throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);}
     }
 
     public void validateClass(String sourcedId) throws ClassOfCourseNotFoundException {
-        try {
-            processResults(classRepository.findBySourcedId(sourcedId));
-        } catch (ResourceNotFoundException e){
-            throw new ClassOfCourseNotFoundException(ApiMessages.INVALID_CLASS + sourcedId);
-        }
+        if (!classRepository.existsBySourcedId(sourcedId)) {throw new ClassOfCourseNotFoundException(ApiMessages.INVALID_CLASS + sourcedId);}
     }
 
     public void validateCourse(String sourcedId) throws CourseNotFoundException {
-        try {
-            processResults(courseRepository.findBySourcedId(sourcedId));
-        } catch (ResourceNotFoundException e){
-            throw new CourseNotFoundException(ApiMessages.INVALID_COURSE + sourcedId);
-        }
+        if (!courseRepository.existsBySourcedId(sourcedId)) {throw new CourseNotFoundException(ApiMessages.INVALID_COURSE + sourcedId);}
     }
 
     public void validateSchool(String sourcedId) throws SchoolNotFoundException {
-        try {
-            processResults(schoolRepository.findBySourcedId(sourcedId));
-        } catch (ResourceNotFoundException e){
-            throw new SchoolNotFoundException(ApiMessages.INVALID_SCHOOL + sourcedId);
-        }
+        if (!schoolRepository.existsBySourcedId(sourcedId)) {throw new SchoolNotFoundException(ApiMessages.INVALID_SCHOOL + sourcedId);}
     }
 
     public void validateEnrollment(String sourcedId) throws EnrollmentNotFoundException {
-        try {
-            processResults(enrollmentRepository.findBySourcedId(sourcedId));
-        } catch (ResourceNotFoundException e){
-            throw new EnrollmentNotFoundException(ApiMessages.INVALID_ENROLLMENT + sourcedId);
-        }
+        if (!enrollmentRepository.existsBySourcedId(sourcedId)) {throw new EnrollmentNotFoundException(ApiMessages.INVALID_ENROLLMENT + sourcedId);}
     }
-
-
 
 }

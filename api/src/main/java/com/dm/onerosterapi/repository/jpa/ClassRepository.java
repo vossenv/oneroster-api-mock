@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface ClassRepository extends JpaRepository<ClassOfCourse, String>{
 
-    public ClassOfCourse findByClassId(String classId);
-    public ClassOfCourse findBySourcedId(String classId);
+    public ClassOfCourse findByClassId(String id);
+    public ClassOfCourse findBySourcedId(String id);
     public List<ClassOfCourse> findByTerm(String term);
+    public boolean existsBySourcedId(String id);
 
 }

@@ -5,6 +5,7 @@ import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.model.User;
+import com.dm.onerosterapi.repository.jpa.UserRepository;
 import com.dm.onerosterapi.service.implementation.HelperService;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.junit.Test;
@@ -29,6 +30,9 @@ public class helper {
 
 	@Autowired
     UserService userService;
+
+	@Autowired
+    UserRepository userRepository;
 
 	@Test
 	public void userHelperTest() throws ResourceNotFoundException {
