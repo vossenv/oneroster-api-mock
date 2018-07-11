@@ -1,11 +1,11 @@
-Feature: Classes Controller Integration Testing
+Feature: Courses Controller Integration Testing
 
   Background:
     * def URL = apiURL
 
   Scenario: Validate the /classes endpoint
 
-    Given url URL + 'classes'
+    Given url URL + 'courses'
     When method GET
     Then status 200
     And match each response ==
