@@ -5,6 +5,7 @@ import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.ClassRepository;
+import com.dm.onerosterapi.repository.jpa.CourseRepository;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,10 @@ public class ClassServiceImpl implements ClassService {
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new ClassNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
         }
+    }
+
+    public List<ClassOfCourse> getClassesByUser(String userSourcedId) throws ClassNotFoundException {
+        return getClassesByUser(userSourcedId, "any");
     }
 
     @Override

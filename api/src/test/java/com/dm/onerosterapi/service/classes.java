@@ -36,6 +36,12 @@ public class classes {
         assertTrue(checkValues(classList.get(64)));
     }
 
+	@Test
+    public void getClassesByUser() throws ClassNotFoundException {
+        List<ClassOfCourse> classList = classService.getClassesByUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
+        assertEquals(classList.size(),14);
+    }
+
     @Test
     public void getClassesByUser() throws ClassNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesByUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
