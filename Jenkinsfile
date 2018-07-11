@@ -31,7 +31,7 @@ pipeline {
 					}
 				}
 				dir("api") {
-					sh './gradlew clean karateTest'
+					sh './gradlew clean karateTest -Dkarate.env=stg'
 				}
 			}
 		}
