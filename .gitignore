@@ -31,3 +31,8 @@ api/target/surefire-reports/
 /nbdist/
 /.nb-gradle/
 
+### Don Dev Env ###
+api/.vagrant
+api/deploy.sh
+api/Vagrantfile
+staging/*

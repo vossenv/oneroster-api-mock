@@ -1,9 +1,9 @@
 function() {
     var env = karate.env;
     if (env == 'dev') {
-        var apiURL = 'the_dev_url'
+        var apiURL = 'http://127.0.0.1:9090/'
     } else if (env == 'stg') {
-        var apiURL = 'the_stage_url'
+        var apiURL = 'http://192.168.33.10:9090/'
     }
     var config = {
         apiURL: apiURL
