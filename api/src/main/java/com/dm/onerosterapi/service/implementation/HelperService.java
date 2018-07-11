@@ -2,7 +2,6 @@ package com.dm.onerosterapi.service.implementation;
 
 import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.repository.jpa.*;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import java.util.List;
 
 @Service
 public class HelperService {
-
 
     private SchoolRepository schoolRepository;
     private ClassRepository classRepository;
@@ -34,14 +32,18 @@ public class HelperService {
         this.enrollmentRepository = enrollmentRepository;
     }
 
-    public final static String NO_RESULTS_MESSAGE = "Search returned no results...";
+    private final static String NO_RESULTS_MESSAGE = "Search returned no results...";
 
-    public List<?> idFieldSwap(List<?> objectList){
-        objectList.forEach(this::idFieldSwap);
+    public List<?> processResults(List<?> objectList) throws ResourceNotFoundException{
+
+        if (objectList == null || objectList.isEmpty()) { throw new ResourceNotFoundException(NO_RESULTS_MESSAGE) ; }
+        for (Object o : objectList){ processResults(o); }
         return objectList;
     }
 
-    public Object idFieldSwap(Object o){
+    public Object processResults(Object o) throws ResourceNotFoundException{
+
+        if (o == null) { throw new ResourceNotFoundException(NO_RESULTS_MESSAGE) ; }
 
         for (Field field : o.getClass().getDeclaredFields()){
             field.setAccessible(true);
@@ -58,28 +60,21 @@ public class HelperService {
                     case "enrollmentId": field.set(o,enrollmentRepository.findByEnrollmentId(fieldVal).getSourcedId()); break;
                 }
 
-                // We don't want to throw an error if we skip a field due to access failure
-                // Original field value will be maintained.
-            } catch (IllegalAccessException | DataIntegrityViolationException e){
+            // We don't want to throw an error if we skip a field due to access failure
+            // Original field value will be maintained.
+            } catch (IllegalAccessException | DataIntegrityViolationException e) {
                 System.out.println(e.getMessage());
 
-                // NPE or NFE here just indicates a non-numeric field - Move to the next one!
-            } catch (NullPointerException | NumberFormatException e){
+            // NPE indicates a null field - Move to the next one!
+            } catch (NullPointerException e){
                 System.out.print("");
             }
-
-
         }
         return o;
     }
 
 
-    public List<?> checkListSize(List<?> testList) throws ResourceNotFoundException {
 
-        if (testList.size() == 0) { throw new ResourceNotFoundException(NO_RESULTS_MESSAGE) ; }
-        else return testList;
-
-    }
 
 
 

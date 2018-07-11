@@ -98,49 +98,6 @@ public class classes {
         } catch (ClassNotFoundException e) {
             // pass
         }
-
-        try {
-            classService.getClassesByStudent("xxx");
-            fail("NP Exception expected");
-        } catch (ClassNotFoundException e) {
-            // pass
-        }
-
-        try {
-            classService.getClassesByTeacher("xxx");
-            fail("NP Exception expected");
-        } catch (ClassNotFoundException e) {
-            // pass
-        }
-
-        try {
-            classService.getClassesByUser("xxx");
-            fail("NP Exception expected");
-        } catch (ClassNotFoundException e) {
-            // pass
-        }
-
-        try {
-            classService.getClassesByCourse("xxx");
-            fail("NP Exception expected");
-        } catch (ClassNotFoundException e) {
-            // pass
-        }
-
-        try {
-            classService.getClassesBySchool("xxx");
-            fail("NP Exception expected");
-        } catch (ClassNotFoundException e) {
-            // pass
-        }
-
-        try {
-            classService.getClassesByTerm("xxx");
-            fail("NP Exception expected");
-        } catch (ClassNotFoundException e) {
-            // pass
-        }
-
     }
 
     private static boolean checkValues(ClassOfCourse testObject) {
