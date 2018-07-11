@@ -2,7 +2,6 @@ package com.dm.onerosterapi.controller;
 
 
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
-import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,60 +22,55 @@ public class UserController {
         this.classService = classService;
     }
 
-    @RequestMapping("/users")
+    @RequestMapping(value="/users", method=RequestMethod.GET)
     @ResponseBody
     public List<?> getAllUsers() throws UserNotFoundException {
         return userService.getAllUsers();
     }
 
-    @RequestMapping("/students")
+    @RequestMapping(value="/students", method=RequestMethod.GET)
     @ResponseBody
     public List<?> getAllStudents() throws UserNotFoundException {
         return userService.getAllStudents();
     }
 
-    @RequestMapping("/teachers")
+    @RequestMapping(value="/teachers", method=RequestMethod.GET)
     @ResponseBody
     public List<?> getAllTeachers() throws UserNotFoundException {
         return userService.getAllTeachers();
     }
 
-
-    @RequestMapping("/users/{id}")
+    @RequestMapping(value="/users/{id}", method=RequestMethod.GET )
     @ResponseBody
     public Object getUserById(@PathVariable("id") String id) throws UserNotFoundException {
-        try {
-            return userService.getUserBySourcedId(id);
-        } catch (UserNotFoundException e){
-            return "{}";
-        }
+        return userService.getUserBySourcedId(id);
     }
 
-    @RequestMapping("/students/{id}")
+    @RequestMapping(value="/students/{id}", method=RequestMethod.GET)
     @ResponseBody
     public Object getStudentById(@PathVariable("id") String id) throws UserNotFoundException {
         return userService.getStudentBySourcedId(id);
     }
 
-    @RequestMapping("/teachers/{id}")
+    @RequestMapping(value="/teachers/{id}", method=RequestMethod.GET)
     @ResponseBody
     public Object getTeacherById(@PathVariable("id") String id) throws UserNotFoundException {
         return userService.getTeacherBySourcedId(id);
     }
 
-    @RequestMapping("/users/{id}/classes")
+    @RequestMapping(value="/users/{id}/classes", method=RequestMethod.GET)
     @ResponseBody
     public List<?> getClassesForUser(@PathVariable("id") String id) throws ClassNotFoundException {
         return classService.getClassesByUser(id);
     }
 
-    @RequestMapping("/students/{id}/classes")
+    @RequestMapping(value="/students/{id}/classes", method=RequestMethod.GET)
     @ResponseBody
     public List<?> getClassesForStudent(@PathVariable("id") String id) throws ClassNotFoundException {
         return classService.getClassesByStudent(id);
     }
 
-    @RequestMapping("/teachers/{id}/classes")
+    @RequestMapping(value="/teachers/{id}/classes", method=RequestMethod.GET)
     @ResponseBody
     public List<?> getClassesForTeachers(@PathVariable("id") String id) throws ClassNotFoundException {
         return classService.getClassesByTeacher(id);

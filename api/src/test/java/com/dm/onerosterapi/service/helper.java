@@ -5,7 +5,7 @@ import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.implementation.HelperService;
-import com.dm.onerosterapi.service.interfaces.ClassService;
+import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.jayway.jsonpath.internal.path.PathCompiler.fail;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -29,13 +30,13 @@ public class helper {
     UserService userService;
 
 	@Test
-	public void userHelperTest(){
+	public void userHelperTest() throws ResourceNotFoundException {
 
 	    User u = new User();
 	    u.setSchoolId("1");
 	    u.setUserId("5");
 
-	    helperService.idFieldSwap(u);
+	    helperService.processResults(u);
 	    assertEquals(u.getSchoolId(),"f9a75f84-130b-419e-bbe6-463585e930e9");
 
 	    List<User> userList = new ArrayList<>();
@@ -45,19 +46,19 @@ public class helper {
 	    userList.get(0).setSchoolId("1");
 	    userList.get(1).setSchoolId("2");
 
-	    helperService.idFieldSwap(userList);
+	    helperService.processResults(userList);
 	    assertEquals(userList.get(0).getSchoolId(), "f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(userList.get(1).getSchoolId(), "f5897384-9488-466f-b049-1992f7a53f15");
 
  	}
 
  	@Test
-    public void courseHelperTest(){
+    public void courseHelperTest() throws ResourceNotFoundException {
 
 	    Course c = new Course();
 	    c.setSchoolId("1");
 
-        helperService.idFieldSwap(c);
+        helperService.processResults(c);
         assertEquals(c.getSchoolId(),"f9a75f84-130b-419e-bbe6-463585e930e9");
 
         List<Course> courseList = new ArrayList<>();
@@ -67,19 +68,19 @@ public class helper {
         courseList.get(0).setSchoolId("1");
         courseList.get(1).setSchoolId("2");
 
-        helperService.idFieldSwap(courseList);
+        helperService.processResults(courseList);
         assertEquals(courseList.get(0).getSchoolId(), "f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(courseList.get(1).getSchoolId(), "f5897384-9488-466f-b049-1992f7a53f15");
     }
 
     @Test
-    public void classHelperTest(){
+    public void classHelperTest() throws ResourceNotFoundException {
 
 	    ClassOfCourse c = new ClassOfCourse();
 	    c.setSchoolId("1");
 	    c.setCourseId("1");
 
-	    helperService.idFieldSwap(c);
+	    helperService.processResults(c);
         assertEquals(c.getSchoolId(),"f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(c.getCourseId(), "7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4");
 
@@ -92,7 +93,7 @@ public class helper {
         classList.get(1).setSchoolId("2");
         classList.get(1).setCourseId("2");
 
-        helperService.idFieldSwap(classList);
+        helperService.processResults(classList);
         assertEquals(classList.get(0).getSchoolId(), "f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(classList.get(0).getCourseId(),"7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4");
 
@@ -102,13 +103,13 @@ public class helper {
     }
 
     @Test
-    public void enrollmentHelperTest(){
+    public void enrollmentHelperTest() throws ResourceNotFoundException {
 
         Enrollment e = new Enrollment();
         e.setUserId("1");
         e.setClassId("1");
 
-        helperService.idFieldSwap(e);
+        helperService.processResults(e);
         assertEquals(e.getUserId(),"cda272c0-bf6c-4e72-8b13-5f1f3be72339");
         assertEquals(e.getClassId(), "5fbd34b6-ea52-4a4a-b6ae-e43f60139695");
 
@@ -121,12 +122,42 @@ public class helper {
         enrollmentList.get(1).setUserId("2");
         enrollmentList.get(1).setClassId("2");
 
-        helperService.idFieldSwap(enrollmentList);
+        helperService.processResults(enrollmentList);
         assertEquals(enrollmentList.get(0).getUserId(), "cda272c0-bf6c-4e72-8b13-5f1f3be72339");
         assertEquals(enrollmentList.get(0).getClassId(),"5fbd34b6-ea52-4a4a-b6ae-e43f60139695");
 
         assertEquals(enrollmentList.get(1).getUserId(), "bc16d091-7017-4f2f-9109-250fd590ca6a");
         assertEquals(enrollmentList.get(1).getClassId(),"cc724397-3281-4e3a-90a4-8eb27b23dc37");
+
+    }
+
+    @Test
+    public void testNullResults(){
+
+	    List<Object> testList = new ArrayList<>();
+
+	    try {
+            helperService.processResults(testList);
+            fail ("Exception is expected");
+        } catch (ResourceNotFoundException e){
+	        // pass
+        }
+
+        List<Object> nullList = null;
+
+        try {
+            helperService.processResults(nullList);
+            fail ("Exception is expected");
+        } catch (ResourceNotFoundException e){
+            // pass
+        }
+
+        try {
+            helperService.processResults(null);
+            fail ("Exception is expected");
+        } catch (ResourceNotFoundException e){
+            // pass
+        }
 
     }
 
