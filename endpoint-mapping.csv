@@ -3,8 +3,8 @@ x,getAllClasses,x,/classes,x,GET,Return collection of classes.
 x,getClass,x,/classes/{id},x,GET,Return specific class.
 x,getAllCourses,x,/courses,x,GET,Return collection of courses.
 x,getCourse,x,/courses/{id},x,GET,Return specific course.
-x,getAllEnrollments,,/enrollments,,GET,Return collection of all enrollments.
-x,getEnrollment,,/enrollments/{id},,GET,Return specific enrollment.
+x,getAllEnrollments,x,/enrollments,x,GET,Return collection of all enrollments.
+x,getEnrollment,x,/enrollments/{id},x,GET,Return specific enrollment.
 x,getAllSchools,,/schools,,GET,Return collection of schools. A School is an instance of an Org.
 x,getSchool,,/schools/{id},,GET,Return specific school. A School is an instance of an Org.
 x,getAllStudents,,/students,x,GET,Return collection of students. A Student is an instance of a User.
