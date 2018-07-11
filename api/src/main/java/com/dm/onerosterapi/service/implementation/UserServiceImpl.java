@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (User) h.processResults(userRepository.findBySourcedId(userId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
         User u = getUserBySourcedId(userId);
         if (u.getRole().equals("student")) return u; else
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 
         User u = getUserBySourcedId(userId);
         if (u.getRole().equals("teacher")) return u; else
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.processResults(userRepository.findAll());
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.processResults(rosterDao.getUsersByClass(classSourcedId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.processResults(rosterDao.getUsersBySchool(schoolId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.processResults(rosterDao.getUsersForClassInSchool(classId, schoolId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 

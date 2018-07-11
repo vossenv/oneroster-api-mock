@@ -36,7 +36,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             return (List<Course>) h.processResults(courseRepository.findAll());
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new CourseNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new CourseNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
@@ -45,7 +45,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             return (Course) h.processResults(courseRepository.findBySourcedId(sourcedId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new CourseNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new CourseNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
@@ -54,7 +54,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             return (List<Course>) h.processResults(rosterDao.getCoursesBySchool(schoolSourcedId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new CourseNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new CourseNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 }

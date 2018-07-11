@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
+import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.repository.jpa.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -73,9 +73,45 @@ public class HelperService {
         return o;
     }
 
+    public void validateUser(String sourcedId) throws UserNotFoundException{
+        try {
+            processResults(userRepository.findBySourcedId(sourcedId));
+        } catch (ResourceNotFoundException e){
+            throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);
+        }
+    }
 
+    public void validateClass(String sourcedId) throws ClassOfCourseNotFoundException {
+        try {
+            processResults(classRepository.findBySourcedId(sourcedId));
+        } catch (ResourceNotFoundException e){
+            throw new ClassOfCourseNotFoundException(ApiMessages.INVALID_CLASS + sourcedId);
+        }
+    }
 
+    public void validateCourse(String sourcedId) throws CourseNotFoundException {
+        try {
+            processResults(courseRepository.findBySourcedId(sourcedId));
+        } catch (ResourceNotFoundException e){
+            throw new CourseNotFoundException(ApiMessages.INVALID_COURSE + sourcedId);
+        }
+    }
 
+    public void validateSchool(String sourcedId) throws SchoolNotFoundException {
+        try {
+            processResults(schoolRepository.findBySourcedId(sourcedId));
+        } catch (ResourceNotFoundException e){
+            throw new SchoolNotFoundException(ApiMessages.INVALID_SCHOOL + sourcedId);
+        }
+    }
+
+    public void validateEnrollment(String sourcedId) throws EnrollmentNotFoundException {
+        try {
+            processResults(enrollmentRepository.findBySourcedId(sourcedId));
+        } catch (ResourceNotFoundException e){
+            throw new EnrollmentNotFoundException(ApiMessages.INVALID_ENROLLMENT + sourcedId);
+        }
+    }
 
 
 
