@@ -22,4 +22,10 @@ public class ClassController {
     public List<?> getAllClasses() throws ClassNotFoundException {
         return classService.getAllClasses();
     }
+
+    @RequestMapping(value="/classes/{id}", method=RequestMethod.GET)
+    @ResponseBody
+    public Object getClassById(@PathVariable("id") String id) throws ClassNotFoundException {
+        return classService.getBySourcedId(id);
+    }
 }

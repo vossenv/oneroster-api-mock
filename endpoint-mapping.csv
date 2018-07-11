@@ -1,6 +1,6 @@
 Done,Method,Done,Endpoint,Done,Type,Description
 x,getAllClasses,x,/classes,x,GET,Return collection of classes.
-x,getClass,,/classes/{id},,GET,Return specific class.
+x,getClass,x,/classes/{id},x,GET,Return specific class.
 x,getAllCourses,,/courses,,GET,Return collection of courses.
 x,getCourse,,/courses/{id},,GET,Return specific course.
 x,getAllEnrollments,,/enrollments,,GET,Return collection of all enrollments.
