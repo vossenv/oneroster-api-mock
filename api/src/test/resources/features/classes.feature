@@ -21,8 +21,7 @@ Feature: Classes Controller Integration Testing
       location: '#string',
       courseId: '#string',
       schoolId: '#string',
-      periods: '#string'
-    }
+      periods: '#string' }
     """
 
   Scenario: Validate the /classes/:id endpoint

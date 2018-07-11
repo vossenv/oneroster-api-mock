@@ -3,45 +3,42 @@ Feature: Courses Controller Integration Testing
   Background:
     * def URL = apiURL
 
-  Scenario: Validate the /classes endpoint
+  Scenario: Validate the /courses endpoint
 
     Given url URL + 'courses'
     When method GET
     Then status 200
     And match each response ==
     """
-    { classId: '#string',
+    { courseId: '#string',
       sourcedId: '#string',
       status: '#string',
       dateLastModified: '#string',
       metadata: '#string',
-      term: '#string',
-      classCode: '#string',
-      classType: '#string',
-      location: '#string',
-      courseId: '#string',
-      schoolId: '#string',
-      periods: '#string'
-    }
+      grade: '#string',
+      title: '#string',
+      schoolYear: '#string',
+      courseCode: '#string',
+      subjects: '#string',
+      schoolId: '#string' }
     """
 
-  Scenario: Validate the /classes/:id endpoint
+  Scenario: Validate the /courses/:id endpoint
 
-    Given url URL + 'classes/231cc3cb-6e2b-4d3e-a636-37f965f4ae08'
+    Given url URL + 'courses/65b3b671-7a13-4d0c-9a24-96f429bb6f2e'
     When method GET
     Then status 200
     And match response ==
     """
-    { "classId": "231cc3cb-6e2b-4d3e-a636-37f965f4ae08",
-      "sourcedId": "231cc3cb-6e2b-4d3e-a636-37f965f4ae08",
+    { "courseId": "65b3b671-7a13-4d0c-9a24-96f429bb6f2e",
+      "sourcedId": "65b3b671-7a13-4d0c-9a24-96f429bb6f2e",
       "status": "active",
-      "dateLastModified": "2017-08-14 00:36:18",
+      "dateLastModified": "2018-03-30 00:11:26",
       "metadata": "",
-      "term": "Spring",
-      "classCode": "Geometry I - Spring",
-      "classType": "scheduled",
-      "location": "112",
-      "courseId": "d0877e4f-f074-496b-90a3-a02d3016c970",
-      "schoolId": "f9a75f84-130b-419e-bbe6-463585e930e9",
-      "periods": "3" }
+      "grade": "8",
+      "title": "Algebra III",
+      "schoolYear": "2018",
+      "courseCode": "Alg-103",
+      "subjects": "Algebra III",
+      "schoolId": "f9a75f84-130b-419e-bbe6-463585e930e9" }
     """
