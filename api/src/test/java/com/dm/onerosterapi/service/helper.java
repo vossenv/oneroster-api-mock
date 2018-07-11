@@ -143,16 +143,6 @@ public class helper {
 	        // pass
         }
 
-        testList.add("Hello");
-	    testList.remove(0);
-
-        try {
-            helperService.processResults(testList);
-            fail ("Exception is expected");
-        } catch (ResourceNotFoundException e){
-            // pass
-        }
-
         List<Object> nullList = null;
 
         try {
