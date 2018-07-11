@@ -90,10 +90,6 @@ public class ClassServiceImpl implements ClassService {
         }
     }
 
-    public List<ClassOfCourse> getClassesByUser(String userSourcedId) throws ClassNotFoundException {
-        return getClassesByUser(userSourcedId, "any");
-    }
-
     private List<ClassOfCourse> getClassesByUser(String userSourcedId, String role) throws ClassNotFoundException {
         try {
             return (List<ClassOfCourse>) h.processResults(rosterDao.getClassesByUser(userSourcedId, role));
