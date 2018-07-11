@@ -8,5 +8,6 @@ public class ApiMessages {
     public final static String NO_COURSE_MESSAGE = "Specified course was not found";
     public final static String NO_SCHOOL_MESSAGE = "Specified school was not found";
     public final static String NO_ENROLLMENT_MESSAGE = "Specified enrollment was not found";
+    public final static String UNSUPPORTED_MESSAGE = "The request method is not supported";
 
 }
