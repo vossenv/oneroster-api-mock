@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.exceptions.CourseNotFoundException;
+import com.dm.onerosterapi.exceptions1.CourseNotFoundException;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.service.interfaces.CourseService;
 import org.junit.Test;

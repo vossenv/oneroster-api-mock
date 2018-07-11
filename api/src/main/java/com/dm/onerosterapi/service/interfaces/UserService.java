@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service.interfaces;
 
-import com.dm.onerosterapi.exceptions.UserNotFoundException;
+import com.dm.onerosterapi.exceptions1.UserNotFoundException;
 import com.dm.onerosterapi.model.*;
 
 import java.util.List;

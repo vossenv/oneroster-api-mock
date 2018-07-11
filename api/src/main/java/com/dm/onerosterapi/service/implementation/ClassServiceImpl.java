@@ -1,10 +1,10 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
+import com.dm.onerosterapi.exceptions1.ApiMessages;
+import com.dm.onerosterapi.exceptions1.ResourceNotFoundException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.ClassRepository;
-import com.dm.onerosterapi.repository.jpa.CourseRepository;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,29 +30,6 @@ public class ClassServiceImpl implements ClassService {
         this.h = h;
     }
 
-
-    @Override
-    public List<ClassOfCourse> getAllClasses() throws ClassNotFoundException {
-        try {
-            return (List<ClassOfCourse>) h.checkListSize(h.idFieldSwap(classRepository.findAll()));
-        } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
-        }
-    }
-
-    @Override
-    public ClassOfCourse getBySourcedId(String classId) throws ClassNotFoundException {
-        try {
-            return (ClassOfCourse) h.idFieldSwap(classRepository.findBySourcedId(classId));
-        } catch (NullPointerException e) {
-            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
-        }
-    }
-
-    public List<ClassOfCourse> getClassesByUser(String userSourcedId) throws ClassNotFoundException {
-        return getClassesByUser(userSourcedId, "any");
-    }
-
     @Override
     public List<ClassOfCourse> getClassesByStudent(String userSourcedId) throws ClassNotFoundException {
         return getClassesByUser(userSourcedId, "student");
@@ -64,37 +41,59 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
+    public List<ClassOfCourse> getAllClasses() throws ClassNotFoundException {
+        try {
+            return (List<ClassOfCourse>) h.processResults(classRepository.findAll());
+        } catch (NullPointerException | ResourceNotFoundException e) {
+            throw new ClassNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+        }
+    }
+
+    @Override
+    public ClassOfCourse getBySourcedId(String classId) throws ClassNotFoundException {
+        try {
+            return (ClassOfCourse) h.processResults(classRepository.findBySourcedId(classId));
+        } catch (NullPointerException | ResourceNotFoundException e) {
+            throw new ClassNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+        }
+    }
+
+    @Override
     public List<ClassOfCourse> getClassesByCourse(String courseSourcedId) throws ClassNotFoundException {
         try {
-            return (List<ClassOfCourse>) h.checkListSize(h.idFieldSwap(rosterDao.getClassesByCourse(courseSourcedId)));
+            return (List<ClassOfCourse>) h.processResults(rosterDao.getClassesByCourse(courseSourcedId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
+            throw new ClassNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
         }
     }
 
     @Override
     public List<ClassOfCourse> getClassesByTerm(String term) throws ClassNotFoundException {
         try {
-            return (List<ClassOfCourse>) h.checkListSize(h.idFieldSwap(classRepository.findByTerm(term)));
+            return (List<ClassOfCourse>) h.processResults(classRepository.findByTerm(term));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
+            throw new ClassNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
         }
     }
 
     @Override
     public List<ClassOfCourse> getClassesBySchool(String schoolSourcedId) throws ClassNotFoundException {
         try {
-            return (List<ClassOfCourse>) h.checkListSize(h.idFieldSwap(rosterDao.getClassesBySchool(schoolSourcedId)));
+            return (List<ClassOfCourse>) h.processResults(rosterDao.getClassesBySchool(schoolSourcedId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
+            throw new ClassNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
         }
+    }
+
+    public List<ClassOfCourse> getClassesByUser(String userSourcedId) throws ClassNotFoundException {
+        return getClassesByUser(userSourcedId, "any");
     }
 
     private List<ClassOfCourse> getClassesByUser(String userSourcedId, String role) throws ClassNotFoundException {
         try {
-            return (List<ClassOfCourse>) h.checkListSize(h.idFieldSwap(rosterDao.getClassesByUser(userSourcedId, role)));
+            return (List<ClassOfCourse>) h.processResults(rosterDao.getClassesByUser(userSourcedId, role));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new ClassNotFoundException(HelperService.NO_RESULTS_MESSAGE);
+            throw new ClassNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
         }
     }
 
