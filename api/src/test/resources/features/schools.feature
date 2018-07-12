@@ -57,3 +57,23 @@ Feature: Schools Controller Integration Testing
       schoolId: '#string',
       periods: '#string' }
     """
+
+  Scenario: Validate the /schools/:id/courses endpoint
+
+    Given url URL + 'schools/f9a75f84-130b-419e-bbe6-463585e930e9/courses'
+    When method GET
+    Then status 200
+    And match each response ==
+    """
+    { courseId: '#string',
+      sourcedId: '#string',
+      status: '#string',
+      dateLastModified: '#string',
+      metadata: '#string',
+      grade: '#string',
+      title: '#string',
+      schoolYear: '#string',
+      courseCode: '#string',
+      subjects: '#string',
+      schoolId: '#string' }
+    """

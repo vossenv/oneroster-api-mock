@@ -21,7 +21,7 @@ x,getClassesForSchool,x,/schools/{school_id}/classes,x,GET,Return the collection
 x,getClassesForUser,x,/users/{user_id}/classes,x,GET,Return the collection of classes attended by this user.
 x,getStudentsForClass,x,/classes/{class_id}/students,x,GET,Return the collection of students that are taking this class.
 x,getTeachersForClass,x,/classes/{class_id}/teachers,x,GET,Return the collection of teachers that are teaching this class.
-x,getCoursesForSchool,,/schools/{id}/courses,,GET,Return the collection of courses taught by this school.
+x,getCoursesForSchool,x,/schools/{id}/courses,x,GET,Return the collection of courses taught by this school.
 x,getEnrollmentsForClassInSchool,,/schools/{school_id}/classes/{class_id}/enrollments,,GET,Return the collection of all enrollments into this class.
 x,getStudentsForClassInSchool,,/schools/{school_id}/classes/{class_id}/students,,GET,Return the collection of students taking this class in this school.
 x,getTeachersForClassInSchool,,/schools/{school_id}/classes/{class_id}/teachers,,GET,Return the collection of teachers taking this class in this school.
