@@ -48,46 +48,58 @@ public class SchoolController {
 
     @RequestMapping(value="/schools/{id}/courses", method=RequestMethod.GET)
     @ResponseBody
-    public List<?> getCoursesForSchool(@PathVariable("id") String id) throws CourseNotFoundException {
+    public List<?> getCoursesForSchool(@PathVariable("id") String id) throws CourseNotFoundException,SchoolNotFoundException {
         return courseService.getCoursesBySchool(id);
     }
 
     @RequestMapping(value="/schools/{school_id}/classes/{class_id}/enrollments", method=RequestMethod.GET)
     @ResponseBody
     public List<?> getEnrollmentsForClassInSchool(@PathVariable("school_id") String school_id,
-                                                  @PathVariable("class_id") String class_id) throws EnrollmentNotFoundException {
+                                                  @PathVariable("class_id") String class_id) throws
+            SchoolNotFoundException,
+            ClassOfCourseNotFoundException,
+            EnrollmentNotFoundException {
+
         return enrollmentService.getEnrollmentsForClassInSchool(class_id, school_id);
     }
 
     @RequestMapping(value="/schools/{school_id}/classes/{class_id}/students", method=RequestMethod.GET)
     @ResponseBody
     public List<?> getStudentsForClassInSchool(@PathVariable("school_id") String school_id,
-                                               @PathVariable("class_id") String class_id) throws UserNotFoundException {
+                                               @PathVariable("class_id") String class_id) throws
+            SchoolNotFoundException,
+            ClassOfCourseNotFoundException,
+            UserNotFoundException {
+
         return userService.getStudentsForClassInSchool(class_id, school_id);
     }
 
     @RequestMapping(value="/schools/{school_id}/classes/{class_id}/teachers", method=RequestMethod.GET)
     @ResponseBody
     public List<?> getTeachersForClassInSchool(@PathVariable("school_id") String school_id,
-                                               @PathVariable("class_id") String class_id) throws UserNotFoundException {
+                                               @PathVariable("class_id") String class_id) throws
+            SchoolNotFoundException,
+            ClassOfCourseNotFoundException,
+            UserNotFoundException {
+
         return userService.getTeachersForClassInSchool(class_id, school_id);
     }
 
     @RequestMapping(value="/schools/{id}/enrollments", method=RequestMethod.GET)
     @ResponseBody
-    public List<?> getEnrollmentsForSchool(@PathVariable("id") String id) throws EnrollmentNotFoundException {
+    public List<?> getEnrollmentsForSchool(@PathVariable("id") String id) throws EnrollmentNotFoundException, SchoolNotFoundException {
         return enrollmentService.getEnrollmentsForSchool(id);
     }
 
     @RequestMapping(value="/schools/{id}/students", method=RequestMethod.GET)
     @ResponseBody
-    public List<?> getStudentsBySchool(@PathVariable("id") String id) throws UserNotFoundException {
+    public List<?> getStudentsBySchool(@PathVariable("id") String id) throws UserNotFoundException, SchoolNotFoundException {
         return userService.getStudentsBySchool(id);
     }
 
     @RequestMapping(value="/schools/{id}/teachers", method=RequestMethod.GET)
     @ResponseBody
-    public List<?> getTeachersBySchool(@PathVariable("id") String id) throws UserNotFoundException {
+    public List<?> getTeachersBySchool(@PathVariable("id") String id) throws UserNotFoundException, SchoolNotFoundException {
         return userService.getTeachersBySchool(id);
     }
 

@@ -36,13 +36,13 @@ public class ClassController {
 
     @RequestMapping(value="/classes/{id}/students", method=RequestMethod.GET)
     @ResponseBody
-    public List<?> getStudentsForClass(@PathVariable("id") String id) throws UserNotFoundException {
+    public List<?> getStudentsForClass(@PathVariable("id") String id) throws UserNotFoundException, ClassOfCourseNotFoundException {
         return userService.getStudentsByClass(id);
     }
 
     @RequestMapping(value="/classes/{id}/teachers", method=RequestMethod.GET)
     @ResponseBody
-    public List<?> getTeachersForClass(@PathVariable("id") String id) throws UserNotFoundException {
+    public List<?> getTeachersForClass(@PathVariable("id") String id) throws UserNotFoundException, ClassOfCourseNotFoundException {
         return userService.getTeachersByClass(id);
     }
 }
