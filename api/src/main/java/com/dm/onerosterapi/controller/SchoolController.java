@@ -1,6 +1,7 @@
 package com.dm.onerosterapi.controller;
 
 
+import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
 import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.service.interfaces.ClassService;
@@ -16,10 +17,12 @@ import java.util.List;
 public class SchoolController {
 
     private SchoolService schoolService;
+    private ClassService classService;
 
     @Autowired
-    SchoolController(SchoolService schoolService){
+    SchoolController(SchoolService schoolService, ClassService classService){
         this.schoolService = schoolService;
+        this.classService = classService;
     }
 
     @RequestMapping(value="/schools", method=RequestMethod.GET)
@@ -33,5 +36,12 @@ public class SchoolController {
     public Object getSchoolById(@PathVariable("id") String id) throws SchoolNotFoundException {
         return schoolService.getBySourcedId(id);
     }
+
+    @RequestMapping(value="/schools/{id}/classes", method=RequestMethod.GET)
+    @ResponseBody
+    public List<?> getClassesForSchool(@PathVariable("id") String id) throws ClassOfCourseNotFoundException, SchoolNotFoundException {
+        return classService.getClassesBySchool(id);
+    }
+
 
 }

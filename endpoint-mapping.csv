@@ -17,7 +17,7 @@ x,getClassesForTerm,x,/terms/{term}/classes,x,GET,Return the collection of class
 x,getClassesForCourse,x,/courses/{course_id}/classes,x,GET,Return the collection of classes that are teaching this course.
 x,getClassesForStudent,x,/students/{student_id}/classes,x,GET,Return the collection of classes that this student is taking.
 x,getClassesForTeacher,x,/teachers/{teacher_id}/classes,x,GET,Return the collection of classes that this teacher is teaching.
-x,getClassesForSchool,x,/schools/{school_id}/classes,,GET,Return the collection of classes taught by this school.
+x,getClassesForSchool,x,/schools/{school_id}/classes,x,GET,Return the collection of classes taught by this school.
 x,getClassesForUser,x,/users/{user_id}/classes,x,GET,Return the collection of classes attended by this user.
 x,getStudentsForClass,x,/classes/{class_id}/students,,GET,Return the collection of students that are taking this class.
 x,getTeachersForClass,,/classes/{class_id}/teachers,,GET,Return the collection of teachers that are teaching this class.

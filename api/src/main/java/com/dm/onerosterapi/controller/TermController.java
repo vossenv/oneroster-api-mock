@@ -19,9 +19,9 @@ public class TermController {
         this.classService = classService;
     }
 
-    @RequestMapping(value="/terms/{id}/classes", method=RequestMethod.GET)
+    @RequestMapping(value="/terms/{term}/classes", method=RequestMethod.GET)
     @ResponseBody
-    public List<?> getClassesForTerm(@PathVariable("id") String id) throws ClassOfCourseNotFoundException, TermNotFoundException {
-        return classService.getClassesByTerm(id);
+    public List<?> getClassesForTerm(@PathVariable("term") String term) throws ClassOfCourseNotFoundException, TermNotFoundException {
+        return classService.getClassesByTerm(term);
     }
 }
