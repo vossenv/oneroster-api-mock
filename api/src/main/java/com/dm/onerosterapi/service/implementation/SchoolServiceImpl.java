@@ -38,9 +38,9 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public School getBySourcedId(String schoolId) throws SchoolNotFoundException {
         try {
-            return (School) h.processResults(schoolRepository.findBySourcedId(schoolId));
+            return (School) h.processResults(schoolRepository.findBySourcedIdIgnoreCase(schoolId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new SchoolNotFoundException(ApiMessages.NO_RESULTS);
+            throw new SchoolNotFoundException(ApiMessages.NO_SCHOOLS_FOR_ID + schoolId);
         }
     }
 }

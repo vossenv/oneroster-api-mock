@@ -43,7 +43,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (Enrollment) h.processResults(enrollmentRepository.findBySourcedId(enrollmentId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
+            throw new EnrollmentNotFoundException(ApiMessages.NO_ENROLLMENTS_FOR_ID);
         }
     }
 

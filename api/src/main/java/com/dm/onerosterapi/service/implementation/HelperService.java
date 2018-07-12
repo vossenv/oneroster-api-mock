@@ -53,10 +53,10 @@ public class HelperService {
                 String fieldVal = field.get(o).toString();
 
                 switch (field.getName()) {
-                    case "schoolId": field.set(o,schoolRepository.findBySchoolId(fieldVal).getSourcedId()); break;
-                    case "userId": field.set(o,userRepository.findByUserId(fieldVal).getSourcedId()); break;
-                    case "courseId": field.set(o,courseRepository.findByCourseId(fieldVal).getSourcedId()); break;
-                    case "classId": field.set(o,classRepository.findByClassId(fieldVal).getSourcedId()); break;
+                    case "schoolId": field.set(o,schoolRepository.findBySchoolIdIgnoreCase(fieldVal).getSourcedId()); break;
+                    case "userId": field.set(o,userRepository.findByUserIdIgnoreCase(fieldVal).getSourcedId()); break;
+                    case "courseId": field.set(o,courseRepository.findByCourseIdIgnoreCase(fieldVal).getSourcedId()); break;
+                    case "classId": field.set(o,classRepository.findByClassIdIgnoreCase(fieldVal).getSourcedId()); break;
                     case "enrollmentId": field.set(o,enrollmentRepository.findByEnrollmentId(fieldVal).getSourcedId()); break;
                 }
 
@@ -74,27 +74,27 @@ public class HelperService {
     }
 
     public void validateUser(String sourcedId) throws UserNotFoundException{
-        if (!userRepository.existsBySourcedId(sourcedId)) {throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);}
+        if (!userRepository.existsBySourcedIdIgnoreCase(sourcedId)) {throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);}
     }
 
     public void validateTeacher(String sourcedId) throws UserNotFoundException{
-        if (!userRepository.existsBySourcedIdAndRole(sourcedId, "teacher")) {throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + sourcedId);}
+        if (!userRepository.existsBySourcedIdAndRoleIgnoreCase(sourcedId, "teacher")) {throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + sourcedId);}
     }
 
     public void validateStudent(String sourcedId) throws UserNotFoundException{
-        if (!userRepository.existsBySourcedIdAndRole(sourcedId, "student")) {throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + sourcedId);}
+        if (!userRepository.existsBySourcedIdAndRoleIgnoreCase(sourcedId, "student")) {throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + sourcedId);}
     }
 
     public void validateClass(String sourcedId) throws ClassOfCourseNotFoundException {
-        if (!classRepository.existsBySourcedId(sourcedId)) {throw new ClassOfCourseNotFoundException(ApiMessages.INVALID_CLASS + sourcedId);}
+        if (!classRepository.existsBySourcedIdIgnoreCase(sourcedId)) {throw new ClassOfCourseNotFoundException(ApiMessages.INVALID_CLASS + sourcedId);}
     }
 
     public void validateCourse(String sourcedId) throws CourseNotFoundException {
-        if (!courseRepository.existsBySourcedId(sourcedId)) {throw new CourseNotFoundException(ApiMessages.INVALID_COURSE + sourcedId);}
+        if (!courseRepository.existsBySourcedIdIgnoreCase(sourcedId)) {throw new CourseNotFoundException(ApiMessages.INVALID_COURSE + sourcedId);}
     }
 
     public void validateSchool(String sourcedId) throws SchoolNotFoundException {
-        if (!schoolRepository.existsBySourcedId(sourcedId)) {throw new SchoolNotFoundException(ApiMessages.INVALID_SCHOOL + sourcedId);}
+        if (!schoolRepository.existsBySourcedIdIgnoreCase(sourcedId)) {throw new SchoolNotFoundException(ApiMessages.INVALID_SCHOOL + sourcedId);}
     }
 
     public void validateEnrollment(String sourcedId) throws EnrollmentNotFoundException {
@@ -102,7 +102,7 @@ public class HelperService {
     }
 
     public void validateClassTerm(String term) throws TermNotFoundException {
-        if (!classRepository.existsByTerm(term)) {throw new TermNotFoundException(ApiMessages.INVALID_TERM + term);}
+        if (!classRepository.existsByTermIgnoreCase(term)) {throw new TermNotFoundException(ApiMessages.INVALID_TERM + term);}
     }
 
 }

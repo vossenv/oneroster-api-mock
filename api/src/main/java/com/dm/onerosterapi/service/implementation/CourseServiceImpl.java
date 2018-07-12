@@ -44,9 +44,9 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course getBySourcedId(String sourcedId) throws CourseNotFoundException {
         try {
-            return (Course) h.processResults(courseRepository.findBySourcedId(sourcedId));
+            return (Course) h.processResults(courseRepository.findBySourcedIdIgnoreCase(sourcedId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new CourseNotFoundException(ApiMessages.NO_RESULTS);
+            throw new CourseNotFoundException(ApiMessages.NO_COURSES_FOR_ID);
         }
     }
 

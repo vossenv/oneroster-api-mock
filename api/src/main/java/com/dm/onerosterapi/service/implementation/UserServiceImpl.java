@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserBySourcedId(String userId) throws UserNotFoundException {
         try {
-            return (User) h.processResults(userRepository.findBySourcedId(userId));
+            return (User) h.processResults(userRepository.findBySourcedIdIgnoreCase(userId));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_ID + userId);
         }

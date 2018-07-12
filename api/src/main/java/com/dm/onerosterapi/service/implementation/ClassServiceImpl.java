@@ -2,11 +2,9 @@ package com.dm.onerosterapi.service.implementation;
 
 import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.model.ClassOfCourse;
-import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.ClassRepository;
 import com.dm.onerosterapi.service.interfaces.ClassService;
-import com.dm.onerosterapi.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +57,7 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public ClassOfCourse getBySourcedId(String classId) throws ClassOfCourseNotFoundException {
         try {
-            return (ClassOfCourse) h.processResults(classRepository.findBySourcedId(classId));
+            return (ClassOfCourse) h.processResults(classRepository.findBySourcedIdIgnoreCase(classId));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new ClassOfCourseNotFoundException(ApiMessages.NO_CLASSES_FOR_ID + classId);
         }
@@ -79,7 +77,7 @@ public class ClassServiceImpl implements ClassService {
     public List<ClassOfCourse> getClassesByTerm(String term) throws ClassOfCourseNotFoundException, TermNotFoundException {
         try {
             h.validateClassTerm(term);
-            return (List<ClassOfCourse>) h.processResults(classRepository.findByTerm(term));
+            return (List<ClassOfCourse>) h.processResults(classRepository.findByTermIgnoreCase(term));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new ClassOfCourseNotFoundException(ApiMessages.NO_CLASSES_FOR_TERM + term);
         }
