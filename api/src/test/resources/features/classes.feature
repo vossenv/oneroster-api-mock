@@ -44,3 +44,59 @@ Feature: Classes Controller Integration Testing
       "schoolId": "f9a75f84-130b-419e-bbe6-463585e930e9",
       "periods": "3" }
     """
+
+  Scenario: Validate the /classes/:id/students endpoint
+
+    Given url URL + 'classes/5fbd34b6-ea52-4a4a-b6ae-e43f60139695/students'
+    When method GET
+    Then status 200
+    And match each response ==
+    """
+    { userId: '#string',
+      sourcedId: '#string',
+      status: '#string',
+      dateLastModified: '#string',
+      metadata: '#string',
+      enabledUser: '#string',
+      userIds: '#string',
+      identifier: '#string',
+      schoolId: '#string',
+      givenName: '#string',
+      familyName: '#string',
+      middleName: '#string',
+      email: '#string',
+      username: '#string',
+      phone: '#string',
+    role: 'student',
+      grades: '#string',
+      type: '#string',
+      password: '#string'}
+    """
+
+  Scenario: Validate the /classes/:id/teachers endpoint
+
+    Given url URL + 'classes/de02e4fa-9f8e-4f05-86fb-1173a246594c/teachers'
+    When method GET
+    Then status 200
+    And match each response ==
+    """
+    { userId: '#string',
+      sourcedId: '#string',
+      status: '#string',
+      dateLastModified: '#string',
+      metadata: '#string',
+      enabledUser: '#string',
+      userIds: '#string',
+      identifier: '#string',
+      schoolId: '#string',
+      givenName: '#string',
+      familyName: '#string',
+      middleName: '#string',
+      email: '#string',
+      username: '#string',
+      phone: '#string',
+    role: 'teacher',
+      grades: '#string',
+      type: '#string',
+      password: '#string'}
+    """
