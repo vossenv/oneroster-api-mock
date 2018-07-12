@@ -5,26 +5,26 @@ x,getAllCourses,x,/courses,x,GET,Return collection of courses.
 x,getCourse,x,/courses/{id},x,GET,Return specific course.
 x,getAllEnrollments,x,/enrollments,x,GET,Return collection of all enrollments.
 x,getEnrollment,x,/enrollments/{id},x,GET,Return specific enrollment.
-x,getAllSchools,,/schools,,GET,Return collection of schools. A School is an instance of an Org.
-x,getSchool,,/schools/{id},,GET,Return specific school. A School is an instance of an Org.
-x,getAllStudents,,/students,x,GET,Return collection of students. A Student is an instance of a User.
+x,getAllSchools,x,/schools,x,GET,Return collection of schools. A School is an instance of an Org.
+x,getSchool,x,/schools/{id},x,GET,Return specific school. A School is an instance of an Org.
+x,getAllStudents,x,/students,x,GET,Return collection of students. A Student is an instance of a User.
 x,getStudent,x,/students/{id},x,GET,Return specific student. A Student is an instance of a User.
 x,getAllTeachers,x,/teachers,x,GET,Return collection of teachers. A Teacher is an instance of a User.
 x,getTeacher,x,/teachers/{id},x,GET,Return specific teacher.
 x,getAllUsers,x,/users,x,GET,Return collection of users
 x,getUser,x,/users/{id},x,GET,Return specific user
-x,getClassesForTerm,x,/terms/{term_id}/classes,,GET,Return the collection of classes that are taught in this term.
-x,getClassesForCourse,,/courses/{course_id}/classes,,GET,Return the collection of classes that are teaching this course.
-x,getClassesForStudent,,/students/{student_id}/classes,x,GET,Return the collection of classes that this student is taking.
+x,getClassesForTerm,x,/terms/{term}/classes,x,GET,Return the collection of classes that are taught in this term.
+x,getClassesForCourse,x,/courses/{course_id}/classes,x,GET,Return the collection of classes that are teaching this course.
+x,getClassesForStudent,x,/students/{student_id}/classes,x,GET,Return the collection of classes that this student is taking.
 x,getClassesForTeacher,x,/teachers/{teacher_id}/classes,x,GET,Return the collection of classes that this teacher is teaching.
-x,getClassesForSchool,x,/schools/{school_id}/classes,,GET,Return the collection of classes taught by this school.
-x,getClassesForUser,,/users/{user_id}/classes,x,GET,Return the collection of classes attended by this user.
-x,getStudentsForClass,x,/classes/{class_id}/students,,GET,Return the collection of students that are taking this class.
-x,getTeachersForClass,,/classes/{class_id}/teachers,,GET,Return the collection of teachers that are teaching this class.
-x,getCoursesForSchool,,/schools/{id}/courses,,GET,Return the collection of courses taught by this school.
-x,getEnrollmentsForClassInSchool,,/schools/{school_id}/classes/{class_id}/enrollments,,GET,Return the collection of all enrollments into this class.
-x,getStudentsForClassInSchool,,/schools/{school_id}/classes/{class_id}/students,,GET,Return the collection of students taking this class in this school.
-x,getTeachersForClassInSchool,,/schools/{school_id}/classes/{class_id}/teachers,,GET,Return the collection of teachers taking this class in this school.
-x,getEnrollmentsForSchool,,/schools/{school_id}/enrollments,,GET,Return the collection of all enrollments for this school.
-x,getStudentsForSchool,,/schools/{school_id}/students,,GET,Return the collection of students attending this school.
-x,getTeachersForSchool,,/schools/{school_id}/teachers,,GET,Return the collection of teachers teaching at this school.
+x,getClassesForSchool,x,/schools/{school_id}/classes,x,GET,Return the collection of classes taught by this school.
+x,getClassesForUser,x,/users/{user_id}/classes,x,GET,Return the collection of classes attended by this user.
+x,getStudentsForClass,x,/classes/{class_id}/students,x,GET,Return the collection of students that are taking this class.
+x,getTeachersForClass,x,/classes/{class_id}/teachers,x,GET,Return the collection of teachers that are teaching this class.
+x,getCoursesForSchool,x,/schools/{id}/courses,x,GET,Return the collection of courses taught by this school.
+x,getEnrollmentsForClassInSchool,x,/schools/{school_id}/classes/{class_id}/enrollments,x,GET,Return the collection of all enrollments into this class.
+x,getStudentsForClassInSchool,x,/schools/{school_id}/classes/{class_id}/students,x,GET,Return the collection of students taking this class in this school.
+x,getTeachersForClassInSchool,x,/schools/{school_id}/classes/{class_id}/teachers,x,GET,Return the collection of teachers taking this class in this school.
+x,getEnrollmentsForSchool,x,/schools/{school_id}/enrollments,x,GET,Return the collection of all enrollments for this school.
+x,getStudentsForSchool,x,/schools/{school_id}/students,x,GET,Return the collection of students attending this school.
+x,getTeachersForSchool,x,/schools/{school_id}/teachers,x,GET,Return the collection of teachers teaching at this school.
