@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.service;
 
+import com.dm.onerosterapi.exceptions.ApiMessages;
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.UserService;
@@ -37,7 +38,7 @@ public class users {
             userService.getStudentBySourcedId("f1e4b385-b0c9-4054-ad08-95c580ac715d");
             fail ("Exception expected");
         } catch (UserNotFoundException e){
-            // pass
+            assertTrue(e.getMessage().contains(ApiMessages.NOT_A_STUDENT));
         }
 
     }
@@ -51,7 +52,7 @@ public class users {
             userService.getTeacherBySourcedId(tstSId);
             fail ("Exception expected");
         } catch (UserNotFoundException e){
-            // pass
+            assertTrue(e.getMessage().contains(ApiMessages.NOT_A_TEACHER));
         }
 
     }

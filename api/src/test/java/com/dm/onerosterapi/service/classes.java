@@ -1,7 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
-import com.dm.onerosterapi.exceptions.UserNotFoundException;
+import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import org.junit.Test;
@@ -71,13 +70,13 @@ public class classes {
     }
 
     @Test
-    public void getClassesByCourse() throws ClassOfCourseNotFoundException {
+    public void getClassesByCourse() throws ClassOfCourseNotFoundException, CourseNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesByCourse("7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4");
         assertEquals(classList.size(), 2);
     }
 
     @Test
-    public void getClassesByTerm() throws ClassOfCourseNotFoundException {
+    public void getClassesByTerm() throws ClassOfCourseNotFoundException, TermNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesByTerm("Fall");
         assertEquals(classList.size(), 42);
 
@@ -86,7 +85,7 @@ public class classes {
     }
 
     @Test
-    public void getClassesBySchool() throws ClassOfCourseNotFoundException {
+    public void getClassesBySchool() throws ClassOfCourseNotFoundException, SchoolNotFoundException {
         List<ClassOfCourse> classList = classService.getClassesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(classList.size(), 42);
     }

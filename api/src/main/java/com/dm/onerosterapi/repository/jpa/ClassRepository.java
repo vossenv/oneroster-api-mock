@@ -11,5 +11,6 @@ public interface ClassRepository extends JpaRepository<ClassOfCourse, String>{
     public ClassOfCourse findBySourcedId(String id);
     public List<ClassOfCourse> findByTerm(String term);
     public boolean existsBySourcedId(String id);
+    public boolean existsByTerm(String id);
 
 }

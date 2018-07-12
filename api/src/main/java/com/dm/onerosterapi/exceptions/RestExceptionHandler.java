@@ -23,37 +23,31 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    @ResponseBody
     protected ResponseEntity<Object> handleUserNotFound( UserNotFoundException e ) {
         return buildResponseEntity(e, ApiMessages.NO_USER_MESSAGE, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ClassOfCourseNotFoundException.class)
-    @ResponseBody
     protected ResponseEntity<Object> handleSchoolClassNotFound( ClassOfCourseNotFoundException e ) {
         return buildResponseEntity(e, ApiMessages.NO_CLASS_MESSAGE, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CourseNotFoundException.class)
-    @ResponseBody
     protected ResponseEntity<Object> handleCourseNotFound( CourseNotFoundException e ) {
         return buildResponseEntity(e, ApiMessages.NO_COURSE_MESSAGE, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(SchoolNotFoundException.class)
-    @ResponseBody
     protected ResponseEntity<Object> handleSchoolNotFound( SchoolNotFoundException e ) {
         return buildResponseEntity(e, ApiMessages.NO_SCHOOL_MESSAGE, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(EnrollmentNotFoundException.class)
-    @ResponseBody
     protected ResponseEntity<Object> handleEnrollmentNotFound( EnrollmentNotFoundException e ) {
         return buildResponseEntity(e, ApiMessages.NO_ENROLLMENT_MESSAGE, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseBody
     protected ResponseEntity<Object> handleResourceNotFound( ResourceNotFoundException e ) {
         return buildResponseEntity(e, ApiMessages.NO_RESULTS, HttpStatus.NOT_FOUND);
     }
