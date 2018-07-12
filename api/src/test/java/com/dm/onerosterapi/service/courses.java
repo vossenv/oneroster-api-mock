@@ -1,6 +1,7 @@
 package com.dm.onerosterapi.service;
 
 import com.dm.onerosterapi.exceptions.CourseNotFoundException;
+import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.service.interfaces.CourseService;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class courses {
 	}
 
 	@Test
-    public void getCoursesBySchool() throws CourseNotFoundException {
+    public void getCoursesBySchool() throws CourseNotFoundException, SchoolNotFoundException {
         List<Course> courseList = courseService.getCoursesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(courseList.size(),21);
     }
