@@ -209,6 +209,13 @@ public class helper {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_ENROLLMENT));
         }
 
+        helperService.validateClassTerm("Fall");
+        try {
+            helperService.validateClassTerm("x");
+            fail ("Id should be invalid");
+        } catch (TermNotFoundException e){
+            assertTrue(e.getMessage().contains(ApiMessages.INVALID_TERM));
+        }
 
     }
 

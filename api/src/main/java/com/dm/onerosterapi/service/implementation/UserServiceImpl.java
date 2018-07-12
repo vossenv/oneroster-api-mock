@@ -83,18 +83,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getStudentBySourcedId(String userId) throws UserNotFoundException {
-
         User u = getUserBySourcedId(userId);
         if (u.getRole().equals("student")) return u; else
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
+            throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + userId);
     }
 
     @Override
     public User getTeacherBySourcedId(String userId) throws UserNotFoundException {
-
         User u = getUserBySourcedId(userId);
         if (u.getRole().equals("teacher")) return u; else
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
+            throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + userId);
     }
 
     @Override

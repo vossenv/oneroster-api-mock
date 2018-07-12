@@ -93,4 +93,8 @@ public class HelperService {
         if (!enrollmentRepository.existsBySourcedId(sourcedId)) {throw new EnrollmentNotFoundException(ApiMessages.INVALID_ENROLLMENT + sourcedId);}
     }
 
+    public void validateClassTerm(String term) throws TermNotFoundException {
+        if (!classRepository.existsByTerm(term)) {throw new TermNotFoundException(ApiMessages.INVALID_TERM + term);}
+    }
+
 }
