@@ -5,9 +5,9 @@ x,getAllCourses,x,/courses,x,GET,Return collection of courses.
 x,getCourse,x,/courses/{id},x,GET,Return specific course.
 x,getAllEnrollments,x,/enrollments,x,GET,Return collection of all enrollments.
 x,getEnrollment,x,/enrollments/{id},x,GET,Return specific enrollment.
-x,getAllSchools,,/schools,,GET,Return collection of schools. A School is an instance of an Org.
-x,getSchool,,/schools/{id},,GET,Return specific school. A School is an instance of an Org.
-x,getAllStudents,,/students,x,GET,Return collection of students. A Student is an instance of a User.
+x,getAllSchools,x,/schools,x,GET,Return collection of schools. A School is an instance of an Org.
+x,getSchool,x,/schools/{id},x,GET,Return specific school. A School is an instance of an Org.
+x,getAllStudents,x,/students,x,GET,Return collection of students. A Student is an instance of a User.
 x,getStudent,x,/students/{id},x,GET,Return specific student. A Student is an instance of a User.
 x,getAllTeachers,x,/teachers,x,GET,Return collection of teachers. A Teacher is an instance of a User.
 x,getTeacher,x,/teachers/{id},x,GET,Return specific teacher.
