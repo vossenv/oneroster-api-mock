@@ -51,7 +51,7 @@ public class classes {
         try {
             classService.getClassesByStudent("f1e4b385-b0c9-4054-ad08-95c580ac715d");
             fail("Exception expected");
-        } catch (ClassOfCourseNotFoundException e) {
+        } catch (UserNotFoundException e) {
             // pass
         }
     }
@@ -64,7 +64,7 @@ public class classes {
         try {
             classService.getClassesByTeacher("cda272c0-bf6c-4e72-8b13-5f1f3be72339");
             fail("Exception expected");
-        } catch (ClassOfCourseNotFoundException e) {
+        } catch (UserNotFoundException e) {
             // pass
         }
     }

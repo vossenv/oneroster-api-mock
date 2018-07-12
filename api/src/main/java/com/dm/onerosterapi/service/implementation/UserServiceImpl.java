@@ -139,10 +139,12 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    private static List<User> userTypeFilter(List<User> userList, String role) {
-        return userList.stream()
+    private static List<User> userTypeFilter(List<User> userList, String role) throws UserNotFoundException {
+        List<User> results = userList.stream()
                 .filter(u -> u.getRole().equals(role))
                 .collect(Collectors.toList());
+        if (results.isEmpty()) { throw new UserNotFoundException(ApiMessages.NO_RESULTS); }
+        return results;
     }
 
 }

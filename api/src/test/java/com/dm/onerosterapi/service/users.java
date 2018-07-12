@@ -89,6 +89,13 @@ public class users {
         assertEquals(userList.size(),55);
         assertEquals(studentList.size(),47);
         assertEquals(teacherList.size(),8);
+
+        try {
+            userService.getTeachersByClass("2ba9f25c-ef54-4072-85ab-2db066988091");
+            fail("Class has no teachers");
+        } catch (UserNotFoundException e) {
+            assertTrue(e.getMessage().contains(ApiMessages.NO_RESULTS));
+        }
     }
 
     @Test
