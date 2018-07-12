@@ -1,26 +1,11 @@
 Feature: Enrollment Controller Integration Testing
 
-  Background:
-    * def URL = apiURL
-
   Scenario: Validate the /enrollments endpoint
 
     Given url URL + 'enrollments'
     When method GET
     Then status 200
-    And match each response ==
-    """
-    { enrollmentId: '#string',
-      sourcedId: '#string',
-      status: '#string',
-      dateLastModified: '#string',
-      metadata: '#string',
-      userId: '#string',
-      classId: '#string',
-      primary: '#string',
-      beginDate: '#string',
-      endDate: '#string' }
-    """
+    And match each response == ENROLLMENT
 
   Scenario: Validate the /enrollments/:id endpoint
 

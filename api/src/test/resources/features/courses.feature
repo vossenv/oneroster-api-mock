@@ -1,27 +1,11 @@
 Feature: Courses Controller Integration Testing
 
-  Background:
-    * def URL = apiURL
-
   Scenario: Validate the /courses endpoint
 
     Given url URL + 'courses'
     When method GET
     Then status 200
-    And match each response ==
-    """
-    { courseId: '#string',
-      sourcedId: '#string',
-      status: '#string',
-      dateLastModified: '#string',
-      metadata: '#string',
-      grade: '#string',
-      title: '#string',
-      schoolYear: '#string',
-      courseCode: '#string',
-      subjects: '#string',
-      schoolId: '#string' }
-    """
+    And match each response == COURSE
 
   Scenario: Validate the /courses/:id endpoint
 
@@ -48,18 +32,4 @@ Feature: Courses Controller Integration Testing
     Given url URL + 'courses/7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4/classes'
     When method GET
     Then status 200
-    And match each response ==
-    """
-    { classId: '#string',
-      sourcedId: '#string',
-      status: '#string',
-      dateLastModified: '#string',
-      metadata: '#string',
-      term: '#string',
-      classCode: '#string',
-      classType: '#string',
-      location: '#string',
-      courseId: '#string',
-      schoolId: '#string',
-      periods: '#string' }
-    """
+    And match each response == CLASS
