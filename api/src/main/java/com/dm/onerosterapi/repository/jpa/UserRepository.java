@@ -8,4 +8,5 @@ public interface UserRepository extends JpaRepository<User, String>{
     public User findByUserId(String id);
     public User findBySourcedId(String id);
     public boolean existsBySourcedId(String id);
+    public boolean existsBySourcedIdAndRole(String id, String role);
 }

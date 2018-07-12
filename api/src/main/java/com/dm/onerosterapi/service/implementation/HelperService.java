@@ -77,6 +77,14 @@ public class HelperService {
         if (!userRepository.existsBySourcedId(sourcedId)) {throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);}
     }
 
+    public void validateTeacher(String sourcedId) throws UserNotFoundException{
+        if (!userRepository.existsBySourcedIdAndRole(sourcedId, "teacher")) {throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + sourcedId);}
+    }
+
+    public void validateStudent(String sourcedId) throws UserNotFoundException{
+        if (!userRepository.existsBySourcedIdAndRole(sourcedId, "student")) {throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + sourcedId);}
+    }
+
     public void validateClass(String sourcedId) throws ClassOfCourseNotFoundException {
         if (!classRepository.existsBySourcedId(sourcedId)) {throw new ClassOfCourseNotFoundException(ApiMessages.INVALID_CLASS + sourcedId);}
     }

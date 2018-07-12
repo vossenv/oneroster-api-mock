@@ -1,5 +1,7 @@
 package com.dm.onerosterapi.service.interfaces;
 
+import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
+import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.*;
 
@@ -15,16 +17,16 @@ public interface UserService {
     public List<User> getAllStudents() throws UserNotFoundException;
     public List<User> getAllTeachers() throws UserNotFoundException;
 
-    public List<User> getUsersByClass(String classSourcedId) throws UserNotFoundException;
-    public List<User> getStudentsByClass(String classSourcedId) throws UserNotFoundException;
-    public List<User> getTeachersByClass(String classSourcedId) throws UserNotFoundException;
+    public List<User> getUsersByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException;
+    public List<User> getStudentsByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException;
+    public List<User> getTeachersByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException;
 
-    public List<User> getUsersBySchool(String schoolId) throws UserNotFoundException;
-    public List<User> getStudentsBySchool(String schoolId) throws UserNotFoundException;
-    public List<User> getTeachersBySchool(String schoolId) throws UserNotFoundException;
+    public List<User> getUsersBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException;
+    public List<User> getStudentsBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException;
+    public List<User> getTeachersBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException;
 
-    public List<User> getUsersForClassInSchool(String classId, String schoolId) throws UserNotFoundException;
-    public List<User> getStudentsForClassInSchool(String classId, String schoolId) throws UserNotFoundException;
-    public List<User> getTeachersForClassInSchool(String classId, String schoolId) throws UserNotFoundException;
+    public List<User> getUsersForClassInSchool(String classId, String schoolId) throws UserNotFoundException, ClassOfCourseNotFoundException, SchoolNotFoundException;
+    public List<User> getStudentsForClassInSchool(String classId, String schoolId) throws UserNotFoundException, ClassOfCourseNotFoundException, SchoolNotFoundException;
+    public List<User> getTeachersForClassInSchool(String classId, String schoolId) throws UserNotFoundException, ClassOfCourseNotFoundException, SchoolNotFoundException;
 
 }

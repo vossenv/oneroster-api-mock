@@ -177,6 +177,14 @@ public class helper {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER));
         }
 
+        helperService.validateTeacher("f1e4b385-b0c9-4054-ad08-95c580ac715d");
+        try {
+            helperService.validateTeacher("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
+            fail ("Id student - should be invalid");
+        } catch (UserNotFoundException e){
+            assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER));
+        }
+
         helperService.validateClass("dca81f5a-1d99-491a-85fb-ad9591d4b96d");
         try {
             helperService.validateClass("x");
