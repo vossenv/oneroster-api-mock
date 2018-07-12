@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
+import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.repository.jpa.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -73,10 +73,24 @@ public class HelperService {
         return o;
     }
 
+    public void validateUser(String sourcedId) throws UserNotFoundException{
+        if (!userRepository.existsBySourcedId(sourcedId)) {throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);}
+    }
 
+    public void validateClass(String sourcedId) throws ClassOfCourseNotFoundException {
+        if (!classRepository.existsBySourcedId(sourcedId)) {throw new ClassOfCourseNotFoundException(ApiMessages.INVALID_CLASS + sourcedId);}
+    }
 
+    public void validateCourse(String sourcedId) throws CourseNotFoundException {
+        if (!courseRepository.existsBySourcedId(sourcedId)) {throw new CourseNotFoundException(ApiMessages.INVALID_COURSE + sourcedId);}
+    }
 
+    public void validateSchool(String sourcedId) throws SchoolNotFoundException {
+        if (!schoolRepository.existsBySourcedId(sourcedId)) {throw new SchoolNotFoundException(ApiMessages.INVALID_SCHOOL + sourcedId);}
+    }
 
-
+    public void validateEnrollment(String sourcedId) throws EnrollmentNotFoundException {
+        if (!enrollmentRepository.existsBySourcedId(sourcedId)) {throw new EnrollmentNotFoundException(ApiMessages.INVALID_ENROLLMENT + sourcedId);}
+    }
 
 }

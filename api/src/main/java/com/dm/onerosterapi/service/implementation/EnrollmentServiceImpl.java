@@ -36,7 +36,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (List<Enrollment>) h.processResults(enrollmentRepository.findAll());
         } catch (NullPointerException | ResourceNotFoundException e){
-            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
@@ -45,7 +45,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (Enrollment) h.processResults(enrollmentRepository.findBySourcedId(enrollmentId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
@@ -55,7 +55,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (List<Enrollment>) h.processResults(rosterDao.getEnrollmentsBySchool(schoolId));
         } catch (NullPointerException | ResourceNotFoundException e){
-            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
         }
 
     }
@@ -65,7 +65,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (List<Enrollment>) h.processResults(rosterDao.getEnrollmentsForClassInSchool(classId, schoolId));
         } catch (NullPointerException | ResourceNotFoundException e){
-            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 }
