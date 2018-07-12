@@ -14,11 +14,11 @@ x,getTeacher,x,/teachers/{id},x,GET,Return specific teacher.
 x,getAllUsers,x,/users,x,GET,Return collection of users
 x,getUser,x,/users/{id},x,GET,Return specific user
 x,getClassesForTerm,x,/terms/{term_id}/classes,,GET,Return the collection of classes that are taught in this term.
-x,getClassesForCourse,,/courses/{course_id}/classes,,GET,Return the collection of classes that are teaching this course.
-x,getClassesForStudent,,/students/{student_id}/classes,x,GET,Return the collection of classes that this student is taking.
+x,getClassesForCourse,x,/courses/{course_id}/classes,x,GET,Return the collection of classes that are teaching this course.
+x,getClassesForStudent,x,/students/{student_id}/classes,x,GET,Return the collection of classes that this student is taking.
 x,getClassesForTeacher,x,/teachers/{teacher_id}/classes,x,GET,Return the collection of classes that this teacher is teaching.
 x,getClassesForSchool,x,/schools/{school_id}/classes,,GET,Return the collection of classes taught by this school.
-x,getClassesForUser,,/users/{user_id}/classes,x,GET,Return the collection of classes attended by this user.
+x,getClassesForUser,x,/users/{user_id}/classes,x,GET,Return the collection of classes attended by this user.
 x,getStudentsForClass,x,/classes/{class_id}/students,,GET,Return the collection of students that are taking this class.
 x,getTeachersForClass,,/classes/{class_id}/teachers,,GET,Return the collection of teachers that are teaching this class.
 x,getCoursesForSchool,,/schools/{id}/courses,,GET,Return the collection of courses taught by this school.

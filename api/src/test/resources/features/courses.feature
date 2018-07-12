@@ -42,3 +42,24 @@ Feature: Courses Controller Integration Testing
       "subjects": "Algebra III",
       "schoolId": "f9a75f84-130b-419e-bbe6-463585e930e9" }
     """
+
+  Scenario: Validate the /courses/:id/classes endpoint
+
+    Given url URL + 'courses/7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4/classes'
+    When method GET
+    Then status 200
+    And match each response ==
+    """
+    { classId: '#string',
+      sourcedId: '#string',
+      status: '#string',
+      dateLastModified: '#string',
+      metadata: '#string',
+      term: '#string',
+      classCode: '#string',
+      classType: '#string',
+      location: '#string',
+      courseId: '#string',
+      schoolId: '#string',
+      periods: '#string' }
+    """
