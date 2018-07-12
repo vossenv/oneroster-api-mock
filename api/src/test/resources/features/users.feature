@@ -1,91 +1,25 @@
 Feature: User Controller Integration Testing
 
-  Background:
-    * def URL = apiURL
-
   Scenario: Validate the /users endpoint
 
     Given url URL + 'users'
     When method GET
     Then status 200
-    And match each response ==
-    """
-    { userId: '#string',
-      sourcedId: '#string',
-      status: '#string',
-      dateLastModified: '#string',
-      metadata: '#string',
-      enabledUser: '#string',
-      userIds: '#string',
-      identifier: '#string',
-      schoolId: '#string',
-      givenName: '#string',
-      familyName: '#string',
-      middleName: '#string',
-      email: '#string',
-      username: '#string',
-      phone: '#string',
-      role: '#string',
-      grades: '#string',
-      type: '#string',
-      password: '#string'}
-    """
+    And match each response == USER
 
   Scenario: Validate the /students endpoint
 
     Given url URL + 'students'
     When method GET
     Then status 200
-    And match each response ==
-    """
-    { userId: '#string',
-      sourcedId: '#string',
-      status: '#string',
-      dateLastModified: '#string',
-      metadata: '#string',
-      enabledUser: '#string',
-      userIds: '#string',
-      identifier: '#string',
-      schoolId: '#string',
-      givenName: '#string',
-      familyName: '#string',
-      middleName: '#string',
-      email: '#string',
-      username: '#string',
-      phone: '#string',
-    role: 'student',
-      grades: '#string',
-      type: '#string',
-      password: '#string'}
-    """
+    And match each response == STUDENT
 
   Scenario: Validate the /teachers endpoint
 
     Given url URL + 'teachers'
     When method GET
     Then status 200
-    And match each response ==
-    """
-    { userId: '#string',
-      sourcedId: '#string',
-      status: '#string',
-      dateLastModified: '#string',
-      metadata: '#string',
-      enabledUser: '#string',
-      userIds: '#string',
-      identifier: '#string',
-      schoolId: '#string',
-      givenName: '#string',
-      familyName: '#string',
-      middleName: '#string',
-      email: '#string',
-      username: '#string',
-      phone: '#string',
-    role: 'teacher',
-      grades: '#string',
-      type: '#string',
-      password: '#string'}
-    """
+    And match each response == TEACHER
 
   Scenario: Validate the /users/:id endpoint
 
@@ -176,60 +110,18 @@ Feature: User Controller Integration Testing
     Given url URL + '/users/1226a624-e093-4203-b2a4-a3931ce7cce2/classes'
     When method GET
     Then status 200
-    And match each response ==
-    """
-    { classId: '#string',
-      sourcedId: '#string',
-      status: '#string',
-      dateLastModified: '#string',
-      metadata: '#string',
-      term: '#string',
-      classCode: '#string',
-      classType: '#string',
-      location: '#string',
-      courseId: '#string',
-      schoolId: '#string',
-      periods: '#string' }
-    """
+    And match each response == CLASS
 
   Scenario: Validate the /students/:id/classes endpoint
 
     Given url URL + '/students/e041a2f2-3545-4427-b9c1-ec3e3c040cbf/classes'
     When method GET
     Then status 200
-    And match each response ==
-    """
-    { classId: '#string',
-      sourcedId: '#string',
-      status: '#string',
-      dateLastModified: '#string',
-      metadata: '#string',
-      term: '#string',
-      classCode: '#string',
-      classType: '#string',
-      location: '#string',
-      courseId: '#string',
-      schoolId: '#string',
-      periods: '#string' }
-    """
+    And match each response == CLASS
 
   Scenario: Validate the /teachers/:id/classes endpoint
 
     Given url URL + '/teachers/a8aad0d4-a2a5-42d4-8eb1-60a176959796/classes'
     When method GET
     Then status 200
-    And match each response ==
-    """
-    { classId: '#string',
-      sourcedId: '#string',
-      status: '#string',
-      dateLastModified: '#string',
-      metadata: '#string',
-      term: '#string',
-      classCode: '#string',
-      classType: '#string',
-      location: '#string',
-      courseId: '#string',
-      schoolId: '#string',
-      periods: '#string' }
-    """
+    And match each response == CLASS

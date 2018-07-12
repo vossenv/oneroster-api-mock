@@ -1,6 +1,9 @@
 package com.dm.onerosterapi.controller;
 
+import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
 import com.dm.onerosterapi.exceptions.CourseNotFoundException;
+import com.dm.onerosterapi.model.Course;
+import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +15,12 @@ import java.util.List;
 public class CourseController {
 
     private CourseService courseService;
+    private ClassService classService;
 
     @Autowired
-    CourseController(CourseService courseService) {
+    CourseController(CourseService courseService, ClassService classService) {
         this.courseService = courseService;
+        this.classService = classService;
     }
 
     @RequestMapping(value="/courses", method=RequestMethod.GET)
@@ -28,6 +33,12 @@ public class CourseController {
     @ResponseBody
     public Object getCourseById(@PathVariable("id") String id) throws CourseNotFoundException {
         return courseService.getBySourcedId(id);
+    }
+
+    @RequestMapping(value="/courses/{id}/classes", method=RequestMethod.GET)
+    @ResponseBody
+    public List<?> getClassesForCourse(@PathVariable("id") String id) throws ClassOfCourseNotFoundException, CourseNotFoundException {
+        return classService.getClassesByCourse(id);
     }
 
 }
