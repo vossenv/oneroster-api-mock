@@ -13,7 +13,7 @@ x,getAllTeachers,x,/teachers,x,GET,Return collection of teachers. A Teacher is a
 x,getTeacher,x,/teachers/{id},x,GET,Return specific teacher.
 x,getAllUsers,x,/users,x,GET,Return collection of users
 x,getUser,x,/users/{id},x,GET,Return specific user
-x,getClassesForTerm,x,/terms/{term_id}/classes,,GET,Return the collection of classes that are taught in this term.
+x,getClassesForTerm,x,/terms/{term}/classes,x,GET,Return the collection of classes that are taught in this term.
 x,getClassesForCourse,x,/courses/{course_id}/classes,x,GET,Return the collection of classes that are teaching this course.
 x,getClassesForStudent,x,/students/{student_id}/classes,x,GET,Return the collection of classes that this student is taking.
 x,getClassesForTeacher,x,/teachers/{teacher_id}/classes,x,GET,Return the collection of classes that this teacher is teaching.
