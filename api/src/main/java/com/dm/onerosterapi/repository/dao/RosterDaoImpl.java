@@ -20,7 +20,7 @@ public class RosterDaoImpl implements RosterDao {
     private EntityManager entityManager;
 
     private static String surround (String s){
-        return "\'" + s + "\'";
+        return "\'" + s.toLowerCase() + "\'";
     }
 
     @Override

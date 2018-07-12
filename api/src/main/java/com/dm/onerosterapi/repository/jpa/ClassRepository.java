@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface ClassRepository extends JpaRepository<ClassOfCourse, String>{
 
-    public ClassOfCourse findByClassId(String id);
-    public ClassOfCourse findBySourcedId(String id);
-    public List<ClassOfCourse> findByTerm(String term);
-    public boolean existsBySourcedId(String id);
-    public boolean existsByTerm(String id);
+    public ClassOfCourse findByClassIdIgnoreCase(String id);
+    public ClassOfCourse findBySourcedIdIgnoreCase(String id);
+    public List<ClassOfCourse> findByTermIgnoreCase(String term);
+    public boolean existsBySourcedIdIgnoreCase(String id);
+    public boolean existsByTermIgnoreCase(String id);
 
 }
