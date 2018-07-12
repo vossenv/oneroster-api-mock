@@ -5,7 +5,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,11 +23,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     protected ResponseEntity<Object> handleUserNotFound( UserNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_USER_MESSAGE, HttpStatus.NOT_FOUND);
+        return buildResponseEntity(e, ApiMessages.NO_USERS_FOR_ID, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ClassNotFoundException.class)
-    protected ResponseEntity<Object> handleClassNotFound( ClassNotFoundException e ) {
+    @ExceptionHandler(ClassOfCourseNotFoundException.class)
+    protected ResponseEntity<Object> handleSchoolClassNotFound( ClassOfCourseNotFoundException e ) {
         return buildResponseEntity(e, ApiMessages.NO_CLASS_MESSAGE, HttpStatus.NOT_FOUND);
     }
 
@@ -45,6 +44,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EnrollmentNotFoundException.class)
     protected ResponseEntity<Object> handleEnrollmentNotFound( EnrollmentNotFoundException e ) {
         return buildResponseEntity(e, ApiMessages.NO_ENROLLMENT_MESSAGE, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    protected ResponseEntity<Object> handleResourceNotFound( ResourceNotFoundException e ) {
+        return buildResponseEntity(e, ApiMessages.NO_RESULTS, HttpStatus.NOT_FOUND);
     }
 
     private ResponseEntity<Object> buildResponseEntity(Exception e, String message, HttpStatus status) {

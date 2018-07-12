@@ -31,7 +31,7 @@ public class SchoolServiceImpl implements SchoolService {
         try {
             return (List<School>) h.processResults(schoolRepository.findAll());
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new SchoolNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new SchoolNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
@@ -40,7 +40,7 @@ public class SchoolServiceImpl implements SchoolService {
         try {
             return (School) h.processResults(schoolRepository.findBySourcedId(schoolId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new SchoolNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new SchoolNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 }

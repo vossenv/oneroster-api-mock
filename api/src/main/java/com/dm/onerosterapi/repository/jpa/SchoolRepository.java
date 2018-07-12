@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SchoolRepository extends JpaRepository<School, String>{
 
-    public School findBySchoolId(String schoolId);
-    public School findBySourcedId(String schoolId);
+    public School findBySchoolId(String id);
+    public School findBySourcedId(String id);
+    public boolean existsBySourcedId(String id);
 
 }

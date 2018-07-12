@@ -1,6 +1,8 @@
 package com.dm.onerosterapi.service;
 
+import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
 import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
+import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import org.junit.Test;
@@ -38,7 +40,7 @@ public class enrollments {
 	}
 
 	@Test
-    public void getEnrollmentsForSchool() throws EnrollmentNotFoundException {
+    public void getEnrollmentsForSchool() throws EnrollmentNotFoundException, SchoolNotFoundException {
         List<Enrollment> enrollmentList = enrollmentService.getEnrollmentsForSchool("f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(enrollmentList.size(),2076);
 
@@ -48,7 +50,11 @@ public class enrollments {
     }
 
     @Test
-    public void getEnrollmentsForClassInSchool() throws EnrollmentNotFoundException {
+    public void getEnrollmentsForClassInSchool() throws
+            EnrollmentNotFoundException,
+            ClassOfCourseNotFoundException,
+            SchoolNotFoundException {
+
         String schoolId = "f9a75f84-130b-419e-bbe6-463585e930e9";
         String classId = "2ba9f25c-ef54-4072-85ab-2db066988091";
 

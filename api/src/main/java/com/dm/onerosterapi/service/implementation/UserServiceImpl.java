@@ -1,8 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions.ApiMessages;
-import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
-import com.dm.onerosterapi.exceptions.UserNotFoundException;
+import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
@@ -33,12 +31,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getStudentsByClass(String classSourcedId) throws UserNotFoundException {
+    public List<User> getStudentsByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException {
         return userTypeFilter(getUsersByClass(classSourcedId), "student");
     }
 
     @Override
-    public List<User> getTeachersByClass(String classSourcedId) throws UserNotFoundException {
+    public List<User> getTeachersByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException {
         return userTypeFilter(getUsersByClass(classSourcedId), "teacher");
     }
 
@@ -53,22 +51,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getStudentsBySchool(String schoolId) throws UserNotFoundException {
+    public List<User> getStudentsBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException {
         return userTypeFilter(getUsersBySchool(schoolId), "student");
     }
 
     @Override
-    public List<User> getTeachersBySchool(String schoolId) throws UserNotFoundException {
+    public List<User> getTeachersBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException {
         return userTypeFilter(getUsersBySchool(schoolId), "teacher");
     }
 
     @Override
-    public List<User> getStudentsForClassInSchool(String classId, String schoolId) throws UserNotFoundException {
+    public List<User> getStudentsForClassInSchool(String classId, String schoolId)
+            throws UserNotFoundException, ClassOfCourseNotFoundException, SchoolNotFoundException {
         return userTypeFilter(getUsersForClassInSchool(classId, schoolId), "student");
     }
 
     @Override
-    public List<User> getTeachersForClassInSchool(String classId, String schoolId) throws UserNotFoundException {
+    public List<User> getTeachersForClassInSchool(String classId, String schoolId)
+            throws UserNotFoundException, ClassOfCourseNotFoundException, SchoolNotFoundException {
         return userTypeFilter(getUsersForClassInSchool(classId, schoolId), "teacher");
     }
 
@@ -77,24 +77,22 @@ public class UserServiceImpl implements UserService {
         try {
             return (User) h.processResults(userRepository.findBySourcedId(userId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_ID + userId);
         }
     }
 
     @Override
     public User getStudentBySourcedId(String userId) throws UserNotFoundException {
-
         User u = getUserBySourcedId(userId);
         if (u.getRole().equals("student")) return u; else
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + userId);
     }
 
     @Override
     public User getTeacherBySourcedId(String userId) throws UserNotFoundException {
-
         User u = getUserBySourcedId(userId);
         if (u.getRole().equals("teacher")) return u; else
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + userId);
     }
 
     @Override
@@ -102,41 +100,51 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.processResults(userRepository.findAll());
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
     @Override
-    public List<User> getUsersByClass(String classSourcedId) throws UserNotFoundException {
+    public List<User> getUsersByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException {
         try {
+            h.validateClass(classSourcedId);
             return (List<User>) h.processResults(rosterDao.getUsersByClass(classSourcedId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_CLASS + classSourcedId);
         }
     }
 
     @Override
-    public List<User> getUsersBySchool(String schoolId) throws UserNotFoundException {
+    public List<User> getUsersBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException {
         try {
+            h.validateSchool(schoolId);
             return (List<User>) h.processResults(rosterDao.getUsersBySchool(schoolId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_SCHOOL + schoolId);
         }
     }
 
     @Override
-    public List<User> getUsersForClassInSchool(String classId, String schoolId) throws UserNotFoundException {
+    public List<User> getUsersForClassInSchool(String classId, String schoolId) throws UserNotFoundException,
+            ClassOfCourseNotFoundException,
+            SchoolNotFoundException{
+
         try {
+            h.validateClass(classId);
+            h.validateSchool(schoolId);
             return (List<User>) h.processResults(rosterDao.getUsersForClassInSchool(classId, schoolId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS_MESSAGE);
+            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
+
     }
 
-    private static List<User> userTypeFilter(List<User> userList, String role) {
-        return userList.stream()
+    private static List<User> userTypeFilter(List<User> userList, String role) throws UserNotFoundException {
+        List<User> results = userList.stream()
                 .filter(u -> u.getRole().equals(role))
                 .collect(Collectors.toList());
+        if (results.isEmpty()) { throw new UserNotFoundException(ApiMessages.NO_RESULTS); }
+        return results;
     }
 
 }
