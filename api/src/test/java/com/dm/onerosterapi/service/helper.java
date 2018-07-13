@@ -174,7 +174,23 @@ public class helper {
 	        helperService.validateUser("x");
 	        fail ("Id should be invalid");
         } catch (UserNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER));
+            assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "x"));
+        }
+
+        helperService.validateTeacher("f1e4b385-b0c9-4054-ad08-95c580ac715d");
+        try {
+            helperService.validateTeacher("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
+            fail ("Id student - should be invalid");
+        } catch (UserNotFoundException e){
+            assertTrue(e.getMessage().contains(ApiMessages.NOT_A_TEACHER + "8057df9d-72a3-419a-98b5-6eab87ec0a6d"));
+        }
+
+        helperService.validateStudent("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
+        try {
+            helperService.validateStudent("f1e4b385-b0c9-4054-ad08-95c580ac715d");
+            fail ("Id student - should be invalid");
+        } catch (UserNotFoundException e){
+            assertTrue(e.getMessage().contains(ApiMessages.NOT_A_STUDENT + "f1e4b385-b0c9-4054-ad08-95c580ac715d"));
         }
 
         helperService.validateClass("dca81f5a-1d99-491a-85fb-ad9591d4b96d");
@@ -182,7 +198,7 @@ public class helper {
             helperService.validateClass("x");
             fail ("Id should be invalid");
         } catch (ClassOfCourseNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_CLASS));
+            assertTrue(e.getMessage().contains(ApiMessages.INVALID_CLASS + "x"));
         }
 
         helperService.validateCourse("2441eeb2-4df0-4726-a882-f0e722d129c6");
@@ -190,7 +206,7 @@ public class helper {
             helperService.validateCourse("x");
             fail ("Id should be invalid");
         } catch (CourseNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_COURSE));
+            assertTrue(e.getMessage().contains(ApiMessages.INVALID_COURSE + "x"));
         }
 
         helperService.validateSchool("f9a75f84-130b-419e-bbe6-463585e930e9");
@@ -198,7 +214,7 @@ public class helper {
             helperService.validateSchool("x");
             fail ("Id should be invalid");
         } catch (SchoolNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_SCHOOL));
+            assertTrue(e.getMessage().contains(ApiMessages.INVALID_SCHOOL + "x"));
         }
 
         helperService.validateEnrollment("44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb");
@@ -206,7 +222,7 @@ public class helper {
             helperService.validateEnrollment("x");
             fail ("Id should be invalid");
         } catch (EnrollmentNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_ENROLLMENT));
+            assertTrue(e.getMessage().contains(ApiMessages.INVALID_ENROLLMENT + "x"));
         }
 
         helperService.validateClassTerm("Fall");

@@ -1,6 +1,8 @@
 package com.dm.onerosterapi.service;
 
 import com.dm.onerosterapi.exceptions.ApiMessages;
+import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
+import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.UserService;
@@ -77,7 +79,7 @@ public class users {
 
 
     @Test
-    public void getUsersByClass() throws UserNotFoundException {
+    public void getUsersByClass() throws UserNotFoundException, ClassOfCourseNotFoundException {
         String classId = "cee2f870-852c-47e8-988a-73e2c296fc77";
 
         List<User> userList = userService.getUsersByClass(classId);
@@ -87,10 +89,17 @@ public class users {
         assertEquals(userList.size(),55);
         assertEquals(studentList.size(),47);
         assertEquals(teacherList.size(),8);
+
+        try {
+            userService.getTeachersByClass("2ba9f25c-ef54-4072-85ab-2db066988091");
+            fail("Class has no teachers");
+        } catch (UserNotFoundException e) {
+            assertTrue(e.getMessage().contains(ApiMessages.NO_RESULTS));
+        }
     }
 
     @Test
-    public void getUsersForSchool() throws UserNotFoundException {
+    public void getUsersForSchool() throws UserNotFoundException, SchoolNotFoundException {
 
         String schoolId = "f9a75f84-130b-419e-bbe6-463585e930e9";
 
@@ -106,7 +115,7 @@ public class users {
 
 
     @Test
-    public void getUsersForClassInSchool() throws UserNotFoundException {
+    public void getUsersForClassInSchool() throws UserNotFoundException, SchoolNotFoundException, ClassOfCourseNotFoundException  {
 
         String schoolId = "f5897384-9488-466f-b049-1992f7a53f15";
         String classId = "de02e4fa-9f8e-4f05-86fb-1173a246594c";

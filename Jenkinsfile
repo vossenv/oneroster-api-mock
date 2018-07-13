@@ -14,6 +14,7 @@ pipeline {
 					sh './gradlew clean assemble'
 					dir("build/libs") {
 						stash includes: jar_file, name: 'oneRoster'
+						archiveArtifacts artifacts: '**', fingerprint: true
 					}
 				}
             }
@@ -42,9 +43,4 @@ pipeline {
             }
         }
     }
-	post {
-			always {
-				archiveArtifacts artifacts: '**/*.jar', fingerprint:true
-			}
-		}
 }

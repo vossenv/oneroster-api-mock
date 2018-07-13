@@ -2,6 +2,7 @@ package com.dm.onerosterapi.service.implementation;
 
 import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.model.ClassOfCourse;
+import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.ClassRepository;
 import com.dm.onerosterapi.service.interfaces.ClassService;
@@ -32,11 +33,13 @@ public class ClassServiceImpl implements ClassService {
 
     @Override
     public List<ClassOfCourse> getClassesByStudent(String userSourcedId) throws ClassOfCourseNotFoundException, UserNotFoundException{
+        h.validateStudent(userSourcedId);
         return getClassesByUser(userSourcedId, "student");
     }
 
     @Override
     public List<ClassOfCourse> getClassesByTeacher(String userSourcedId) throws ClassOfCourseNotFoundException, UserNotFoundException {
+        h.validateTeacher(userSourcedId);
         return getClassesByUser(userSourcedId, "teacher");
     }
 

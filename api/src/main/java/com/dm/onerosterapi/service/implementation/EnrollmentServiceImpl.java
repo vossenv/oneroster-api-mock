@@ -1,8 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions.ApiMessages;
-import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
-import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
+import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.EnrollmentRepository;
@@ -51,8 +49,9 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
 
     @Override
-    public List<Enrollment> getEnrollmentsForSchool(String schoolId) throws EnrollmentNotFoundException {
+    public List<Enrollment> getEnrollmentsForSchool(String schoolId) throws EnrollmentNotFoundException, SchoolNotFoundException {
         try {
+            h.validateSchool(schoolId);
             return (List<Enrollment>) h.processResults(rosterDao.getEnrollmentsBySchool(schoolId));
         } catch (NullPointerException | ResourceNotFoundException e){
             throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
@@ -61,8 +60,14 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public List<Enrollment> getEnrollmentsForClassInSchool(String classId, String schoolId) throws EnrollmentNotFoundException {
+    public List<Enrollment> getEnrollmentsForClassInSchool(String classId, String schoolId) throws
+            EnrollmentNotFoundException,
+            SchoolNotFoundException,
+            ClassOfCourseNotFoundException {
+
         try {
+            h.validateClass(classId);
+            h.validateSchool(schoolId);
             return (List<Enrollment>) h.processResults(rosterDao.getEnrollmentsForClassInSchool(classId, schoolId));
         } catch (NullPointerException | ResourceNotFoundException e){
             throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);

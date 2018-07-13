@@ -3,7 +3,6 @@ package com.dm.onerosterapi.exceptions;
 public class ApiMessages {
 
     public final static String NO_RESULTS = "Specified resource was not found";
-    public final static String NO_USER_MESSAGE = "Specified user was not found";
     public final static String NO_CLASS_MESSAGE = "No classes found";
     public final static String NO_COURSE_MESSAGE = "Specified course was not found";
     public final static String NO_SCHOOL_MESSAGE = "Specified school was not found";
@@ -18,6 +17,12 @@ public class ApiMessages {
     public final static String NO_CLASSES_FOR_SCHOOL = "No classes were found for school: ";
     public final static String NO_CLASSES_FOR_TERM = "No classes were found for term: ";
     public final static String NO_CLASSES_FOR_COURSE = "No classes were found for course: ";
+
+
+    public final static String NO_USERS_FOR_ID = "No users were found user id: ";
+    public final static String NO_USERS_FOR_COURSE = "No users were found course id: ";
+    public final static String NO_USERS_FOR_CLASS = "No users were found class id: ";
+    public final static String NO_USERS_FOR_SCHOOL = "No users were found enrollment id: ";
 
     public final static String INVALID_USER = "Invalid user: ";
     public final static String INVALID_CLASS = "Invalid class: ";
