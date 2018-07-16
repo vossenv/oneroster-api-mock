@@ -9,17 +9,13 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-
-    @Override
-    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported (HttpRequestMethodNotSupportedException e, HttpHeaders headers, HttpStatus status, WebRequest request){
-        return buildResponseEntity(e, ApiMessages.UNSUPPORTED_MESSAGE, HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(UserNotFoundException.class)
     protected ResponseEntity<Object> handleUserNotFound( UserNotFoundException e ) {
@@ -51,13 +47,36 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(e, ApiMessages.NO_RESULTS, HttpStatus.NOT_FOUND);
     }
 
-    private ResponseEntity<Object> buildResponseEntity(Exception e, String message, HttpStatus status) {
+    @Override
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported (
+            HttpRequestMethodNotSupportedException e, HttpHeaders headers, HttpStatus status, WebRequest request){
+        return buildResponseEntity(e, ApiMessages.UNSUPPORTED_MESSAGE, HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    protected ResponseEntity<Object>  handleNoHandlerFoundException(
+            NoHandlerFoundException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        String debugMessage = "The URL is invalid: " + e.getRequestURL();
+
+        return buildResponseEntity(e, ApiMessages.RESOURCE_NOT_FOUND, HttpStatus.NOT_FOUND, debugMessage);
+    }
+
+    private ResponseEntity<Object> buildResponseEntity(Exception e, String message, HttpStatus status, String debugMessage) {
+
+        if (debugMessage.equals("default")) {
+            debugMessage = ExceptionUtils.getRootCauseMessage(e);
+        }
 
         ApiError apiError = new ApiError(status);
         apiError.setMessage(message);
-        apiError.setDebugMessage(ExceptionUtils.getRootCauseMessage(e));
+        apiError.setDebugMessage(debugMessage);
 
         return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    private ResponseEntity<Object> buildResponseEntity(Exception e, String message, HttpStatus status) {
+        return buildResponseEntity(e, message, status, "default");
     }
 
 

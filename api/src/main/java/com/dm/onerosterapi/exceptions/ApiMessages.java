@@ -33,4 +33,6 @@ public class ApiMessages {
     public final static String INVALID_SCHOOL = "Invalid school: ";
     public final static String INVALID_ENROLLMENT = "Invalid enrollment: ";
     public final static String INVALID_TERM = "Invalid term: ";
+
+    public final static String RESOURCE_NOT_FOUND = "The requested resource could not be found. ";
 }
