@@ -39,7 +39,8 @@ pipeline {
 		}
         stage('Deploy') {
             steps {
-				sh 'ls api/build'
+				unstash "oneRoster"
+				sh 'ls'
                 sh 'ssh deployment@thenewcarag.com'
             }
         }
