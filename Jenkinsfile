@@ -33,13 +33,14 @@ pipeline {
 				}
 				dir("api") {
 					sh 'sleep 25'
-					sh './gradlew clean karateTest -Dkarate.env=stg'
+					sh './gradlew karateTest -Dkarate.env=stg'
 				}
 			}
 		}
-        stage('Deploy') {
+		stage('Deploy') {
             steps {
-                echo 'Deploying.....'
+				sh 'scp api/build/libs/oneroster-api-1.0.jar deployment@thenewcarag.com:/usr/springboot/oneroster'
+                sh 'ssh deployment@thenewcarag.com sudo service oneroster-api restart'
             }
         }
     }
