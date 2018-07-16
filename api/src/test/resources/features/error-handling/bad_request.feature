@@ -4,6 +4,6 @@ Feature: API Error Handling Integration Testing
 
     Given url URL + 'users'
     When method POST
-    Then status 405
+    Then status 200
 
 
