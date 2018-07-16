@@ -125,6 +125,15 @@ function() {
             endDate: '#string'
         };
 
+    var errorObject =
+        {   timestamp: '#string',
+            status: '#string',
+            message: '#string',
+            debugMessage: '#string'
+        };
+
+    var invalidIdString = 'potato';
+
     var config = {
         URL: apiURL,
         USER: userObject,
@@ -133,7 +142,9 @@ function() {
         CLASS: classObject,
         SCHOOL: schoolObject,
         COURSE: courseObject,
-        ENROLLMENT: enrollmentObject
+        ENROLLMENT: enrollmentObject,
+        ERROR: errorObject,
+        INVALID_ID: invalidIdString
     };
 
 

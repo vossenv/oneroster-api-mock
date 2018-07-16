@@ -1,25 +1,81 @@
-Feature: User Controller Integration Testing
+Feature: Validate the contents of object-by-Id endpoints
 
-  Scenario: Validate the /users endpoint
+  Scenario: Validate the /classes/:id endpoint
 
-    Given url URL + 'users'
+    Given url URL + 'classes/231cc3cb-6e2b-4d3e-a636-37f965f4ae08'
     When method GET
     Then status 200
-    And match each response == USER
+    And match response ==
+    """
+    { "classId": "231cc3cb-6e2b-4d3e-a636-37f965f4ae08",
+      "sourcedId": "231cc3cb-6e2b-4d3e-a636-37f965f4ae08",
+      "status": "active",
+      "dateLastModified": "2017-08-14 00:36:18",
+      "metadata": "",
+      "term": "Spring",
+      "classCode": "Geometry I - Spring",
+      "classType": "scheduled",
+      "location": "112",
+      "courseId": "d0877e4f-f074-496b-90a3-a02d3016c970",
+      "schoolId": "f9a75f84-130b-419e-bbe6-463585e930e9",
+      "periods": "3" }
+    """
 
-  Scenario: Validate the /students endpoint
+  Scenario: Validate the /courses/:id endpoint
 
-    Given url URL + 'students'
+    Given url URL + 'courses/65b3b671-7a13-4d0c-9a24-96f429bb6f2e'
     When method GET
     Then status 200
-    And match each response == STUDENT
+    And match response ==
+    """
+    { "courseId": "65b3b671-7a13-4d0c-9a24-96f429bb6f2e",
+      "sourcedId": "65b3b671-7a13-4d0c-9a24-96f429bb6f2e",
+      "status": "active",
+      "dateLastModified": "2018-03-30 00:11:26",
+      "metadata": "",
+      "grade": "8",
+      "title": "Algebra III",
+      "schoolYear": "2018",
+      "courseCode": "Alg-103",
+      "subjects": "Algebra III",
+      "schoolId": "f9a75f84-130b-419e-bbe6-463585e930e9" }
+    """
 
-  Scenario: Validate the /teachers endpoint
+  Scenario: Validate the /enrollments/:id endpoint
 
-    Given url URL + 'teachers'
+    Given url URL + 'enrollments/5d6e0b72-1e15-4cd4-a415-a8e14c61437e'
     When method GET
     Then status 200
-    And match each response == TEACHER
+    And match response ==
+    """
+    { "enrollmentId": "5d6e0b72-1e15-4cd4-a415-a8e14c61437e",
+      "sourcedId": "5d6e0b72-1e15-4cd4-a415-a8e14c61437e",
+      "status": "active",
+      "dateLastModified": "2017-10-25 17:24:44",
+      "metadata": "",
+      "userId": "f3f8660b-46c5-4419-8a0b-d5617b31a48b",
+      "classId": "5fbd34b6-ea52-4a4a-b6ae-e43f60139695",
+      "primary": "FALSE",
+      "beginDate": "2018-09-01 00:00:00",
+      "endDate": "2019-01-01 00:00:00" }
+    """
+
+  Scenario: Validate the /schools/:id endpoint
+
+    Given url URL + 'schools/f5897384-9488-466f-b049-1992f7a53f15'
+    When method GET
+    Then status 200
+    And match response ==
+    """
+    { "schoolId": "f5897384-9488-466f-b049-1992f7a53f15",
+      "sourcedId": "f5897384-9488-466f-b049-1992f7a53f15",
+      "status": "active",
+      "dateLastModified": "2018-05-23 14:52:51",
+      "metadata": "",
+      "name": "Woodland Elementary School",
+      "identifier": "12Fe-4B3v-9uHt",
+      "type": "school" }
+    """
 
   Scenario: Validate the /users/:id endpoint
 
@@ -104,24 +160,3 @@ Feature: User Controller Integration Testing
       "type": "LDAP",
       "password": "secret" }
     """
-
-  Scenario: Validate the /users/:id/classes endpoint
-
-    Given url URL + '/users/1226a624-e093-4203-b2a4-a3931ce7cce2/classes'
-    When method GET
-    Then status 200
-    And match each response == CLASS
-
-  Scenario: Validate the /students/:id/classes endpoint
-
-    Given url URL + '/students/e041a2f2-3545-4427-b9c1-ec3e3c040cbf/classes'
-    When method GET
-    Then status 200
-    And match each response == CLASS
-
-  Scenario: Validate the /teachers/:id/classes endpoint
-
-    Given url URL + '/teachers/a8aad0d4-a2a5-42d4-8eb1-60a176959796/classes'
-    When method GET
-    Then status 200
-    And match each response == CLASS
