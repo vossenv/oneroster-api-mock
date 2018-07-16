@@ -37,12 +37,10 @@ pipeline {
 				}
 			}
 		}
-        stage('Deploy') {
+		stage('Deploy') {
             steps {
-				unstash "oneRoster"
-				sh 'scp oneroster-api-1.0.jar deployment@thenewcarag.com:/usr/springboot/oneroster'
-                sh 'ssh deployment@thenewcarag.com'
-				sh 'rm  oneroster-api-1.0.jar'
+				sh 'scp api/build/libs/oneroster-api-1.0.jar deployment@thenewcarag.com:/usr/springboot/oneroster'
+                sh 'ssh deployment@thenewcarag.com sudo service oneroster-api restart'
             }
         }
     }
