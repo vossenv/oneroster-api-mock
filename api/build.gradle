@@ -31,6 +31,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-devtools")
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.6")
     compile("org.apache.commons:commons-lang3:3.7")
+	compile("io.springfox:springfox-swagger2:2.9.2")
+	compile("io.springfox:springfox-swagger-ui:2.9.2")
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('com.intuit.karate:karate-junit4:0.7.0')

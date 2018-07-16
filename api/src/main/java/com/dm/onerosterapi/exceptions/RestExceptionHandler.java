@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.dm.onerosterapi")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
