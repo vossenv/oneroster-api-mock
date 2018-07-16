@@ -14,13 +14,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
-// @ControllerAdvice(basePackages = "com.dm.onerosterapi")
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.dm.onerosterapi")
+//@ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     protected ResponseEntity<Object> handleUserNotFound( UserNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_USERS_FOR_ID, HttpStatus.NOT_FOUND);
+        return buildResponseEntity(e, ApiMessages.NO_USER_MESSAGE, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ClassOfCourseNotFoundException.class)
