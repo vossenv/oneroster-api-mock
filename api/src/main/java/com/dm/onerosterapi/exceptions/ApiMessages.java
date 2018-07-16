@@ -8,6 +8,7 @@ public class ApiMessages {
     public final static String NO_CLASS_MESSAGE = "No classes found";
     public final static String NO_COURSE_MESSAGE = "No courses found";
     public final static String NO_SCHOOL_MESSAGE = "No schools found";
+    public final static String NO_USER_MESSAGE = "No users found";
     public final static String NO_ENROLLMENT_MESSAGE = "No enrollments found";
 
     public final static String NOT_A_STUDENT = "Not a student id: ";
@@ -23,7 +24,7 @@ public class ApiMessages {
     public final static String NO_CLASSES_FOR_TERM = "No classes were found for term: ";
     public final static String NO_CLASSES_FOR_COURSE = "No classes were found for course: ";
 
-    public final static String NO_USERS_FOR_ID = "No users were found user id: ";
+    public final static String NO_USERS_FOR_ID = "No users were found for user id: ";
     public final static String NO_USERS_FOR_CLASS = "No users were found class: ";
     public final static String NO_USERS_FOR_SCHOOL = "No users were found enrollment: ";
 
