@@ -40,7 +40,8 @@ pipeline {
         stage('Deploy') {
             steps {
 				unstash "oneRoster"
-				sh 'ls'
+				sh 'ls api@tmp/build/'
+				sh 'scp oneroster-api-1.0.jar deployment@thenewcarag.com:/usr/springboot/oneroster'
                 sh 'ssh deployment@thenewcarag.com'
             }
         }
