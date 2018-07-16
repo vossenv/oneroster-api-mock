@@ -39,7 +39,7 @@ pipeline {
 		}
         stage('Deploy') {
             steps {
-				sh 'ls api'
+				sh 'ls api/build'
                 sh 'ssh deployment@thenewcarag.com'
             }
         }
