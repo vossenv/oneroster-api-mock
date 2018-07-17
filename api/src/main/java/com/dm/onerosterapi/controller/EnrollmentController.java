@@ -41,7 +41,7 @@ public class EnrollmentController {
     public Object getEnrollmentById(
             @ApiParam(value = "SourcedId of Enrollment to be selected", required = true)
                 @PathVariable("id") String id
-            ) throws EnrollmentNotFoundException {
+    ) throws EnrollmentNotFoundException {
         return enrollmentService.getBySourcedId(id);
     }
 }

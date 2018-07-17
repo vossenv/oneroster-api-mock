@@ -47,7 +47,7 @@ public class CourseController {
     public Object getCourseById(
             @ApiParam(value = "SourcedId of Course to be selected", required = true)
                 @PathVariable("id") String id
-            ) throws CourseNotFoundException {
+    ) throws CourseNotFoundException {
         return courseService.getBySourcedId(id);
     }
 
@@ -55,13 +55,14 @@ public class CourseController {
     @ApiOperation(value="Return the collection of classes that are teaching this course.",
             response=ClassOfCourse.class, responseContainer="List")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = ClassOfCourse.class, responseContainer="List")
+            @ApiResponse(code = 200, message = "Success",
+                    response = ClassOfCourse.class, responseContainer="List")
     })
     @ResponseBody
     public List<?> getClassesForCourse(
             @ApiParam(value = "SourcedId of Course to select Classes from", required = true)
                 @PathVariable("id") String id
-            ) throws ClassOfCourseNotFoundException, CourseNotFoundException {
+    ) throws ClassOfCourseNotFoundException, CourseNotFoundException {
         return classService.getClassesByCourse(id);
     }
 

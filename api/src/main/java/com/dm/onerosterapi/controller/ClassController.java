@@ -47,7 +47,7 @@ public class ClassController {
     public Object getClassById(
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
                 @PathVariable("id") String id
-            ) throws ClassOfCourseNotFoundException {
+    ) throws ClassOfCourseNotFoundException {
         return classService.getBySourcedId(id);
     }
 
@@ -61,7 +61,7 @@ public class ClassController {
     public List<?> getStudentsForClass(
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
                 @PathVariable("id") String id
-            ) throws UserNotFoundException, ClassOfCourseNotFoundException {
+    ) throws UserNotFoundException, ClassOfCourseNotFoundException {
         return userService.getStudentsByClass(id);
     }
 
@@ -74,7 +74,7 @@ public class ClassController {
     @ResponseBody
     public List<?> getTeachersForClass(
             @ApiParam(value = "SourcedId of Class to be selected", required = true) @PathVariable("id") String id
-            ) throws UserNotFoundException, ClassOfCourseNotFoundException {
+    ) throws UserNotFoundException, ClassOfCourseNotFoundException {
         return userService.getTeachersByClass(id);
     }
 }
