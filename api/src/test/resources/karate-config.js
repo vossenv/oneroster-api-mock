@@ -153,6 +153,6 @@ function() {
 
 
     karate.configure('connectTimeout', 5000);
-    karate.configure('readTimeout', 5000);
+    karate.configure('readTimeout', 10000);
     return config;
 }
