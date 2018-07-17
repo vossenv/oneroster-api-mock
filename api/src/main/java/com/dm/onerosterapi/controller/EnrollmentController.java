@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@Api(description = "Set of endpoints for reading Enrollments")
+@Api(tags = "Enrollment Controller", description = "Set of endpoints for reading Enrollments")
 public class EnrollmentController {
 
     private EnrollmentService enrollmentService;
@@ -22,7 +22,7 @@ public class EnrollmentController {
     }
 
     @RequestMapping(value="/enrollments", method=RequestMethod.GET, produces="application/json")
-    @ApiOperation(value="Return collection of all enrollments")
+    @ApiOperation(value="Return collection of all enrollments.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success",
                     response = Enrollment.class, responseContainer="List")

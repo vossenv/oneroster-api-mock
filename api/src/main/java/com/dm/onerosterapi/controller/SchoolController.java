@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@Api(description = "Set of endpoints for reading Schools")
+@Api(tags = "School Controller", description = "Set of endpoints for reading Schools")
 public class SchoolController {
 
     private SchoolService schoolService;
@@ -165,7 +165,7 @@ public class SchoolController {
 
     @RequestMapping(value="/schools/{school_id}/classes/{class_id}/teachers",
             method=RequestMethod.GET, produces="application/json")
-    @ApiOperation(value="Return the collection of teachers taking this class in this school",
+    @ApiOperation(value="Return the collection of teachers taking this class in this school.",
             response=User.class, responseContainer = "List")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success",

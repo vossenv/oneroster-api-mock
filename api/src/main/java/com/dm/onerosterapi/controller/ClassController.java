@@ -14,7 +14,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@Api(description = "Set of endpoints for reading Classes")
+@Api(tags = "Class Controller", description = "Set of endpoints for reading Classes")
 public class ClassController {
 
     private ClassService classService;
