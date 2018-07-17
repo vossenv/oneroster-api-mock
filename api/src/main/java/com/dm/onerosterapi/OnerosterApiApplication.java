@@ -25,7 +25,7 @@ public class OnerosterApiApplication {
                 .apiInfo(apiInfo())
                 .useDefaultResponseMessages(false)
                 .select()
-                    .paths(regex("/classes.*"))
+                .apis(RequestHandlerSelectors.basePackage("com.dm.onerosterapi.controller"))
                 .paths(PathSelectors.any())
                 .build();
     };
