@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,26 +31,32 @@ public class UserController {
         this.classService = classService;
     }
 
-    @RequestMapping(value = "/users2", method = RequestMethod.GET, produces="application/json")
-    public Page<User> getAllUsers(
-            @RequestParam("page") Optional<Integer> page,
-            @RequestParam("size") Optional<Integer> size)
-            throws UserNotFoundException {
-
-        if (page.isPresent() && size.isPresent()) {
-            return userService.getAllUsersPaged(page.get(), size.get());
-        } else return null;
-    }
-
-    @RequestMapping(value = "/users", method = RequestMethod.GET, produces="application/json")
     @ApiOperation(value="Return collection of users.", response = User.class, responseContainer="List")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer="List")
     })
-    public List<?> getAllUsers() throws UserNotFoundException {
+    @RequestMapping(value = "/users", method = RequestMethod.GET, produces="application/json")
+    public Object getAllUsers(HttpServletResponse response,
+            @RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size)
+            throws UserNotFoundException, IOException {
+
+        if (page.isPresent() && size.isPresent()) {
+            return userService.getAllUsersPaged(page.get(), size.get());
+        }
         return userService.getAllUsers();
     }
+
+//    @RequestMapping(value = "/users", method = RequestMethod.GET, produces="application/json")
+//    @ApiOperation(value="Return collection of users.", response = User.class, responseContainer="List")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "Success",
+//                    response = User.class, responseContainer="List")
+//    })
+//    public List<?> getAllUsers() throws UserNotFoundException {
+//        return userService.getAllUsers();
+//    }
 
     @RequestMapping(value = "/students", method = RequestMethod.GET, produces="application/json")
     @ApiOperation(value="Return collection of students.", response = User.class, responseContainer="List")
