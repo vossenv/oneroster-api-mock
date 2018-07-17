@@ -59,7 +59,7 @@ public class CourseController {
     })
     @ResponseBody
     public List<?> getClassesForCourse(
-            @ApiParam(value = "SourcedId of Course to be selected", required = true)
+            @ApiParam(value = "SourcedId of Course to select Classes from", required = true)
                 @PathVariable("id") String id
             ) throws ClassOfCourseNotFoundException, CourseNotFoundException {
         return classService.getClassesByCourse(id);
