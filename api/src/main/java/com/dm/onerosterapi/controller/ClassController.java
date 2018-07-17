@@ -8,13 +8,17 @@ import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@Api(description = "Set of endpoints for Reading Classes")
+@Api(tags = "Class Controller", description = "Set of endpoints for reading Classes")
 public class ClassController {
 
     private ClassService classService;
@@ -27,9 +31,11 @@ public class ClassController {
     }
 
     @RequestMapping(value="/classes", method=RequestMethod.GET, produces="application/json")
-    @ApiOperation(value="Return collection of classes.", response=ClassOfCourse.class, responseContainer="List")
+    @ApiOperation(value="Return collection of classes.",
+            response=ClassOfCourse.class, responseContainer="List")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = ClassOfCourse.class, responseContainer="List")
+            @ApiResponse(code = 200, message = "Success",
+                    response = ClassOfCourse.class, responseContainer="List")
     })
     @ResponseBody
     public List<?> getAllClasses() throws ClassOfCourseNotFoundException {
@@ -43,8 +49,9 @@ public class ClassController {
     })
     @ResponseBody
     public Object getClassById(
-            @ApiParam(value = "SourcedId of Class to be selected", required = true) @PathVariable("id") String id
-            ) throws ClassOfCourseNotFoundException {
+            @ApiParam(value = "SourcedId of Class to be selected", required = true)
+                @PathVariable("id") String id
+    ) throws ClassOfCourseNotFoundException {
         return classService.getBySourcedId(id);
     }
 
@@ -56,8 +63,9 @@ public class ClassController {
     })
     @ResponseBody
     public List<?> getStudentsForClass(
-            @ApiParam(value = "SourcedId of Class to be selected", required = true) @PathVariable("id") String id
-            ) throws UserNotFoundException, ClassOfCourseNotFoundException {
+            @ApiParam(value = "SourcedId of Class to be selected", required = true)
+                @PathVariable("id") String id
+    ) throws UserNotFoundException, ClassOfCourseNotFoundException {
         return userService.getStudentsByClass(id);
     }
 
@@ -70,7 +78,7 @@ public class ClassController {
     @ResponseBody
     public List<?> getTeachersForClass(
             @ApiParam(value = "SourcedId of Class to be selected", required = true) @PathVariable("id") String id
-            ) throws UserNotFoundException, ClassOfCourseNotFoundException {
+    ) throws UserNotFoundException, ClassOfCourseNotFoundException {
         return userService.getTeachersByClass(id);
     }
 }
