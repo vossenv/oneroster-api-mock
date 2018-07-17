@@ -27,7 +27,6 @@ public class EnrollmentController {
             @ApiResponse(code = 200, message = "Success",
                     response = Enrollment.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getAllEnrollments() throws EnrollmentNotFoundException {
         return enrollmentService.getAllEnrollments();
     }
@@ -37,7 +36,6 @@ public class EnrollmentController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Enrollment.class)
     })
-    @ResponseBody
     public Object getEnrollmentById(
             @ApiParam(value = "SourcedId of Enrollment to be selected", required = true)
                 @PathVariable("id") String id

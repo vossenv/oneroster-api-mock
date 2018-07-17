@@ -29,7 +29,6 @@ public class TermController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getClassesForTerm(
             @ApiParam(value = "String of Term to select Classes from", required = true)
                 @PathVariable("term") String term

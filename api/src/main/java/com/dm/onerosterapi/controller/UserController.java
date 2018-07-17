@@ -33,7 +33,6 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getAllUsers() throws UserNotFoundException {
         return userService.getAllUsers();
     }
@@ -44,7 +43,6 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getAllStudents() throws UserNotFoundException {
         return userService.getAllStudents();
     }
@@ -55,7 +53,6 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getAllTeachers() throws UserNotFoundException {
         return userService.getAllTeachers();
     }
@@ -66,7 +63,6 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer="List")
     })
-    @ResponseBody
     public Object getUserById(
             @ApiParam(value = "String of the User to be selected.", required = true)
                 @PathVariable("id") String id
@@ -79,7 +75,6 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = User.class)
     })
-    @ResponseBody
     public Object getStudentById(
             @ApiParam(value = "SourcedId of Student to be selected.", required = true)
                 @PathVariable("id") String id
@@ -92,7 +87,6 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = User.class)
     })
-    @ResponseBody
     public Object getTeacherById(
             @ApiParam(value = "SourcedId of Teacher to be selected.", required = true)
                 @PathVariable("id") String id
@@ -106,7 +100,6 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getClassesForUser(
             @ApiParam(value = "SourcedId of User to select Classes from.", required = true)
                 @PathVariable("id") String id) throws ClassOfCourseNotFoundException, UserNotFoundException {
@@ -120,7 +113,6 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getClassesForStudent(
             @ApiParam(value = "SourcedId of the Student to select Classes from", required = true)
                 @PathVariable("id") String id
@@ -134,7 +126,6 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                 response = ClassOfCourse.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getClassesForTeachers(
             @ApiParam(value = "SourcedId of the Teacher to select Classes from", required = true)
                     @PathVariable("id") String id

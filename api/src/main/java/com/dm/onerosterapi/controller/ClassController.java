@@ -37,7 +37,6 @@ public class ClassController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getAllClasses() throws ClassOfCourseNotFoundException {
         return classService.getAllClasses();
     }
@@ -47,7 +46,6 @@ public class ClassController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = ClassOfCourse.class)
     })
-    @ResponseBody
     public Object getClassById(
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
                 @PathVariable("id") String id
@@ -61,7 +59,6 @@ public class ClassController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = User.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getStudentsForClass(
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
                 @PathVariable("id") String id
@@ -75,7 +72,6 @@ public class ClassController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = User.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getTeachersForClass(
             @ApiParam(value = "SourcedId of Class to be selected", required = true) @PathVariable("id") String id
     ) throws UserNotFoundException, ClassOfCourseNotFoundException {

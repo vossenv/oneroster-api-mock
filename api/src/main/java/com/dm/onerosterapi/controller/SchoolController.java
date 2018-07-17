@@ -38,7 +38,6 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = School.class, responseContainer="List")
     })
-    @ResponseBody
     public List<?> getAllSchools() throws SchoolNotFoundException {
         return schoolService.getAllSchools();
     }
@@ -48,7 +47,6 @@ public class SchoolController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = School.class)
     })
-    @ResponseBody
     public Object getSchoolById(
             @ApiParam(value = "SourcedId of School to be selected", required = true)
                 @PathVariable("id") String id
@@ -62,7 +60,6 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer = "List")
     })
-    @ResponseBody
     public List<?> getClassesForSchool(
             @ApiParam(value = "SourcedId of School to select Classes from", required = true)
                 @PathVariable("id") String id
@@ -77,7 +74,6 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = Course.class, responseContainer = "List")
     })
-    @ResponseBody
     public List<?> getCoursesForSchool(
             @ApiParam(value = "SourcedId of School to select Courses from", required = true)
                 @PathVariable("id") String id
@@ -92,7 +88,6 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = Enrollment.class, responseContainer = "List")
     })
-    @ResponseBody
     public List<?> getEnrollmentsForSchool(
             @ApiParam(value = "SourcedId of School to select Enrollments from", required = true)
                 @PathVariable("id") String id
@@ -106,7 +101,6 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer = "List")
     })
-    @ResponseBody
     public List<?> getStudentsBySchool(
             @ApiParam(value = "SourcedId of School to select Students from", required = true)
                 @PathVariable("id") String id
@@ -120,7 +114,6 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer = "List")
     })
-    @ResponseBody
     public List<?> getTeachersBySchool(
             @ApiParam(value = "SourcedId of School to select Teachers from", required = true)
                 @PathVariable("id") String id
@@ -135,7 +128,6 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                 response = Enrollment.class, responseContainer = "List")
     })
-    @ResponseBody
     public List<?> getEnrollmentsForClassInSchool(
             @ApiParam(value = "SourcedId of School to select a Class from", required = true)
                 @PathVariable("school_id") String school_id,
@@ -153,7 +145,6 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer = "List")
     })
-    @ResponseBody
     public List<?> getStudentsForClassInSchool(
             @ApiParam(value = "SourcedId of School to select a Class from", required = true)
                 @PathVariable("school_id") String school_id,
@@ -171,7 +162,6 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer = "List")
     })
-    @ResponseBody
     public List<?> getTeachersForClassInSchool(
             @ApiParam(value = "SourcedId of School to select a Class from", required = true)
                 @PathVariable("school_id") String school_id,
