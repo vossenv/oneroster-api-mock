@@ -23,7 +23,7 @@ public class UserController {
         this.classService = classService;
     }
 
-    @GetMapping(value = "/users")
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseBody
     public List<?> getAllUsers() throws UserNotFoundException {
         return userService.getAllUsers();
