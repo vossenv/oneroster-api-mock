@@ -9,9 +9,12 @@ import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Api(tags = "User Controller", description = "Set of endpoints for reading Users")
@@ -24,6 +27,17 @@ public class UserController {
     UserController(UserService userService, ClassService classService) {
         this.userService = userService;
         this.classService = classService;
+    }
+
+    @RequestMapping(value = "/users2", method = RequestMethod.GET, produces="application/json")
+    public Page<User> getAllUsers(
+            @RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size)
+            throws UserNotFoundException {
+
+        if (page.isPresent() && size.isPresent()) {
+            return userService.getAllUsersPaged(page.get(), size.get());
+        } else return null;
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces="application/json")

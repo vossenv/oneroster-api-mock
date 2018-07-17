@@ -4,6 +4,8 @@ import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
 import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ public interface UserService {
     public User getStudentBySourcedId(String userId) throws UserNotFoundException;
     public User getTeacherBySourcedId(String userId) throws UserNotFoundException;
 
+    public Page<User> getAllUsersPaged(int page, int size) throws UserNotFoundException;
     public List<User> getAllUsers() throws UserNotFoundException;
     public List<User> getAllStudents() throws UserNotFoundException;
     public List<User> getAllTeachers() throws UserNotFoundException;

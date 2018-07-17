@@ -2,8 +2,9 @@ package com.dm.onerosterapi.repository.jpa;
 
 import com.dm.onerosterapi.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface UserRepository extends JpaRepository<User, String>{
+public interface UserRepository extends PagingAndSortingRepository<User, String> {
 
     public User findByUserIdIgnoreCase(String id);
     public User findBySourcedIdIgnoreCase(String id);
