@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @Api(tags = "Course Controller", description = "Set of endpoints for reading Courses")
 public class CourseController {

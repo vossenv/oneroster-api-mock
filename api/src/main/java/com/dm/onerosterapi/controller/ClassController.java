@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @Api(tags = "Class Controller", description = "Set of endpoints for reading Classes")
 public class ClassController {

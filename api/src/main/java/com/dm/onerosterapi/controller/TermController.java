@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @Api(tags = "Term Controller", description = "Set of endpoints for reading Terms")
 public class TermController {

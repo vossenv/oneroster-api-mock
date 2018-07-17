@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @Api(tags = "User Controller", description = "Set of endpoints for reading Users")
 public class UserController {

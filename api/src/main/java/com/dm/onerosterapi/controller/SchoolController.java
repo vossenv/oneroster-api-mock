@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @Api(tags = "School Controller", description = "Set of endpoints for reading Schools")
 public class SchoolController {
