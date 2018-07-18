@@ -12,10 +12,10 @@ public class ApiResponseHandler {
         String urlBase = "https://oneroster.thenewcarag.com/" + p.getURL();
 
         String urlNext = urlBase + "?limit=" + p.getLimit().toString()
-                + "&offset=" + String.valueOf(p.getOffset() + p.getLimit());
+                + "&offset=" + String.valueOf(p.getOffset() + p.getLimit()+1);
 
         String urlPrev = urlBase + "?limit=" + p.getLimit().toString()
-                + "&offset=" + String.valueOf(Math.max(p.getOffset() - p.getLimit(),0));
+                + "&offset=" + String.valueOf(Math.max(p.getOffset() - p.getLimit(),0) - 1);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("limit", p.getLimit().toString());
