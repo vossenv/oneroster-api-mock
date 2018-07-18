@@ -44,7 +44,7 @@ public class UserController {
 
         SimplePage p = new SimplePage(offset, limit, AllowedTypes.User);
         return ApiResponseHandler
-                .buildApiResponse(userService.getAllUsers(p.getOffset(),p.getLimit()),p);
+                .buildApiResponse(userService.getAllUsers(p.getOffset(), p.getLimit()), p);
 
     }
 
@@ -54,8 +54,13 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer = "List")
     })
-    public List<?> getAllStudents() throws UserNotFoundException {
-        return userService.getAllStudents();
+    public Object getAllStudents(
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit)
+            throws UserNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, AllowedTypes.Student);
+        return ApiResponseHandler
+                .buildApiResponse(userService.getAllStudents(p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value = "/teachers", method = RequestMethod.GET, produces = "application/json")
@@ -64,8 +69,13 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer = "List")
     })
-    public List<?> getAllTeachers() throws UserNotFoundException {
-        return userService.getAllTeachers();
+    public Object getAllTeachers(
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit)
+            throws UserNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, AllowedTypes.Teacher);
+        return ApiResponseHandler
+                .buildApiResponse(userService.getAllTeachers(p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET, produces = "application/json")

@@ -44,6 +44,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllStudents(int offset, int limit) throws UserNotFoundException {
+        return userTypeFilter(getAllUsers(offset, limit), "student");
+    }
+
+    @Override
+    public List<User> getAllTeachers(int offset, int limit) throws UserNotFoundException {
+        return userTypeFilter(getAllUsers(offset, limit), "teacher");
+    }
+
+    @Override
     public List<User> getAllStudents() throws UserNotFoundException {
         return userTypeFilter(getAllUsers(), "student");
     }

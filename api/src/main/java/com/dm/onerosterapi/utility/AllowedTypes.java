@@ -6,7 +6,9 @@ public enum AllowedTypes {
     Class("classes"),
     Course("courses"),
     School("schools"),
-    Enrollment("enrollments");
+    Enrollment("enrollments"),
+    Student("students"),
+    Teacher("teachers");
 
     private final String objType;
     AllowedTypes(String objType) {this.objType = objType;}
