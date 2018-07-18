@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -42,6 +43,10 @@ public class HelperService {
     }
 
     public Object processResults(Object o) throws ResourceNotFoundException{
+
+        if (o instanceof Collection<?>) {
+            return processResults((List<?>) o);
+        }
 
         if (o == null) { throw new ResourceNotFoundException(NO_RESULTS_MESSAGE) ; }
 
