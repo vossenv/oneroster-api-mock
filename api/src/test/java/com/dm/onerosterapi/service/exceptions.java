@@ -59,7 +59,7 @@ public class exceptions {
         }
 
         try {
-            userService.getUsersByClass("x");
+            userService.getUsersByClass("x",0,Integer.MAX_VALUE);
         } catch (ClassOfCourseNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_CLASS + "x"));
         }

@@ -34,13 +34,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getStudentsByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException {
-        return userTypeFilter(getUsersByClass(classSourcedId), "student");
+    public List<User> getStudentsByClass(String classSourcedId, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException {
+        return userTypeFilter(getUsersByClass(classSourcedId, offset, limit), "student");
     }
 
     @Override
-    public List<User> getTeachersByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException {
-        return userTypeFilter(getUsersByClass(classSourcedId), "teacher");
+    public List<User> getTeachersByClass(String classSourcedId, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException {
+        return userTypeFilter(getUsersByClass(classSourcedId, offset, limit), "teacher");
     }
 
     @Override
@@ -51,16 +51,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllTeachers(int offset, int limit) throws UserNotFoundException {
         return userTypeFilter(getAllUsers(offset, limit), "teacher");
-    }
-
-    @Override
-    public List<User> getAllStudents() throws UserNotFoundException {
-        return userTypeFilter(getAllUsers(), "student");
-    }
-
-    @Override
-    public List<User> getAllTeachers() throws UserNotFoundException {
-        return userTypeFilter(getAllUsers(), "teacher");
     }
 
     @Override
@@ -111,11 +101,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() throws UserNotFoundException {
-        return getAllUsers(0,Integer.MAX_VALUE);
-    }
-
-    @Override
     public List<User> getAllUsers(int offset, int limit) throws UserNotFoundException {
         try {
             return (List<User>) h.processResults(rosterDao.getAll(AllowedTypes.User, offset, limit));
@@ -125,10 +110,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsersByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException {
+    public List<User> getUsersByClass(String classSourcedId, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException {
         try {
             h.validateClass(classSourcedId);
-            return (List<User>) h.processResults(rosterDao.getUsersByClass(classSourcedId));
+            return (List<User>) h.processResults(rosterDao.getUsersByClass(classSourcedId, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_CLASS + classSourcedId);
         }

@@ -19,13 +19,9 @@ public interface UserService {
     public List<User> getAllStudents(int offset, int limit) throws UserNotFoundException;
     public List<User> getAllTeachers(int offset, int limit) throws UserNotFoundException;
 
-    public List<User> getAllUsers() throws UserNotFoundException;
-    public List<User> getAllStudents() throws UserNotFoundException;
-    public List<User> getAllTeachers() throws UserNotFoundException;
-
-    public List<User> getUsersByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException;
-    public List<User> getStudentsByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException;
-    public List<User> getTeachersByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException;
+    public List<User> getUsersByClass(String classSourcedId, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException;
+    public List<User> getStudentsByClass(String classSourcedId, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException;
+    public List<User> getTeachersByClass(String classSourcedId, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException;
 
     public List<User> getUsersBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException;
     public List<User> getStudentsBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException;

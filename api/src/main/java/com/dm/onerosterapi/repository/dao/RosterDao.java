@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface RosterDao {
 
-    public List<User> getUsersByClass(String classSourcedId);
+    public List<User> getUsersByClass(String classSourcedId, int offset, int limit);
     public List<ClassOfCourse> getClassesByUser(String userSourcedId, String role);
     public List<ClassOfCourse> getClassesByCourse(String courseId);
 

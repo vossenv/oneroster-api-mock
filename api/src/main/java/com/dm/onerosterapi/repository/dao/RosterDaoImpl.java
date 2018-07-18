@@ -21,12 +21,16 @@ public class RosterDaoImpl implements RosterDao {
     }
 
     @Override
-    public List<User> getUsersByClass(String sourcedId) {
+    public List<User> getUsersByClass(String sourcedId, int offset, int limit) {
 
         String queryText = "select u from User u join fetch Enrollment e on u.userId=e.userId join fetch " +
                 "ClassOfCourse c on e.classId=c.classId where c.sourcedId = " + surround(sourcedId);
 
-        return (List<User>) entityManager.createQuery(queryText).getResultList();
+        return (List<User>) entityManager
+                .createQuery(queryText)
+                .setMaxResults(limit)
+                .setFirstResult(offset)
+                .getResultList();
     }
 
     @Override

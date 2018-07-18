@@ -63,9 +63,9 @@ public class users {
 	@Test
 	public void getAllUsers() throws UserNotFoundException {
 
-        List<User> userList = userService.getAllUsers();
-        List<User> teacherList = userService.getAllTeachers();
-        List<User> studentList = userService.getAllStudents();
+        List<User> userList = userService.getAllUsers(0, Integer.MAX_VALUE);
+        List<User> teacherList = userService.getAllTeachers(0, Integer.MAX_VALUE);
+        List<User> studentList = userService.getAllStudents(0, Integer.MAX_VALUE);
 
         assertEquals(teacherList.size(),8);
         assertEquals(userList.size(),300);
@@ -82,16 +82,16 @@ public class users {
     public void getUsersByClass() throws UserNotFoundException, ClassOfCourseNotFoundException {
         String classId = "cee2f870-852c-47e8-988a-73e2c296fc77";
 
-        List<User> userList = userService.getUsersByClass(classId);
-        List<User> studentList = userService.getStudentsByClass(classId);
-        List<User> teacherList = userService.getTeachersByClass(classId);
+        List<User> userList = userService.getUsersByClass(classId, 0, Integer.MAX_VALUE);
+        List<User> studentList = userService.getStudentsByClass(classId,0, Integer.MAX_VALUE);
+        List<User> teacherList = userService.getTeachersByClass(classId,0, Integer.MAX_VALUE);
 
         assertEquals(userList.size(),55);
         assertEquals(studentList.size(),47);
         assertEquals(teacherList.size(),8);
 
         try {
-            userService.getTeachersByClass("2ba9f25c-ef54-4072-85ab-2db066988091");
+            userService.getTeachersByClass("2ba9f25c-ef54-4072-85ab-2db066988091",0, Integer.MAX_VALUE);
             fail("Class has no teachers");
         } catch (UserNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.NO_RESULTS));
