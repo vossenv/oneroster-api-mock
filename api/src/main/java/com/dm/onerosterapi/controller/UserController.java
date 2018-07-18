@@ -11,9 +11,14 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Response;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +29,7 @@ public class UserController {
 
     private UserService userService;
     private ClassService classService;
+
 
     @Autowired
     UserController(UserService userService, ClassService classService) {
@@ -37,26 +43,18 @@ public class UserController {
                     response = User.class, responseContainer="List")
     })
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces="application/json")
-    public Object getAllUsers(HttpServletResponse response,
+    public Object getAllUsers(
             @RequestParam("page") Optional<Integer> page,
             @RequestParam("size") Optional<Integer> size)
-            throws UserNotFoundException, IOException {
+            throws UserNotFoundException {
 
+        List<User> results;
         if (page.isPresent() && size.isPresent()) {
-            return userService.getAllUsersPaged(page.get(), size.get());
-        }
-        return userService.getAllUsers();
-    }
+           results = userService.getAllUsersPaged(page.get(), size.get()).getContent();
+        } else results = userService.getAllUsers();
 
-//    @RequestMapping(value = "/users", method = RequestMethod.GET, produces="application/json")
-//    @ApiOperation(value="Return collection of users.", response = User.class, responseContainer="List")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "Success",
-//                    response = User.class, responseContainer="List")
-//    })
-//    public List<?> getAllUsers() throws UserNotFoundException {
-//        return userService.getAllUsers();
-//    }
+        return ApiResponseHandler.buildApiResponse(results,0,0);
+    }
 
     @RequestMapping(value = "/students", method = RequestMethod.GET, produces="application/json")
     @ApiOperation(value="Return collection of students.", response = User.class, responseContainer="List")
