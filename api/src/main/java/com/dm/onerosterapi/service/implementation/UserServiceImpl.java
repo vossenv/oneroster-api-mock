@@ -5,12 +5,12 @@ import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
 import com.dm.onerosterapi.service.interfaces.UserService;
+import com.dm.onerosterapi.utility.AllowedTypes;
+import com.dm.onerosterapi.utility.ApiMessages;
+import com.dm.onerosterapi.utility.HelperService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,15 +31,6 @@ public class UserServiceImpl implements UserService {
         this.h = h;
         this.rosterDao = rosterDao;
         this.userRepository = userRepository;
-    }
-
-    @Override
-    public Page<User> getAllUsersPaged(int page, int size) throws UserNotFoundException {
-        try {
-            return userRepository.findAll(PageRequest.of(page, size));
-        } catch (NullPointerException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
-        }
     }
 
     @Override
@@ -96,21 +87,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getStudentBySourcedId(String userId) throws UserNotFoundException {
         User u = getUserBySourcedId(userId);
-        if (u.getRole().equals("student")) return u; else
+        if (u.getRole().equals("student")) return u;
+        else
             throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + userId);
     }
 
     @Override
     public User getTeacherBySourcedId(String userId) throws UserNotFoundException {
         User u = getUserBySourcedId(userId);
-        if (u.getRole().equals("teacher")) return u; else
+        if (u.getRole().equals("teacher")) return u;
+        else
             throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + userId);
     }
 
     @Override
     public List<User> getAllUsers() throws UserNotFoundException {
+        return getAllUsers(0,Integer.MAX_VALUE);
+    }
+
+    @Override
+    public List<User> getAllUsers(int offset, int limit) throws UserNotFoundException {
         try {
-            return (List<User>) h.processResults(userRepository.findAll());
+            return (List<User>) h.processResults(rosterDao.getAll(AllowedTypes.User, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
@@ -139,7 +137,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsersForClassInSchool(String classId, String schoolId) throws UserNotFoundException,
             ClassOfCourseNotFoundException,
-            SchoolNotFoundException{
+            SchoolNotFoundException {
 
         try {
             h.validateClass(classId);
@@ -155,7 +153,9 @@ public class UserServiceImpl implements UserService {
         List<User> results = userList.stream()
                 .filter(u -> u.getRole().equals(role))
                 .collect(Collectors.toList());
-        if (results.isEmpty()) { throw new UserNotFoundException(ApiMessages.NO_RESULTS); }
+        if (results.isEmpty()) {
+            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
+        }
         return results;
     }
 

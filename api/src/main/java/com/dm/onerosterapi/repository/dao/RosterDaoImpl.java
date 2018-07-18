@@ -1,14 +1,11 @@
 package com.dm.onerosterapi.repository.dao;
 
-import com.dm.onerosterapi.model.ClassOfCourse;
-import com.dm.onerosterapi.model.Course;
-import com.dm.onerosterapi.model.Enrollment;
-import com.dm.onerosterapi.model.User;
+import com.dm.onerosterapi.model.*;
+import com.dm.onerosterapi.utility.AllowedTypes;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -111,6 +108,19 @@ public class RosterDaoImpl implements RosterDao {
 
         return (List<User>) entityManager.createQuery(queryText).getResultList();
     }
+
+    @Override
+    public List<?> getAll(AllowedTypes type, int offset, int limit) {
+
+        String queryText = "from " + type.toString();
+        return   entityManager
+                .createQuery(queryText)
+                .setMaxResults(limit)
+                .setFirstResult(offset)
+                .getResultList();
+    }
+
+
 }
 
 

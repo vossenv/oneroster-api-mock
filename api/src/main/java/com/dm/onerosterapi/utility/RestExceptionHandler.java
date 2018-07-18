@@ -1,5 +1,8 @@
-package com.dm.onerosterapi.exceptions;
+package com.dm.onerosterapi.utility;
 
+import com.dm.onerosterapi.exceptions.*;
+import com.dm.onerosterapi.utility.ApiError;
+import com.dm.onerosterapi.utility.ApiMessages;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;

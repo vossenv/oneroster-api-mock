@@ -1,11 +1,12 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions.ApiMessages;
+import com.dm.onerosterapi.utility.ApiMessages;
 import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.School;
 import com.dm.onerosterapi.repository.jpa.SchoolRepository;
 import com.dm.onerosterapi.service.interfaces.SchoolService;
+import com.dm.onerosterapi.utility.HelperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

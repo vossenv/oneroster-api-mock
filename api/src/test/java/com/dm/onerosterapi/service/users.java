@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.exceptions.ApiMessages;
+import com.dm.onerosterapi.utility.ApiMessages;
 import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
 import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.exceptions.UserNotFoundException;

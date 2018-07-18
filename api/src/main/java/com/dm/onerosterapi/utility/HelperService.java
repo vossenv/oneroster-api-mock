@@ -1,4 +1,4 @@
-package com.dm.onerosterapi.service.implementation;
+package com.dm.onerosterapi.utility;
 
 import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.repository.jpa.*;

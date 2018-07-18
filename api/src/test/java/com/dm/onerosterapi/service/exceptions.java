@@ -5,6 +5,7 @@ import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.CourseService;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import com.dm.onerosterapi.service.interfaces.UserService;
+import com.dm.onerosterapi.utility.ApiMessages;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

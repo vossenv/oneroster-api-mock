@@ -15,7 +15,7 @@ public interface UserService {
     public User getStudentBySourcedId(String userId) throws UserNotFoundException;
     public User getTeacherBySourcedId(String userId) throws UserNotFoundException;
 
-    public Page<User> getAllUsersPaged(int page, int size) throws UserNotFoundException;
+    public List<User> getAllUsers(int offset, int limit) throws UserNotFoundException;
     public List<User> getAllUsers() throws UserNotFoundException;
     public List<User> getAllStudents() throws UserNotFoundException;
     public List<User> getAllTeachers() throws UserNotFoundException;

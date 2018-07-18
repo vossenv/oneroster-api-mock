@@ -5,6 +5,8 @@ import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.ClassRepository;
 import com.dm.onerosterapi.service.interfaces.ClassService;
+import com.dm.onerosterapi.utility.ApiMessages;
+import com.dm.onerosterapi.utility.HelperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
