@@ -5,14 +5,11 @@ import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
 import com.dm.onerosterapi.service.interfaces.UserService;
-import com.dm.onerosterapi.utility.AllowedTypes;
 import com.dm.onerosterapi.utility.ApiMessages;
 import com.dm.onerosterapi.utility.HelperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @SuppressWarnings("unchecked")
@@ -31,48 +28,6 @@ public class UserServiceImpl implements UserService {
         this.h = h;
         this.rosterDao = rosterDao;
         this.userRepository = userRepository;
-    }
-
-    @Override
-    public List<User> getStudentsByClass(String classSourcedId, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException {
-        return userTypeFilter(getUsersByClass(classSourcedId, offset, limit), "student");
-    }
-
-    @Override
-    public List<User> getTeachersByClass(String classSourcedId, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException {
-        return userTypeFilter(getUsersByClass(classSourcedId, offset, limit), "teacher");
-    }
-
-    @Override
-    public List<User> getAllStudents(int offset, int limit) throws UserNotFoundException {
-        return userTypeFilter(getAllUsers(offset, limit), "student");
-    }
-
-    @Override
-    public List<User> getAllTeachers(int offset, int limit) throws UserNotFoundException {
-        return userTypeFilter(getAllUsers(offset, limit), "teacher");
-    }
-
-    @Override
-    public List<User> getStudentsBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException {
-        return userTypeFilter(getUsersBySchool(schoolId), "student");
-    }
-
-    @Override
-    public List<User> getTeachersBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException {
-        return userTypeFilter(getUsersBySchool(schoolId), "teacher");
-    }
-
-    @Override
-    public List<User> getStudentsForClassInSchool(String classId, String schoolId)
-            throws UserNotFoundException, ClassOfCourseNotFoundException, SchoolNotFoundException {
-        return userTypeFilter(getUsersForClassInSchool(classId, schoolId), "student");
-    }
-
-    @Override
-    public List<User> getTeachersForClassInSchool(String classId, String schoolId)
-            throws UserNotFoundException, ClassOfCourseNotFoundException, SchoolNotFoundException {
-        return userTypeFilter(getUsersForClassInSchool(classId, schoolId), "teacher");
     }
 
     @Override
@@ -101,58 +56,49 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers(int offset, int limit) throws UserNotFoundException {
+    public List<User> getAllUsers(String role, int offset, int limit) throws UserNotFoundException {
         try {
-            return (List<User>) h.processResults(rosterDao.getAll(AllowedTypes.User, offset, limit));
+            return (List<User>) h.processResults(rosterDao.getAllUsersOfType(role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
     @Override
-    public List<User> getUsersByClass(String classSourcedId, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException {
+    public List<User> getUsersByClass(String classSourcedId, String role, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException {
         try {
             h.validateClass(classSourcedId);
-            return (List<User>) h.processResults(rosterDao.getUsersByClass(classSourcedId, offset, limit));
+            return (List<User>) h.processResults(rosterDao.getUsersByClass(classSourcedId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_CLASS + classSourcedId);
         }
     }
 
     @Override
-    public List<User> getUsersBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException {
+    public List<User> getUsersBySchool(String schoolId, String role, int offset, int limit) throws UserNotFoundException, SchoolNotFoundException {
         try {
             h.validateSchool(schoolId);
-            return (List<User>) h.processResults(rosterDao.getUsersBySchool(schoolId));
+            return (List<User>) h.processResults(rosterDao.getUsersBySchool(schoolId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_SCHOOL + schoolId);
         }
     }
 
     @Override
-    public List<User> getUsersForClassInSchool(String classId, String schoolId) throws UserNotFoundException,
+    public List<User> getUsersForClassInSchool(String classId, String schoolId, String role, int offset, int limit) throws UserNotFoundException,
             ClassOfCourseNotFoundException,
             SchoolNotFoundException {
 
         try {
             h.validateClass(classId);
             h.validateSchool(schoolId);
-            return (List<User>) h.processResults(rosterDao.getUsersForClassInSchool(classId, schoolId));
+            return (List<User>) h.processResults(rosterDao.getUsersForClassInSchool(classId, schoolId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
 
     }
 
-    private static List<User> userTypeFilter(List<User> userList, String role) throws UserNotFoundException {
-        List<User> results = userList.stream()
-                .filter(u -> u.getRole().equals(role))
-                .collect(Collectors.toList());
-        if (results.isEmpty()) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
-        }
-        return results;
-    }
 
 }
 

@@ -9,10 +9,11 @@ import java.util.List;
 
 public interface EnrollmentService {
 
-    public Enrollment getBySourcedId(String enrollmentId) throws EnrollmentNotFoundException;
-    public List<Enrollment> getAllEnrollments() throws EnrollmentNotFoundException;
-    public List<Enrollment> getEnrollmentsForSchool(String schoolId) throws EnrollmentNotFoundException, SchoolNotFoundException;
-    public List<Enrollment> getEnrollmentsForClassInSchool(String classId, String schoolId) throws
+    Enrollment getBySourcedId(String enrollmentId) throws EnrollmentNotFoundException;
+
+    List<Enrollment> getAllEnrollments(int offset, int limit) throws EnrollmentNotFoundException;
+    List<Enrollment> getEnrollmentsForSchool(String schoolId, int offset, int limit) throws EnrollmentNotFoundException, SchoolNotFoundException;
+    List<Enrollment> getEnrollmentsForClassInSchool(String classId, String schoolId, int offset, int limit) throws
             ClassOfCourseNotFoundException,
             SchoolNotFoundException,
             EnrollmentNotFoundException;

@@ -7,7 +7,6 @@ import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
-import com.dm.onerosterapi.utility.AllowedTypes;
 import com.dm.onerosterapi.utility.ApiResponseHandler;
 import com.dm.onerosterapi.utility.SimplePage;
 import io.swagger.annotations.*;
@@ -42,9 +41,9 @@ public class UserController {
             @RequestParam("limit") Optional<Integer> limit)
             throws UserNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, AllowedTypes.User);
+        SimplePage p = new SimplePage(offset, limit, "/users");
         return ApiResponseHandler
-                .buildApiResponse(userService.getAllUsers(p.getOffset(), p.getLimit()), p);
+                .buildApiResponse(userService.getAllUsers("any", p.getOffset(), p.getLimit()), p);
 
     }
 
@@ -58,9 +57,9 @@ public class UserController {
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit)
             throws UserNotFoundException {
-        SimplePage p = new SimplePage(offset, limit, AllowedTypes.Student);
+        SimplePage p = new SimplePage(offset, limit, "/students");
         return ApiResponseHandler
-                .buildApiResponse(userService.getAllStudents(p.getOffset(), p.getLimit()), p);
+                .buildApiResponse(userService.getAllUsers("student", p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value = "/teachers", method = RequestMethod.GET, produces = "application/json")
@@ -73,9 +72,9 @@ public class UserController {
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit)
             throws UserNotFoundException {
-        SimplePage p = new SimplePage(offset, limit, AllowedTypes.Teacher);
+        SimplePage p = new SimplePage(offset, limit, "/teachers");
         return ApiResponseHandler
-                .buildApiResponse(userService.getAllTeachers(p.getOffset(), p.getLimit()), p);
+                .buildApiResponse(userService.getAllUsers("teacher", p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET, produces = "application/json")
@@ -121,10 +120,17 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer = "List")
     })
-    public List<?> getClassesForUser(
+    public Object getClassesForUser(
             @ApiParam(value = "SourcedId of User to select Classes from.", required = true)
-            @PathVariable("id") String id) throws ClassOfCourseNotFoundException, UserNotFoundException {
-        return classService.getClassesByUser(id);
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
+            ) throws ClassOfCourseNotFoundException, UserNotFoundException {
+
+        SimplePage p = new SimplePage(offset, limit, "/users/" + id + "/classes");
+        return ApiResponseHandler
+                .buildApiResponse(classService.getClassesByUser(id,"any", p.getOffset(), p.getLimit()), p);
+
     }
 
     @RequestMapping(value = "/students/{id}/classes", method = RequestMethod.GET, produces = "application/json")
@@ -134,11 +140,16 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer = "List")
     })
-    public List<?> getClassesForStudent(
+    public Object getClassesForStudent(
             @ApiParam(value = "SourcedId of the Student to select Classes from", required = true)
-            @PathVariable("id") String id
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws ClassOfCourseNotFoundException, UserNotFoundException {
-        return classService.getClassesByStudent(id);
+
+        SimplePage p = new SimplePage(offset, limit, "/students/" + id + "/classes");
+        return ApiResponseHandler
+                .buildApiResponse(classService.getClassesByUser(id,"student", p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value = "/teachers/{id}/classes", method = RequestMethod.GET, produces = "application/json")
@@ -147,11 +158,17 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer = "List")
     })
-    public List<?> getClassesForTeachers(
+    public Object getClassesForTeachers(
             @ApiParam(value = "SourcedId of the Teacher to select Classes from", required = true)
-            @PathVariable("id") String id
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws ClassOfCourseNotFoundException, UserNotFoundException {
-        return classService.getClassesByTeacher(id);
+
+        SimplePage p = new SimplePage(offset, limit, "/users/" + id + "/classes");
+        return ApiResponseHandler
+                .buildApiResponse(classService.getClassesByUser(id,"teacher", p.getOffset(), p.getLimit()), p);
+
     }
 
 }

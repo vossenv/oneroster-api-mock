@@ -6,22 +6,21 @@ public class SimplePage {
 
     private static final int OFFSET_DEFAULT = 0;
     private static final int LIMIT_DEFAULT = 100;
+    private static final String baseURL = "https://oneroster.thenewcarag.com";
 
-    private Integer offset, limit;
-    private AllowedTypes dataType;
-    private String URL;
+    private Integer limit, offset;
+    private String relativeURL;
 
     private SimplePage(){
         this.limit = LIMIT_DEFAULT;
         this.offset = OFFSET_DEFAULT;
     }
 
-    public SimplePage(Optional off, Optional lim, AllowedTypes dataType){
+    public SimplePage(Optional off, Optional lim, String relativeURL){
         this();
-        if (off.isPresent()) {this.offset = (int) off.get();}
-        if (lim.isPresent()) {this.limit = (int) lim.get();}
-        this.dataType = dataType;
-        this.URL = dataType.getObjType();
+        if (off.isPresent()) {this.offset = (Integer) off.get();}
+        if (lim.isPresent()) {this.limit = (Integer) lim.get();}
+        this.relativeURL = relativeURL;
     }
 
     public Integer getOffset() {
@@ -40,19 +39,7 @@ public class SimplePage {
         this.limit = limit;
     }
 
-    public AllowedTypes getDataType() {
-        return dataType;
-    }
+    public String getRelativeURL() {return relativeURL;}
 
-    public void setDataType(AllowedTypes dataType) {
-        this.dataType = dataType;
-    }
-
-    public String getURL() {
-        return URL;
-    }
-
-    public void setURL(String URL) {
-        this.URL = URL;
-    }
+    public void setRelativeURL(String relativeURL) {this.relativeURL = relativeURL;}
 }

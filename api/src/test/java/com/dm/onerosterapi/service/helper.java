@@ -170,28 +170,28 @@ public class helper {
     @Test
     public void testValidation() throws Exception {
 
-        helperService.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
+        helperService.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d","any");
 	    try {
-	        helperService.validateUser("x");
+	        helperService.validateUser("x","any");
 	        fail ("Id should be invalid");
         } catch (UserNotFoundException e){
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "x"));
         }
 
-        helperService.validateTeacher("f1e4b385-b0c9-4054-ad08-95c580ac715d");
+        helperService.validateUser("f1e4b385-b0c9-4054-ad08-95c580ac715d", "teacher");
         try {
-            helperService.validateTeacher("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
+            helperService.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d", "teacher");
             fail ("Id student - should be invalid");
         } catch (UserNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.NOT_A_TEACHER + "8057df9d-72a3-419a-98b5-6eab87ec0a6d"));
+            assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "8057df9d-72a3-419a-98b5-6eab87ec0a6d"));
         }
 
-        helperService.validateStudent("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
+        helperService.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d", "student");
         try {
-            helperService.validateStudent("f1e4b385-b0c9-4054-ad08-95c580ac715d");
-            fail ("Id student - should be invalid");
+            helperService.validateUser("f1e4b385-b0c9-4054-ad08-95c580ac715d", "student");
+            fail ("Id teacher - should be invalid");
         } catch (UserNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.NOT_A_STUDENT + "f1e4b385-b0c9-4054-ad08-95c580ac715d"));
+            assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "f1e4b385-b0c9-4054-ad08-95c580ac715d"));
         }
 
         helperService.validateClass("dca81f5a-1d99-491a-85fb-ad9591d4b96d");

@@ -78,17 +78,21 @@ public class HelperService {
         return o;
     }
 
-    public void validateUser(String sourcedId) throws UserNotFoundException{
-        if (!userRepository.existsBySourcedIdIgnoreCase(sourcedId)) {throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);}
+        public void validateUser(String sourcedId, String role) throws UserNotFoundException{
+        if ((role.equals("student") || role.equals("teacher")) && !userRepository.existsBySourcedIdAndRoleIgnoreCase(sourcedId, role)) {
+            throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);
+        } else if (!userRepository.existsBySourcedIdIgnoreCase(sourcedId)) {
+            throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);
+        }
     }
 
-    public void validateTeacher(String sourcedId) throws UserNotFoundException{
-        if (!userRepository.existsBySourcedIdAndRoleIgnoreCase(sourcedId, "teacher")) {throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + sourcedId);}
-    }
-
-    public void validateStudent(String sourcedId) throws UserNotFoundException{
-        if (!userRepository.existsBySourcedIdAndRoleIgnoreCase(sourcedId, "student")) {throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + sourcedId);}
-    }
+//    public void validateTeacher(String sourcedId) throws UserNotFoundException{
+//        if (!userRepository.existsBySourcedIdAndRoleIgnoreCase(sourcedId, "teacher")) {throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + sourcedId);}
+//    }
+//
+//    public void validateStudent(String sourcedId) throws UserNotFoundException{
+//        if (!userRepository.existsBySourcedIdAndRoleIgnoreCase(sourcedId, "student")) {throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + sourcedId);}
+//    }
 
     public void validateClass(String sourcedId) throws ClassOfCourseNotFoundException {
         if (!classRepository.existsBySourcedIdIgnoreCase(sourcedId)) {throw new ClassOfCourseNotFoundException(ApiMessages.INVALID_CLASS + sourcedId);}

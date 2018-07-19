@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.service.implementation;
 
+import com.dm.onerosterapi.utility.AllowedTypes;
 import com.dm.onerosterapi.utility.ApiMessages;
 import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.exceptions.CourseNotFoundException;
@@ -34,9 +35,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getAllCourses() throws CourseNotFoundException {
+    public List<Course> getAllCourses(int offset, int limit) throws CourseNotFoundException {
         try {
-            return (List<Course>) h.processResults(courseRepository.findAll());
+            return (List<Course>) h.processResults(rosterDao.getAll(AllowedTypes.Course, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new CourseNotFoundException(ApiMessages.NO_RESULTS);
         }
@@ -52,10 +53,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCoursesBySchool(String schoolSourcedId) throws CourseNotFoundException, SchoolNotFoundException {
+    public List<Course> getCoursesBySchool(String schoolSourcedId, int offset, int limit) throws CourseNotFoundException, SchoolNotFoundException {
         try {
             h.validateSchool(schoolSourcedId);
-            return (List<Course>) h.processResults(rosterDao.getCoursesBySchool(schoolSourcedId));
+            return (List<Course>) h.processResults(rosterDao.getCoursesBySchool(schoolSourcedId, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new CourseNotFoundException(ApiMessages.NO_RESULTS);
         }

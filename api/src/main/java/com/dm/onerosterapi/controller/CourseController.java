@@ -6,11 +6,14 @@ import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.CourseService;
+import com.dm.onerosterapi.utility.ApiResponseHandler;
+import com.dm.onerosterapi.utility.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Api(tags = "Course Controller", description = "Set of endpoints for reading Courses")
@@ -32,8 +35,14 @@ public class CourseController {
             @ApiResponse(code = 200, message = "Success",
                     response = Course.class, responseContainer="List")
     })
-    public List<?> getAllCourses() throws CourseNotFoundException {
-        return courseService.getAllCourses();
+    public Object getAllCourses(
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
+    ) throws CourseNotFoundException {
+
+        SimplePage p = new SimplePage(offset, limit, "/courses");
+        return ApiResponseHandler
+                .buildApiResponse(courseService.getAllCourses( p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value="/courses/{id}", method=RequestMethod.GET, produces="application/json")
@@ -55,11 +64,16 @@ public class CourseController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer="List")
     })
-    public List<?> getClassesForCourse(
+    public Object getClassesForCourse(
             @ApiParam(value = "SourcedId of Course to select Classes from", required = true)
-                @PathVariable("id") String id
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws ClassOfCourseNotFoundException, CourseNotFoundException {
-        return classService.getClassesByCourse(id);
+
+        SimplePage p = new SimplePage(offset, limit, "/courses/" + id + "/classes");
+        return ApiResponseHandler
+                .buildApiResponse(classService.getClassesByCourse(id, p.getOffset(), p.getLimit()), p);
     }
 
 }

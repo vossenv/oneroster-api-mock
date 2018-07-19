@@ -9,7 +9,6 @@ public interface ClassRepository extends JpaRepository<ClassOfCourse, String>{
 
     public ClassOfCourse findByClassIdIgnoreCase(String id);
     public ClassOfCourse findBySourcedIdIgnoreCase(String id);
-    public List<ClassOfCourse> findByTermIgnoreCase(String term);
     public boolean existsBySourcedIdIgnoreCase(String id);
     public boolean existsByTermIgnoreCase(String id);
 

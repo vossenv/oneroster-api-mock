@@ -63,9 +63,9 @@ public class users {
 	@Test
 	public void getAllUsers() throws UserNotFoundException {
 
-        List<User> userList = userService.getAllUsers(0, Integer.MAX_VALUE);
-        List<User> teacherList = userService.getAllTeachers(0, Integer.MAX_VALUE);
-        List<User> studentList = userService.getAllStudents(0, Integer.MAX_VALUE);
+        List<User> userList = userService.getAllUsers("any",0, Integer.MAX_VALUE);
+        List<User> teacherList = userService.getAllUsers("teacher",0, Integer.MAX_VALUE);
+        List<User> studentList = userService.getAllUsers("student", 0, Integer.MAX_VALUE);
 
         assertEquals(teacherList.size(),8);
         assertEquals(userList.size(),300);
@@ -82,19 +82,19 @@ public class users {
     public void getUsersByClass() throws UserNotFoundException, ClassOfCourseNotFoundException {
         String classId = "cee2f870-852c-47e8-988a-73e2c296fc77";
 
-        List<User> userList = userService.getUsersByClass(classId, 0, Integer.MAX_VALUE);
-        List<User> studentList = userService.getStudentsByClass(classId,0, Integer.MAX_VALUE);
-        List<User> teacherList = userService.getTeachersByClass(classId,0, Integer.MAX_VALUE);
+        List<User> userList = userService.getUsersByClass(classId, "any", 0, Integer.MAX_VALUE);
+        List<User> studentList = userService.getUsersByClass(classId,"student", 0, Integer.MAX_VALUE);
+        List<User> teacherList = userService.getUsersByClass(classId,"teacher", 0, Integer.MAX_VALUE);
 
         assertEquals(userList.size(),55);
         assertEquals(studentList.size(),47);
         assertEquals(teacherList.size(),8);
 
         try {
-            userService.getTeachersByClass("2ba9f25c-ef54-4072-85ab-2db066988091",0, Integer.MAX_VALUE);
+            userService.getUsersByClass("2ba9f25c-ef54-4072-85ab-2db066988091","teacher",0, Integer.MAX_VALUE);
             fail("Class has no teachers");
         } catch (UserNotFoundException e) {
-            assertTrue(e.getMessage().contains(ApiMessages.NO_RESULTS));
+            assertTrue(e.getMessage().contains(ApiMessages.NO_USERS_FOR_CLASS));
         }
     }
 
@@ -103,9 +103,9 @@ public class users {
 
         String schoolId = "f9a75f84-130b-419e-bbe6-463585e930e9";
 
-        List<User> userList = userService.getUsersBySchool(schoolId);
-        List<User> studentList = userService.getStudentsBySchool(schoolId);
-        List<User> teacherList = userService.getTeachersBySchool(schoolId);
+        List<User> userList = userService.getUsersBySchool(schoolId, "any", 0, Integer.MAX_VALUE);
+        List<User> studentList = userService.getUsersBySchool(schoolId, "student", 0, Integer.MAX_VALUE);
+        List<User> teacherList = userService.getUsersBySchool(schoolId, "teacher", 0, Integer.MAX_VALUE);
 
         assertEquals(userList.size(),150);
         assertEquals(studentList.size(),146);
@@ -120,9 +120,9 @@ public class users {
         String schoolId = "f5897384-9488-466f-b049-1992f7a53f15";
         String classId = "de02e4fa-9f8e-4f05-86fb-1173a246594c";
 
-        List<User> userList = userService.getUsersForClassInSchool(classId, schoolId);
-        List<User> studentList = userService.getStudentsForClassInSchool(classId, schoolId);
-        List<User> teacherList = userService.getTeachersForClassInSchool(classId, schoolId);
+        List<User> userList = userService.getUsersForClassInSchool(classId, schoolId, "any", 0, Integer.MAX_VALUE);
+        List<User> studentList = userService.getUsersForClassInSchool(classId, schoolId, "student", 0, Integer.MAX_VALUE);
+        List<User> teacherList = userService.getUsersForClassInSchool(classId, schoolId, "teacher", 0, Integer.MAX_VALUE);
 
         assertEquals(userList.size(),54);
         assertEquals(studentList.size(),50);

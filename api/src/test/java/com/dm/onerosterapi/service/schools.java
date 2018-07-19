@@ -32,7 +32,7 @@ public class schools {
 
     @Test
 	public void getAllSchools() throws SchoolNotFoundException {
-        List<School> schoolList = schoolService.getAllSchools();
+        List<School> schoolList = schoolService.getAllSchools(0, Integer.MAX_VALUE);
         assertEquals(schoolList.size(),2);
         assertTrue(checkValues(schoolList.get(0)));
 	}

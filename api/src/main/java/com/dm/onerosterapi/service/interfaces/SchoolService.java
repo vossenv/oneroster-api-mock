@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface SchoolService {
 
-    public School getBySourcedId(String schoolId) throws SchoolNotFoundException;
-    public List<School> getAllSchools() throws SchoolNotFoundException;
+    School getBySourcedId(String schoolId) throws SchoolNotFoundException;
 
+    List<School> getAllSchools(int offset, int limit) throws SchoolNotFoundException;
 
 }

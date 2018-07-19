@@ -4,11 +4,12 @@ package com.dm.onerosterapi.controller;
 import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.model.*;
 import com.dm.onerosterapi.service.interfaces.*;
+import com.dm.onerosterapi.utility.ApiResponseHandler;
+import com.dm.onerosterapi.utility.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Api(tags = "School Controller", description = "Set of endpoints for reading Schools")
@@ -37,8 +38,13 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = School.class, responseContainer="List")
     })
-    public List<?> getAllSchools() throws SchoolNotFoundException {
-        return schoolService.getAllSchools();
+    public Object getAllSchools(
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
+    ) throws SchoolNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, "/schools");
+        return ApiResponseHandler
+                .buildApiResponse(schoolService.getAllSchools(p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value="/schools/{id}", method=RequestMethod.GET, produces="application/json")
@@ -59,11 +65,15 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer = "List")
     })
-    public List<?> getClassesForSchool(
+    public Object getClassesForSchool(
             @ApiParam(value = "SourcedId of School to select Classes from", required = true)
-                @PathVariable("id") String id
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws ClassOfCourseNotFoundException, SchoolNotFoundException {
-        return classService.getClassesBySchool(id);
+        SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/classes");
+        return ApiResponseHandler
+                .buildApiResponse(classService.getClassesBySchool(id, p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value="/schools/{id}/courses", method=RequestMethod.GET, produces="application/json")
@@ -73,11 +83,16 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = Course.class, responseContainer = "List")
     })
-    public List<?> getCoursesForSchool(
+    public Object getCoursesForSchool(
             @ApiParam(value = "SourcedId of School to select Courses from", required = true)
-                @PathVariable("id") String id
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws CourseNotFoundException,SchoolNotFoundException {
-        return courseService.getCoursesBySchool(id);
+        SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/courses");
+        return ApiResponseHandler
+                .buildApiResponse(courseService.getCoursesBySchool(id,p.getOffset(), p.getLimit()), p);
+
     }
 
     @RequestMapping(value="/schools/{id}/enrollments", method=RequestMethod.GET, produces="application/json")
@@ -87,11 +102,15 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = Enrollment.class, responseContainer = "List")
     })
-    public List<?> getEnrollmentsForSchool(
+    public Object getEnrollmentsForSchool(
             @ApiParam(value = "SourcedId of School to select Enrollments from", required = true)
-                @PathVariable("id") String id
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws EnrollmentNotFoundException, SchoolNotFoundException {
-        return enrollmentService.getEnrollmentsForSchool(id);
+        SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/enrollments");
+        return ApiResponseHandler
+                .buildApiResponse(enrollmentService.getEnrollmentsForSchool(id, p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value="/schools/{id}/students", method=RequestMethod.GET, produces="application/json")
@@ -100,11 +119,15 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer = "List")
     })
-    public List<?> getStudentsBySchool(
+    public Object getStudentsBySchool(
             @ApiParam(value = "SourcedId of School to select Students from", required = true)
-                @PathVariable("id") String id
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws UserNotFoundException, SchoolNotFoundException {
-        return userService.getStudentsBySchool(id);
+        SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/students");
+        return ApiResponseHandler
+                .buildApiResponse(userService.getUsersBySchool(id, "student", p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value="/schools/{id}/teachers", method=RequestMethod.GET, produces="application/json")
@@ -113,11 +136,15 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer = "List")
     })
-    public List<?> getTeachersBySchool(
+    public Object getTeachersBySchool(
             @ApiParam(value = "SourcedId of School to select Teachers from", required = true)
-                @PathVariable("id") String id
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws UserNotFoundException, SchoolNotFoundException {
-        return userService.getTeachersBySchool(id);
+        SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/teachers");
+        return ApiResponseHandler
+                .buildApiResponse(userService.getUsersBySchool(id,"teacher", p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value="/schools/{school_id}/classes/{class_id}/enrollments",
@@ -127,13 +154,18 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                 response = Enrollment.class, responseContainer = "List")
     })
-    public List<?> getEnrollmentsForClassInSchool(
+    public Object getEnrollmentsForClassInSchool(
             @ApiParam(value = "SourcedId of School to select a Class from", required = true)
-                @PathVariable("school_id") String school_id,
+            @PathVariable("school_id") String school_id,
             @ApiParam(value = "SourcedId of Class to select Enrollments from", required = true)
-                @PathVariable("class_id") String class_id
+            @PathVariable("class_id") String class_id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws SchoolNotFoundException, ClassOfCourseNotFoundException, EnrollmentNotFoundException {
-        return enrollmentService.getEnrollmentsForClassInSchool(class_id, school_id);
+        SimplePage p = new SimplePage(offset, limit,
+                "/schools/" + school_id + "/classes/" + class_id + "/enrollments");
+        return ApiResponseHandler
+                .buildApiResponse(enrollmentService.getEnrollmentsForClassInSchool(class_id, school_id, p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value="/schools/{school_id}/classes/{class_id}/students",
@@ -144,13 +176,18 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer = "List")
     })
-    public List<?> getStudentsForClassInSchool(
+    public Object getStudentsForClassInSchool(
             @ApiParam(value = "SourcedId of School to select a Class from", required = true)
-                @PathVariable("school_id") String school_id,
-           @ApiParam(value = "SourcedId of Class to select Students from", required = true)
-                @PathVariable("class_id") String class_id
+            @PathVariable("school_id") String school_id,
+            @ApiParam(value = "SourcedId of Class to select Students from", required = true)
+            @PathVariable("class_id") String class_id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws SchoolNotFoundException, ClassOfCourseNotFoundException, UserNotFoundException {
-        return userService.getStudentsForClassInSchool(class_id, school_id);
+        SimplePage p = new SimplePage(offset, limit,
+                "/schools/" + school_id + "/classes/" + class_id + "/students");
+        return ApiResponseHandler
+                .buildApiResponse(userService.getUsersForClassInSchool(class_id, school_id, "student", p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value="/schools/{school_id}/classes/{class_id}/teachers",
@@ -161,12 +198,18 @@ public class SchoolController {
             @ApiResponse(code = 200, message = "Success",
                     response = User.class, responseContainer = "List")
     })
-    public List<?> getTeachersForClassInSchool(
+    public Object getTeachersForClassInSchool(
             @ApiParam(value = "SourcedId of School to select a Class from", required = true)
-                @PathVariable("school_id") String school_id,
+            @PathVariable("school_id") String school_id,
             @ApiParam(value = "SourcedId of Class to select Teachers from", required = true)
-                @PathVariable("class_id") String class_id
+            @PathVariable("class_id") String class_id,
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
     ) throws SchoolNotFoundException, ClassOfCourseNotFoundException, UserNotFoundException {
-        return userService.getTeachersForClassInSchool(class_id, school_id);
+        SimplePage p = new SimplePage(offset, limit,
+                "/schools/" + school_id + "/classes/" + class_id + "/teachers");
+        return ApiResponseHandler
+                .buildApiResponse(userService.getUsersForClassInSchool(class_id, school_id, "teacher", p.getOffset(), p.getLimit()), p);
+
     }
 }

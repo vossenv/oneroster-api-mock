@@ -32,24 +32,26 @@ public class classes {
 
     @Test
     public void getAllClassOfCourses() throws ClassOfCourseNotFoundException {
-        List<ClassOfCourse> classList = classService.getAllClasses();
+        List<ClassOfCourse> classList = classService.getAllClasses(0, Integer.MAX_VALUE);
         assertEquals(classList.size(), 84);
         assertTrue(checkValues(classList.get(64)));
     }
 
 	@Test
     public void getClassesByUser() throws ClassOfCourseNotFoundException, UserNotFoundException {
-        List<ClassOfCourse> classList = classService.getClassesByUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d");
+        List<ClassOfCourse> classList = classService
+                .getClassesByUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d","any",0, Integer.MAX_VALUE);
         assertEquals(classList.size(),14);
     }
 
     @Test
     public void getClassesByStudent() throws ClassOfCourseNotFoundException, UserNotFoundException {
-        List<ClassOfCourse> classList = classService.getClassesByStudent("cda272c0-bf6c-4e72-8b13-5f1f3be72339");
+        List<ClassOfCourse> classList = classService
+                .getClassesByUser("cda272c0-bf6c-4e72-8b13-5f1f3be72339","student", 0, Integer.MAX_VALUE);
         assertEquals(classList.size(), 14);
 
         try {
-            classService.getClassesByStudent("f1e4b385-b0c9-4054-ad08-95c580ac715d");
+            classService.getClassesByUser("f1e4b385-b0c9-4054-ad08-95c580ac715d","student", 0, Integer.MAX_VALUE);
             fail("Exception expected");
         } catch (UserNotFoundException e) {
             // pass
@@ -58,11 +60,11 @@ public class classes {
 
     @Test
     public void getClassesByTeacher() throws ClassOfCourseNotFoundException, UserNotFoundException {
-        List<ClassOfCourse> classList = classService.getClassesByTeacher("f1e4b385-b0c9-4054-ad08-95c580ac715d");
+        List<ClassOfCourse> classList = classService.getClassesByUser("f1e4b385-b0c9-4054-ad08-95c580ac715d", "teacher", 0, Integer.MAX_VALUE);
         assertEquals(classList.size(), 14);
 
         try {
-            classService.getClassesByTeacher("cda272c0-bf6c-4e72-8b13-5f1f3be72339");
+            classService.getClassesByUser("cda272c0-bf6c-4e72-8b13-5f1f3be72339","teacher", 0, Integer.MAX_VALUE);
             fail("Exception expected");
         } catch (UserNotFoundException e) {
             // pass
@@ -71,22 +73,22 @@ public class classes {
 
     @Test
     public void getClassesByCourse() throws ClassOfCourseNotFoundException, CourseNotFoundException {
-        List<ClassOfCourse> classList = classService.getClassesByCourse("7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4");
+        List<ClassOfCourse> classList = classService.getClassesByCourse("7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4", 0, Integer.MAX_VALUE);
         assertEquals(classList.size(), 2);
     }
 
     @Test
     public void getClassesByTerm() throws ClassOfCourseNotFoundException, TermNotFoundException {
-        List<ClassOfCourse> classList = classService.getClassesByTerm("Fall");
+        List<ClassOfCourse> classList = classService.getClassesByTerm("Fall", 0, Integer.MAX_VALUE);
         assertEquals(classList.size(), 42);
 
-        classList = classService.getClassesByTerm("Spring");
+        classList = classService.getClassesByTerm("Spring", 0, Integer.MAX_VALUE);
         assertEquals(classList.size(), 42);
     }
 
     @Test
     public void getClassesBySchool() throws ClassOfCourseNotFoundException, SchoolNotFoundException {
-        List<ClassOfCourse> classList = classService.getClassesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9");
+        List<ClassOfCourse> classList = classService.getClassesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9", 0, Integer.MAX_VALUE);
         assertEquals(classList.size(), 42);
     }
 

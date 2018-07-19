@@ -40,8 +40,14 @@ public class ClassController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer = "List")
     })
-    public List<?> getAllClasses() throws ClassOfCourseNotFoundException {
-        return classService.getAllClasses();
+    public Object getAllClasses(
+            @RequestParam("offset") Optional<Integer> offset,
+            @RequestParam("limit") Optional<Integer> limit
+    ) throws ClassOfCourseNotFoundException {
+
+        SimplePage p = new SimplePage(offset, limit, "/classes");
+        return ApiResponseHandler
+                .buildApiResponse(classService.getAllClasses(p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value = "/classes/{id}", method = RequestMethod.GET, produces = "application/json")
@@ -69,9 +75,9 @@ public class ClassController {
             @RequestParam("limit") Optional<Integer> limit)
             throws UserNotFoundException, ClassOfCourseNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, AllowedTypes.User);
+        SimplePage p = new SimplePage(offset, limit, "/classes/" + id + "/students");
         return ApiResponseHandler
-                .buildApiResponse(userService.getStudentsByClass(id, p.getOffset(), p.getLimit()), p);
+                .buildApiResponse(userService.getUsersByClass(id, "student", p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value = "/classes/{id}/teachers", method = RequestMethod.GET, produces = "application/json")
@@ -87,8 +93,8 @@ public class ClassController {
             @RequestParam("limit") Optional<Integer> limit)
             throws UserNotFoundException, ClassOfCourseNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, AllowedTypes.User);
+        SimplePage p = new SimplePage(offset, limit, "/classes/" + id + "/teachers");
         return ApiResponseHandler
-                .buildApiResponse(userService.getTeachersByClass(id, p.getOffset(), p.getLimit()), p);
+                .buildApiResponse(userService.getUsersByClass(id, "teacher", p.getOffset(), p.getLimit()), p);
     }
 }

@@ -9,7 +9,7 @@ public class ApiResponseHandler {
     public static ResponseEntity<Object> buildApiResponse(Object body, SimplePage p){
 
         // For show only at them moment -- will need to carry object types in page data
-        String urlBase = "https://oneroster.thenewcarag.com/" + p.getURL();
+        String urlBase = "https://oneroster.thenewcarag.com/" + p.getRelativeURL();
 
         String urlNext = urlBase + "?limit=" + p.getLimit().toString()
                 + "&offset=" + String.valueOf(p.getOffset() + p.getLimit()+1);
