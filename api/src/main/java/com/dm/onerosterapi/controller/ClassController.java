@@ -36,10 +36,11 @@ public class ClassController {
     })
     public Object getAllClasses(
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws ClassOfCourseNotFoundException {
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws ClassOfCourseNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, "/classes");
+        SimplePage p = new SimplePage(offset, limit, host +  "/classes");
         return ApiResponseBuilder
                 .buildApiResponse(classService.getAllClasses(p.getOffset(), p.getLimit()), p);
     }
@@ -66,10 +67,11 @@ public class ClassController {
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit)
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
             throws UserNotFoundException, ClassOfCourseNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, "/classes/" + id + "/students");
+        SimplePage p = new SimplePage(offset, limit, host +  "/classes/" + id + "/students");
         return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersByClass(id, "student", p.getOffset(), p.getLimit()), p);
     }
@@ -84,10 +86,11 @@ public class ClassController {
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit)
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
             throws UserNotFoundException, ClassOfCourseNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, "/classes/" + id + "/teachers");
+        SimplePage p = new SimplePage(offset, limit, host +  "/classes/" + id + "/teachers");
         return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersByClass(id, "teacher", p.getOffset(), p.getLimit()), p);
     }

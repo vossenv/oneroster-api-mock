@@ -40,9 +40,10 @@ public class SchoolController {
     })
     public Object getAllSchools(
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws SchoolNotFoundException {
-        SimplePage p = new SimplePage(offset, limit, "/schools");
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws SchoolNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, host +  "/schools");
         return ApiResponseBuilder
                 .buildApiResponse(schoolService.getAllSchools(p.getOffset(), p.getLimit()), p);
     }
@@ -69,9 +70,10 @@ public class SchoolController {
             @ApiParam(value = "SourcedId of School to select Classes from", required = true)
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws ClassOfCourseNotFoundException, SchoolNotFoundException {
-        SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/classes");
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws ClassOfCourseNotFoundException, SchoolNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, host +  "/schools/" + id + "/classes");
         return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesBySchool(id, p.getOffset(), p.getLimit()), p);
     }
@@ -87,9 +89,10 @@ public class SchoolController {
             @ApiParam(value = "SourcedId of School to select Courses from", required = true)
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws CourseNotFoundException,SchoolNotFoundException {
-        SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/courses");
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws CourseNotFoundException,SchoolNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, host +  "/schools/" + id + "/courses");
         return ApiResponseBuilder
                 .buildApiResponse(courseService.getCoursesBySchool(id,p.getOffset(), p.getLimit()), p);
 
@@ -106,9 +109,10 @@ public class SchoolController {
             @ApiParam(value = "SourcedId of School to select Enrollments from", required = true)
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws EnrollmentNotFoundException, SchoolNotFoundException {
-        SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/enrollments");
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws EnrollmentNotFoundException, SchoolNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, host +  "/schools/" + id + "/enrollments");
         return ApiResponseBuilder
                 .buildApiResponse(enrollmentService.getEnrollmentsForSchool(id, p.getOffset(), p.getLimit()), p);
     }
@@ -123,9 +127,10 @@ public class SchoolController {
             @ApiParam(value = "SourcedId of School to select Students from", required = true)
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws UserNotFoundException, SchoolNotFoundException {
-        SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/students");
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws UserNotFoundException, SchoolNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, host +  "/schools/" + id + "/students");
         return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersBySchool(id, "student", p.getOffset(), p.getLimit()), p);
     }
@@ -140,9 +145,10 @@ public class SchoolController {
             @ApiParam(value = "SourcedId of School to select Teachers from", required = true)
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws UserNotFoundException, SchoolNotFoundException {
-        SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/teachers");
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws UserNotFoundException, SchoolNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, host +  "/schools/" + id + "/teachers");
         return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersBySchool(id,"teacher", p.getOffset(), p.getLimit()), p);
     }
@@ -160,9 +166,10 @@ public class SchoolController {
             @ApiParam(value = "SourcedId of Class to select Enrollments from", required = true)
             @PathVariable("class_id") String class_id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws SchoolNotFoundException, ClassOfCourseNotFoundException, EnrollmentNotFoundException {
-        SimplePage p = new SimplePage(offset, limit,
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws SchoolNotFoundException, ClassOfCourseNotFoundException, EnrollmentNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, host +
                 "/schools/" + school_id + "/classes/" + class_id + "/enrollments");
         return ApiResponseBuilder
                 .buildApiResponse(enrollmentService.getEnrollmentsForClassInSchool(class_id, school_id, p.getOffset(), p.getLimit()), p);
@@ -182,9 +189,10 @@ public class SchoolController {
             @ApiParam(value = "SourcedId of Class to select Students from", required = true)
             @PathVariable("class_id") String class_id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws SchoolNotFoundException, ClassOfCourseNotFoundException, UserNotFoundException {
-        SimplePage p = new SimplePage(offset, limit,
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws SchoolNotFoundException, ClassOfCourseNotFoundException, UserNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, host +
                 "/schools/" + school_id + "/classes/" + class_id + "/students");
         return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersForClassInSchool(class_id, school_id, "student", p.getOffset(), p.getLimit()), p);
@@ -204,9 +212,10 @@ public class SchoolController {
             @ApiParam(value = "SourcedId of Class to select Teachers from", required = true)
             @PathVariable("class_id") String class_id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws SchoolNotFoundException, ClassOfCourseNotFoundException, UserNotFoundException {
-        SimplePage p = new SimplePage(offset, limit,
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws SchoolNotFoundException, ClassOfCourseNotFoundException, UserNotFoundException {
+        SimplePage p = new SimplePage(offset, limit, host +
                 "/schools/" + school_id + "/classes/" + class_id + "/teachers");
         return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersForClassInSchool(class_id, school_id, "teacher", p.getOffset(), p.getLimit()), p);

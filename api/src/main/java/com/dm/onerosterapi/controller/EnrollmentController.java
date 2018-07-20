@@ -30,10 +30,11 @@ public class EnrollmentController {
     })
     public Object getAllEnrollments(
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws EnrollmentNotFoundException {
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws EnrollmentNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, "/courses");
+        SimplePage p = new SimplePage(offset, limit, host +  "/courses");
         return ApiResponseBuilder
                 .buildApiResponse(enrollmentService.getAllEnrollments( p.getOffset(), p.getLimit()), p);
     }

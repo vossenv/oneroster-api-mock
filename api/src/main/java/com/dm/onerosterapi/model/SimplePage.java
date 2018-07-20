@@ -6,10 +6,8 @@ public class SimplePage {
 
     private static final int OFFSET_DEFAULT = 0;
     private static final int LIMIT_DEFAULT = 100;
-    private static final String baseURL = "https://oneroster.thenewcarag.com";
 
     private Integer limit, offset;
-    private String relativeURL;
     private String URL;
 
     private SimplePage(){
@@ -17,12 +15,11 @@ public class SimplePage {
         this.offset = OFFSET_DEFAULT;
     }
 
-    public SimplePage(Optional off, Optional lim, String relativeURL){
+    public SimplePage(Optional off, Optional lim, String URL){
         this();
         if (off.isPresent()) {this.offset = (Integer) off.get();}
         if (lim.isPresent()) {this.limit = (Integer) lim.get();}
-        this.relativeURL = relativeURL;
-        this.URL = baseURL + relativeURL;
+        this.URL = URL;
     }
 
     public String getURL() {return URL;}
@@ -45,7 +42,4 @@ public class SimplePage {
         this.limit = limit;
     }
 
-    public String getRelativeURL() {return relativeURL;}
-
-    public void setRelativeURL(String relativeURL) {this.relativeURL = relativeURL;}
 }

@@ -36,10 +36,11 @@ public class CourseController {
     })
     public Object getAllCourses(
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws CourseNotFoundException {
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws CourseNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, "/courses");
+        SimplePage p = new SimplePage(offset, limit, host +  "/courses");
         return ApiResponseBuilder
                 .buildApiResponse(courseService.getAllCourses( p.getOffset(), p.getLimit()), p);
     }
@@ -67,10 +68,11 @@ public class CourseController {
             @ApiParam(value = "SourcedId of Course to select Classes from", required = true)
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws ClassOfCourseNotFoundException, CourseNotFoundException {
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws ClassOfCourseNotFoundException, CourseNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, "/courses/" + id + "/classes");
+        SimplePage p = new SimplePage(offset, limit, host +  "/courses/" + id + "/classes");
         return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesByCourse(id, p.getOffset(), p.getLimit()), p);
     }

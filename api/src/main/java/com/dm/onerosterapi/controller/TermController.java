@@ -34,10 +34,11 @@ public class TermController {
             @ApiParam(value = "String of Term to select Classes from", required = true)
             @PathVariable("term") String term,
             @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit
-    ) throws ClassOfCourseNotFoundException, TermNotFoundException {
+            @RequestParam("limit") Optional<Integer> limit,
+            @RequestHeader("host") String host)
+            throws ClassOfCourseNotFoundException, TermNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, "/terms/" + term + "/classes");
+        SimplePage p = new SimplePage(offset, limit, host +  "/terms/" + term + "/classes");
         return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesByTerm(term,p.getOffset(), p.getLimit()), p);
 
