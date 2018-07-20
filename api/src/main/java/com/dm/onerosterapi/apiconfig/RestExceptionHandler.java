@@ -1,8 +1,8 @@
-package com.dm.onerosterapi.utility;
+package com.dm.onerosterapi.apiconfig;
 
 import com.dm.onerosterapi.exceptions.*;
-import com.dm.onerosterapi.utility.ApiError;
-import com.dm.onerosterapi.utility.ApiMessages;
+import com.dm.onerosterapi.apiconfig.ApiError;
+import com.dm.onerosterapi.apiconfig.ApiMessages;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +15,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import javax.validation.ConstraintViolationException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 //@ControllerAdvice(basePackages = "com.dm.onerosterapi")
@@ -65,6 +67,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return buildResponseEntity(e, ApiMessages.RESOURCE_NOT_FOUND, HttpStatus.NOT_FOUND, debugMessage);
     }
+
+    @ExceptionHandler
+    public String constraintViolationHandler(ConstraintViolationException ex) {
+        return ex.getConstraintViolations().iterator().next()
+                .getMessage();
+    }
+
 
     private ResponseEntity<Object> buildResponseEntity(Exception e, String message, HttpStatus status, String debugMessage) {
 

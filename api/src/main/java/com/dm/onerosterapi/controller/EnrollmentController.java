@@ -3,13 +3,12 @@ package com.dm.onerosterapi.controller;
 import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
-import com.dm.onerosterapi.utility.ApiResponseHandler;
-import com.dm.onerosterapi.utility.SimplePage;
+import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
+import com.dm.onerosterapi.model.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -35,7 +34,7 @@ public class EnrollmentController {
     ) throws EnrollmentNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/courses");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(enrollmentService.getAllEnrollments( p.getOffset(), p.getLimit()), p);
     }
 

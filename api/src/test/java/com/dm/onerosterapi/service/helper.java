@@ -6,9 +6,10 @@ import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
-import com.dm.onerosterapi.utility.ApiMessages;
-import com.dm.onerosterapi.utility.HelperService;
+import com.dm.onerosterapi.apiconfig.ApiMessages;
+import com.dm.onerosterapi.utility.AttributeTransformer;
 import com.dm.onerosterapi.service.interfaces.UserService;
+import com.dm.onerosterapi.utility.Validator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,11 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class helper {
 
+    @Autowired
+    Validator validator;
+
 	@Autowired
-    HelperService helperService;
+    AttributeTransformer attributeTransformer;
 
 	@Autowired
     UserService userService;
@@ -42,7 +46,7 @@ public class helper {
 	    u.setSchoolId("1");
 	    u.setUserId("5");
 
-	    helperService.processResults(u);
+	    attributeTransformer.processResults(u);
 	    assertEquals(u.getSchoolId(),"f9a75f84-130b-419e-bbe6-463585e930e9");
 
 	    List<User> userList = new ArrayList<>();
@@ -52,7 +56,7 @@ public class helper {
 	    userList.get(0).setSchoolId("1");
 	    userList.get(1).setSchoolId("2");
 
-	    helperService.processResults(userList);
+	    attributeTransformer.processResults(userList);
 	    assertEquals(userList.get(0).getSchoolId(), "f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(userList.get(1).getSchoolId(), "f5897384-9488-466f-b049-1992f7a53f15");
 
@@ -64,7 +68,7 @@ public class helper {
 	    Course c = new Course();
 	    c.setSchoolId("1");
 
-        helperService.processResults(c);
+        attributeTransformer.processResults(c);
         assertEquals(c.getSchoolId(),"f9a75f84-130b-419e-bbe6-463585e930e9");
 
         List<Course> courseList = new ArrayList<>();
@@ -74,7 +78,7 @@ public class helper {
         courseList.get(0).setSchoolId("1");
         courseList.get(1).setSchoolId("2");
 
-        helperService.processResults(courseList);
+        attributeTransformer.processResults(courseList);
         assertEquals(courseList.get(0).getSchoolId(), "f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(courseList.get(1).getSchoolId(), "f5897384-9488-466f-b049-1992f7a53f15");
     }
@@ -86,7 +90,7 @@ public class helper {
 	    c.setSchoolId("1");
 	    c.setCourseId("1");
 
-	    helperService.processResults(c);
+	    attributeTransformer.processResults(c);
         assertEquals(c.getSchoolId(),"f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(c.getCourseId(), "7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4");
 
@@ -99,7 +103,7 @@ public class helper {
         classList.get(1).setSchoolId("2");
         classList.get(1).setCourseId("2");
 
-        helperService.processResults(classList);
+        attributeTransformer.processResults(classList);
         assertEquals(classList.get(0).getSchoolId(), "f9a75f84-130b-419e-bbe6-463585e930e9");
         assertEquals(classList.get(0).getCourseId(),"7c2fc4b7-d53c-4b37-9ba4-1ba3cf2e0fe4");
 
@@ -115,7 +119,7 @@ public class helper {
         e.setUserId("1");
         e.setClassId("1");
 
-        helperService.processResults(e);
+        attributeTransformer.processResults(e);
         assertEquals(e.getUserId(),"cda272c0-bf6c-4e72-8b13-5f1f3be72339");
         assertEquals(e.getClassId(), "5fbd34b6-ea52-4a4a-b6ae-e43f60139695");
 
@@ -128,7 +132,7 @@ public class helper {
         enrollmentList.get(1).setUserId("2");
         enrollmentList.get(1).setClassId("2");
 
-        helperService.processResults(enrollmentList);
+        attributeTransformer.processResults(enrollmentList);
         assertEquals(enrollmentList.get(0).getUserId(), "cda272c0-bf6c-4e72-8b13-5f1f3be72339");
         assertEquals(enrollmentList.get(0).getClassId(),"5fbd34b6-ea52-4a4a-b6ae-e43f60139695");
 
@@ -143,7 +147,7 @@ public class helper {
 	    List<Object> testList = new ArrayList<>();
 
 	    try {
-            helperService.processResults(testList);
+            attributeTransformer.processResults(testList);
             fail ("Exception is expected");
         } catch (ResourceNotFoundException e){
 	        // pass
@@ -152,14 +156,14 @@ public class helper {
         List<Object> nullList = null;
 
         try {
-            helperService.processResults(nullList);
+            attributeTransformer.processResults(nullList);
             fail ("Exception is expected");
         } catch (ResourceNotFoundException e){
             // pass
         }
 
         try {
-            helperService.processResults(null);
+            attributeTransformer.processResults(null);
             fail ("Exception is expected");
         } catch (ResourceNotFoundException e){
             // pass
@@ -170,65 +174,65 @@ public class helper {
     @Test
     public void testValidation() throws Exception {
 
-        helperService.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d","any");
+        validator.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d","any");
 	    try {
-	        helperService.validateUser("x","any");
+	        validator.validateUser("x","any");
 	        fail ("Id should be invalid");
         } catch (UserNotFoundException e){
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "x"));
         }
 
-        helperService.validateUser("f1e4b385-b0c9-4054-ad08-95c580ac715d", "teacher");
+        validator.validateUser("f1e4b385-b0c9-4054-ad08-95c580ac715d", "teacher");
         try {
-            helperService.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d", "teacher");
+            validator.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d", "teacher");
             fail ("Id student - should be invalid");
         } catch (UserNotFoundException e){
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "8057df9d-72a3-419a-98b5-6eab87ec0a6d"));
         }
 
-        helperService.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d", "student");
+        validator.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d", "student");
         try {
-            helperService.validateUser("f1e4b385-b0c9-4054-ad08-95c580ac715d", "student");
+            validator.validateUser("f1e4b385-b0c9-4054-ad08-95c580ac715d", "student");
             fail ("Id teacher - should be invalid");
         } catch (UserNotFoundException e){
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "f1e4b385-b0c9-4054-ad08-95c580ac715d"));
         }
 
-        helperService.validateClass("dca81f5a-1d99-491a-85fb-ad9591d4b96d");
+        validator.validateClass("dca81f5a-1d99-491a-85fb-ad9591d4b96d");
         try {
-            helperService.validateClass("x");
+            validator.validateClass("x");
             fail ("Id should be invalid");
         } catch (ClassOfCourseNotFoundException e){
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_CLASS + "x"));
         }
 
-        helperService.validateCourse("2441eeb2-4df0-4726-a882-f0e722d129c6");
+        validator.validateCourse("2441eeb2-4df0-4726-a882-f0e722d129c6");
         try {
-            helperService.validateCourse("x");
+            validator.validateCourse("x");
             fail ("Id should be invalid");
         } catch (CourseNotFoundException e){
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_COURSE + "x"));
         }
 
-        helperService.validateSchool("f9a75f84-130b-419e-bbe6-463585e930e9");
+        validator.validateSchool("f9a75f84-130b-419e-bbe6-463585e930e9");
         try {
-            helperService.validateSchool("x");
+            validator.validateSchool("x");
             fail ("Id should be invalid");
         } catch (SchoolNotFoundException e){
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_SCHOOL + "x"));
         }
 
-        helperService.validateEnrollment("44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb");
+        validator.validateEnrollment("44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb");
         try {
-            helperService.validateEnrollment("x");
+            validator.validateEnrollment("x");
             fail ("Id should be invalid");
         } catch (EnrollmentNotFoundException e){
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_ENROLLMENT + "x"));
         }
 
-        helperService.validateClassTerm("Fall");
+        validator.validateClassTerm("Fall");
         try {
-            helperService.validateClassTerm("x");
+            validator.validateClassTerm("x");
             fail ("Id should be invalid");
         } catch (TermNotFoundException e){
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_TERM));

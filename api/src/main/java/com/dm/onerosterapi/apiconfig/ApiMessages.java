@@ -1,4 +1,4 @@
-package com.dm.onerosterapi.utility;
+package com.dm.onerosterapi.apiconfig;
 
 public class ApiMessages {
 

@@ -5,8 +5,9 @@ import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
 import com.dm.onerosterapi.service.interfaces.UserService;
-import com.dm.onerosterapi.utility.ApiMessages;
-import com.dm.onerosterapi.utility.HelperService;
+import com.dm.onerosterapi.apiconfig.ApiMessages;
+import com.dm.onerosterapi.utility.AttributeTransformer;
+import com.dm.onerosterapi.utility.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -15,16 +16,20 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class UserServiceImpl implements UserService {
 
-    private HelperService h;
+    private Validator v;
+    private AttributeTransformer h;
     private RosterDao rosterDao;
     private UserRepository userRepository;
 
+
     @Autowired
     public UserServiceImpl(
-            HelperService h,
+            AttributeTransformer h,
             RosterDao rosterDao,
-            UserRepository userRepository
+            UserRepository userRepository,
+            Validator v
     ) {
+        this.v = v;
         this.h = h;
         this.rosterDao = rosterDao;
         this.userRepository = userRepository;
@@ -67,7 +72,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsersByClass(String classSourcedId, String role, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException {
         try {
-            h.validateClass(classSourcedId);
+            v.validateClass(classSourcedId);
             return (List<User>) h.processResults(rosterDao.getUsersByClass(classSourcedId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_CLASS + classSourcedId);
@@ -77,7 +82,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsersBySchool(String schoolId, String role, int offset, int limit) throws UserNotFoundException, SchoolNotFoundException {
         try {
-            h.validateSchool(schoolId);
+            v.validateSchool(schoolId);
             return (List<User>) h.processResults(rosterDao.getUsersBySchool(schoolId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_SCHOOL + schoolId);
@@ -90,8 +95,8 @@ public class UserServiceImpl implements UserService {
             SchoolNotFoundException {
 
         try {
-            h.validateClass(classId);
-            h.validateSchool(schoolId);
+            v.validateClass(classId);
+            v.validateSchool(schoolId);
             return (List<User>) h.processResults(rosterDao.getUsersForClassInSchool(classId, schoolId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_RESULTS);

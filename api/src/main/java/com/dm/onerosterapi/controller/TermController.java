@@ -4,13 +4,12 @@ import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
 import com.dm.onerosterapi.exceptions.TermNotFoundException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.service.interfaces.ClassService;
-import com.dm.onerosterapi.utility.ApiResponseHandler;
-import com.dm.onerosterapi.utility.SimplePage;
+import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
+import com.dm.onerosterapi.model.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -39,7 +38,7 @@ public class TermController {
     ) throws ClassOfCourseNotFoundException, TermNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/terms/" + term + "/classes");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesByTerm(term,p.getOffset(), p.getLimit()), p);
 
     }

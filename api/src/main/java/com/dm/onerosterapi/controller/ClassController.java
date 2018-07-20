@@ -6,18 +6,12 @@ import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
-import com.dm.onerosterapi.utility.AllowedTypes;
-import com.dm.onerosterapi.utility.ApiResponseHandler;
-import com.dm.onerosterapi.utility.SimplePage;
+import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
+import com.dm.onerosterapi.model.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -46,7 +40,7 @@ public class ClassController {
     ) throws ClassOfCourseNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/classes");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(classService.getAllClasses(p.getOffset(), p.getLimit()), p);
     }
 
@@ -76,7 +70,7 @@ public class ClassController {
             throws UserNotFoundException, ClassOfCourseNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/classes/" + id + "/students");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersByClass(id, "student", p.getOffset(), p.getLimit()), p);
     }
 
@@ -94,7 +88,7 @@ public class ClassController {
             throws UserNotFoundException, ClassOfCourseNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/classes/" + id + "/teachers");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersByClass(id, "teacher", p.getOffset(), p.getLimit()), p);
     }
 }

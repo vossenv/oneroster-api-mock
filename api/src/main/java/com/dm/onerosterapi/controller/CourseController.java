@@ -6,13 +6,12 @@ import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.CourseService;
-import com.dm.onerosterapi.utility.ApiResponseHandler;
-import com.dm.onerosterapi.utility.SimplePage;
+import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
+import com.dm.onerosterapi.model.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -41,7 +40,7 @@ public class CourseController {
     ) throws CourseNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/courses");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(courseService.getAllCourses( p.getOffset(), p.getLimit()), p);
     }
 
@@ -72,7 +71,7 @@ public class CourseController {
     ) throws ClassOfCourseNotFoundException, CourseNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/courses/" + id + "/classes");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesByCourse(id, p.getOffset(), p.getLimit()), p);
     }
 

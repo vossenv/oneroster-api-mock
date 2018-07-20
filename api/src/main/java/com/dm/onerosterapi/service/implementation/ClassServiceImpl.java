@@ -6,8 +6,9 @@ import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.ClassRepository;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.utility.AllowedTypes;
-import com.dm.onerosterapi.utility.ApiMessages;
-import com.dm.onerosterapi.utility.HelperService;
+import com.dm.onerosterapi.apiconfig.ApiMessages;
+import com.dm.onerosterapi.utility.AttributeTransformer;
+import com.dm.onerosterapi.utility.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +18,20 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class ClassServiceImpl implements ClassService {
 
-    private HelperService h;
+    private Validator v;
+    private AttributeTransformer h;
     private RosterDao rosterDao;
     private ClassRepository classRepository;
+
 
     @Autowired
     public ClassServiceImpl(
             RosterDao rosterDao,
             ClassRepository classRepository,
-            HelperService h
+            AttributeTransformer h,
+            Validator v
     ) {
+        this.v = v;
         this.h = h;
         this.rosterDao = rosterDao;
         this.classRepository = classRepository;
@@ -53,7 +58,7 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<ClassOfCourse> getClassesByCourse(String courseSourcedId, int offset, int limit) throws ClassOfCourseNotFoundException, CourseNotFoundException {
         try {
-            h.validateCourse(courseSourcedId);
+            v.validateCourse(courseSourcedId);
             return (List<ClassOfCourse>) h.processResults(rosterDao.getClassesByCourse(courseSourcedId, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new ClassOfCourseNotFoundException(ApiMessages.NO_CLASSES_FOR_COURSE + courseSourcedId);
@@ -63,7 +68,7 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<ClassOfCourse> getClassesByTerm(String term, int offset, int limit) throws ClassOfCourseNotFoundException, TermNotFoundException {
         try {
-            h.validateClassTerm(term);
+            v.validateClassTerm(term);
             return (List<ClassOfCourse>) h.processResults(rosterDao.getClassesByTerm(term, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new ClassOfCourseNotFoundException(ApiMessages.NO_CLASSES_FOR_TERM + term);
@@ -73,7 +78,7 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<ClassOfCourse> getClassesBySchool(String schoolSourcedId, int offset, int limit) throws ClassOfCourseNotFoundException, SchoolNotFoundException {
         try {
-            h.validateSchool(schoolSourcedId);
+            v.validateSchool(schoolSourcedId);
             return (List<ClassOfCourse>) h.processResults(rosterDao.getClassesBySchool(schoolSourcedId, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new ClassOfCourseNotFoundException(ApiMessages.NO_CLASSES_FOR_SCHOOL + schoolSourcedId);
@@ -83,7 +88,7 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<ClassOfCourse> getClassesByUser(String userSourcedId, String role, int offset, int limit) throws ClassOfCourseNotFoundException, UserNotFoundException {
         try {
-            h.validateUser(userSourcedId, role);
+            v.validateUser(userSourcedId, role);
             return (List<ClassOfCourse>) h.processResults(rosterDao.getClassesByUser(userSourcedId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new ClassOfCourseNotFoundException(ApiMessages.NO_CLASSES_FOR_USER + userSourcedId);

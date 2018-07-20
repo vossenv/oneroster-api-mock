@@ -7,16 +7,17 @@ import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
-import com.dm.onerosterapi.utility.ApiResponseHandler;
-import com.dm.onerosterapi.utility.SimplePage;
+import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
+import com.dm.onerosterapi.model.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Validated
 @Api(tags = "User Controller", description = "Set of endpoints for reading Users")
 public class UserController {
 
@@ -42,7 +43,7 @@ public class UserController {
             throws UserNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/users");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(userService.getAllUsers("any", p.getOffset(), p.getLimit()), p);
 
     }
@@ -58,7 +59,7 @@ public class UserController {
             @RequestParam("limit") Optional<Integer> limit)
             throws UserNotFoundException {
         SimplePage p = new SimplePage(offset, limit, "/students");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(userService.getAllUsers("student", p.getOffset(), p.getLimit()), p);
     }
 
@@ -73,7 +74,7 @@ public class UserController {
             @RequestParam("limit") Optional<Integer> limit)
             throws UserNotFoundException {
         SimplePage p = new SimplePage(offset, limit, "/teachers");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(userService.getAllUsers("teacher", p.getOffset(), p.getLimit()), p);
     }
 
@@ -128,7 +129,7 @@ public class UserController {
             ) throws ClassOfCourseNotFoundException, UserNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/users/" + id + "/classes");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesByUser(id,"any", p.getOffset(), p.getLimit()), p);
 
     }
@@ -148,7 +149,7 @@ public class UserController {
     ) throws ClassOfCourseNotFoundException, UserNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/students/" + id + "/classes");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesByUser(id,"student", p.getOffset(), p.getLimit()), p);
     }
 
@@ -166,7 +167,7 @@ public class UserController {
     ) throws ClassOfCourseNotFoundException, UserNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, "/users/" + id + "/classes");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesByUser(id,"teacher", p.getOffset(), p.getLimit()), p);
 
     }

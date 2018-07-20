@@ -1,4 +1,4 @@
-package com.dm.onerosterapi.utility;
+package com.dm.onerosterapi.apiconfig;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;

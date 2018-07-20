@@ -1,4 +1,4 @@
-package com.dm.onerosterapi.utility;
+package com.dm.onerosterapi.model;
 
 import java.util.Optional;
 
@@ -10,6 +10,7 @@ public class SimplePage {
 
     private Integer limit, offset;
     private String relativeURL;
+    private String URL;
 
     private SimplePage(){
         this.limit = LIMIT_DEFAULT;
@@ -21,7 +22,12 @@ public class SimplePage {
         if (off.isPresent()) {this.offset = (Integer) off.get();}
         if (lim.isPresent()) {this.limit = (Integer) lim.get();}
         this.relativeURL = relativeURL;
+        this.URL = baseURL + relativeURL;
     }
+
+    public String getURL() {return URL;}
+
+    public void setURL(String URL) {this.URL = URL;}
 
     public Integer getOffset() {
         return offset;

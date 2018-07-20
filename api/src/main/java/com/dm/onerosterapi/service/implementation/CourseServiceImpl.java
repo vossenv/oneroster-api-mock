@@ -1,7 +1,7 @@
 package com.dm.onerosterapi.service.implementation;
 
 import com.dm.onerosterapi.utility.AllowedTypes;
-import com.dm.onerosterapi.utility.ApiMessages;
+import com.dm.onerosterapi.apiconfig.ApiMessages;
 import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.exceptions.CourseNotFoundException;
 import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
@@ -9,7 +9,8 @@ import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.CourseRepository;
 import com.dm.onerosterapi.service.interfaces.CourseService;
-import com.dm.onerosterapi.utility.HelperService;
+import com.dm.onerosterapi.utility.AttributeTransformer;
+import com.dm.onerosterapi.utility.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,19 +20,22 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class CourseServiceImpl implements CourseService {
 
-    private HelperService h;
+    private AttributeTransformer h;
     private RosterDao rosterDao;
     private CourseRepository courseRepository;
+    private Validator v;
 
     @Autowired
     public CourseServiceImpl(
             RosterDao rosterDao,
             CourseRepository courseRepository,
-            HelperService h
+            AttributeTransformer h,
+            Validator v
     ) {
         this.rosterDao = rosterDao;
         this.courseRepository = courseRepository;
         this.h = h;
+        this.v = v;
     }
 
     @Override
@@ -55,7 +59,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> getCoursesBySchool(String schoolSourcedId, int offset, int limit) throws CourseNotFoundException, SchoolNotFoundException {
         try {
-            h.validateSchool(schoolSourcedId);
+            v.validateSchool(schoolSourcedId);
             return (List<Course>) h.processResults(rosterDao.getCoursesBySchool(schoolSourcedId, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new CourseNotFoundException(ApiMessages.NO_RESULTS);

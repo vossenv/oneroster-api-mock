@@ -4,8 +4,8 @@ package com.dm.onerosterapi.controller;
 import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.model.*;
 import com.dm.onerosterapi.service.interfaces.*;
-import com.dm.onerosterapi.utility.ApiResponseHandler;
-import com.dm.onerosterapi.utility.SimplePage;
+import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
+import com.dm.onerosterapi.model.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +43,7 @@ public class SchoolController {
             @RequestParam("limit") Optional<Integer> limit
     ) throws SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, "/schools");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(schoolService.getAllSchools(p.getOffset(), p.getLimit()), p);
     }
 
@@ -72,7 +72,7 @@ public class SchoolController {
             @RequestParam("limit") Optional<Integer> limit
     ) throws ClassOfCourseNotFoundException, SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/classes");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesBySchool(id, p.getOffset(), p.getLimit()), p);
     }
 
@@ -90,7 +90,7 @@ public class SchoolController {
             @RequestParam("limit") Optional<Integer> limit
     ) throws CourseNotFoundException,SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/courses");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(courseService.getCoursesBySchool(id,p.getOffset(), p.getLimit()), p);
 
     }
@@ -109,7 +109,7 @@ public class SchoolController {
             @RequestParam("limit") Optional<Integer> limit
     ) throws EnrollmentNotFoundException, SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/enrollments");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(enrollmentService.getEnrollmentsForSchool(id, p.getOffset(), p.getLimit()), p);
     }
 
@@ -126,7 +126,7 @@ public class SchoolController {
             @RequestParam("limit") Optional<Integer> limit
     ) throws UserNotFoundException, SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/students");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersBySchool(id, "student", p.getOffset(), p.getLimit()), p);
     }
 
@@ -143,7 +143,7 @@ public class SchoolController {
             @RequestParam("limit") Optional<Integer> limit
     ) throws UserNotFoundException, SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, "/schools/" + id + "/teachers");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersBySchool(id,"teacher", p.getOffset(), p.getLimit()), p);
     }
 
@@ -164,7 +164,7 @@ public class SchoolController {
     ) throws SchoolNotFoundException, ClassOfCourseNotFoundException, EnrollmentNotFoundException {
         SimplePage p = new SimplePage(offset, limit,
                 "/schools/" + school_id + "/classes/" + class_id + "/enrollments");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(enrollmentService.getEnrollmentsForClassInSchool(class_id, school_id, p.getOffset(), p.getLimit()), p);
     }
 
@@ -186,7 +186,7 @@ public class SchoolController {
     ) throws SchoolNotFoundException, ClassOfCourseNotFoundException, UserNotFoundException {
         SimplePage p = new SimplePage(offset, limit,
                 "/schools/" + school_id + "/classes/" + class_id + "/students");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersForClassInSchool(class_id, school_id, "student", p.getOffset(), p.getLimit()), p);
     }
 
@@ -208,7 +208,7 @@ public class SchoolController {
     ) throws SchoolNotFoundException, ClassOfCourseNotFoundException, UserNotFoundException {
         SimplePage p = new SimplePage(offset, limit,
                 "/schools/" + school_id + "/classes/" + class_id + "/teachers");
-        return ApiResponseHandler
+        return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersForClassInSchool(class_id, school_id, "teacher", p.getOffset(), p.getLimit()), p);
 
     }
