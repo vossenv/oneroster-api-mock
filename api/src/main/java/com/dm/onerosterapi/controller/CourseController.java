@@ -37,7 +37,7 @@ public class CourseController {
     public Object getAllCourses(
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws CourseNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/courses");
@@ -69,7 +69,7 @@ public class CourseController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws ClassOfCourseNotFoundException, CourseNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/courses/" + id + "/classes");

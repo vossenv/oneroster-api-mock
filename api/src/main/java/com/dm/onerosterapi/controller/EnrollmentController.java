@@ -31,7 +31,7 @@ public class EnrollmentController {
     public Object getAllEnrollments(
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws EnrollmentNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/courses");

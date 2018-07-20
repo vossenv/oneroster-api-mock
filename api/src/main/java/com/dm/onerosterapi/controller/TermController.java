@@ -35,7 +35,7 @@ public class TermController {
             @PathVariable("term") String term,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws ClassOfCourseNotFoundException, TermNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/terms/" + term + "/classes");

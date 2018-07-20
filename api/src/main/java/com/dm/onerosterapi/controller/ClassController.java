@@ -37,7 +37,7 @@ public class ClassController {
     public Object getAllClasses(
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws ClassOfCourseNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/classes");
@@ -68,7 +68,7 @@ public class ClassController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws UserNotFoundException, ClassOfCourseNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/classes/" + id + "/students");
@@ -87,7 +87,7 @@ public class ClassController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws UserNotFoundException, ClassOfCourseNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/classes/" + id + "/teachers");

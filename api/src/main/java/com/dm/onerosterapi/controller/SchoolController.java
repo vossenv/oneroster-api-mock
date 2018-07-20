@@ -41,7 +41,7 @@ public class SchoolController {
     public Object getAllSchools(
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +  "/schools");
         return ApiResponseBuilder
@@ -71,7 +71,7 @@ public class SchoolController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws ClassOfCourseNotFoundException, SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +  "/schools/" + id + "/classes");
         return ApiResponseBuilder
@@ -90,7 +90,7 @@ public class SchoolController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws CourseNotFoundException,SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +  "/schools/" + id + "/courses");
         return ApiResponseBuilder
@@ -110,7 +110,7 @@ public class SchoolController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws EnrollmentNotFoundException, SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +  "/schools/" + id + "/enrollments");
         return ApiResponseBuilder
@@ -128,7 +128,7 @@ public class SchoolController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws UserNotFoundException, SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +  "/schools/" + id + "/students");
         return ApiResponseBuilder
@@ -146,7 +146,7 @@ public class SchoolController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws UserNotFoundException, SchoolNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +  "/schools/" + id + "/teachers");
         return ApiResponseBuilder
@@ -167,7 +167,7 @@ public class SchoolController {
             @PathVariable("class_id") String class_id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws SchoolNotFoundException, ClassOfCourseNotFoundException, EnrollmentNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +
                 "/schools/" + school_id + "/classes/" + class_id + "/enrollments");
@@ -190,7 +190,7 @@ public class SchoolController {
             @PathVariable("class_id") String class_id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws SchoolNotFoundException, ClassOfCourseNotFoundException, UserNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +
                 "/schools/" + school_id + "/classes/" + class_id + "/students");
@@ -213,7 +213,7 @@ public class SchoolController {
             @PathVariable("class_id") String class_id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws SchoolNotFoundException, ClassOfCourseNotFoundException, UserNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +
                 "/schools/" + school_id + "/classes/" + class_id + "/teachers");

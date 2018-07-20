@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Optional;
 
@@ -42,7 +43,7 @@ public class UserController {
     public Object getAllUsers(
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws UserNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host + "/users");
@@ -60,7 +61,7 @@ public class UserController {
     public Object getAllStudents(
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws UserNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +  "/students");
         return ApiResponseBuilder
@@ -76,7 +77,7 @@ public class UserController {
     public Object getAllTeachers(
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws UserNotFoundException {
         SimplePage p = new SimplePage(offset, limit, host +  "/teachers");
         return ApiResponseBuilder
@@ -131,7 +132,7 @@ public class UserController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws ClassOfCourseNotFoundException, UserNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/users/" + id + "/classes");
@@ -152,7 +153,7 @@ public class UserController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws ClassOfCourseNotFoundException, UserNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/students/" + id + "/classes");
@@ -171,7 +172,7 @@ public class UserController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<Integer> offset,
             @RequestParam("limit") Optional<Integer> limit,
-            @RequestHeader("host") String host)
+            @ApiIgnore @RequestHeader("host") String host)
             throws ClassOfCourseNotFoundException, UserNotFoundException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/users/" + id + "/classes");
