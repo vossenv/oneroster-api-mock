@@ -19,11 +19,11 @@ public class ApiResponseBuilder {
                 + "&offset=" + String.valueOf(Math.max(p.getOffset() - p.getLimit() - 1,0));
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("limit", p.getLimit().toString());
-        headers.add("offset", p.getOffset().toString());
+        headers.add("Limit", p.getLimit().toString());
+        headers.add("Offset", p.getOffset().toString());
         headers.add("Next", urlNext);
         headers.add("Previous", urlPrev);
-        headers.add("Result count", (String.valueOf(((List<?>)body).size())));
+        headers.add("Result-Count", (String.valueOf(((List<?>)body).size())));
 
         return new ResponseEntity<>(body,headers, HttpStatus.OK);
     }

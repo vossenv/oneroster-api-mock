@@ -45,7 +45,7 @@ public class UserController {
             @RequestHeader("host") String host)
             throws UserNotFoundException {
 
-        SimplePage p = new SimplePage(offset, limit, host +  host + "/users");
+        SimplePage p = new SimplePage(offset, limit, host + "/users");
         return ApiResponseBuilder
                 .buildApiResponse(userService.getAllUsers("any", p.getOffset(), p.getLimit()), p);
 
