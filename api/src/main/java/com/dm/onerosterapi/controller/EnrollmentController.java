@@ -1,6 +1,7 @@
 package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
+import com.dm.onerosterapi.exceptions.InvalidParameterException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
@@ -30,10 +31,10 @@ public class EnrollmentController {
                     response = Enrollment.class, responseContainer="List")
     })
     public Object getAllEnrollments(
-            @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit,
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
             @ApiIgnore @RequestHeader("host") String host)
-            throws EnrollmentNotFoundException {
+            throws EnrollmentNotFoundException, InvalidParameterException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/courses");
         return ApiResponseBuilder

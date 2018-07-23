@@ -2,6 +2,7 @@ package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
 import com.dm.onerosterapi.exceptions.CourseNotFoundException;
+import com.dm.onerosterapi.exceptions.InvalidParameterException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.service.interfaces.ClassService;
@@ -36,10 +37,10 @@ public class CourseController {
                     response = Course.class, responseContainer="List")
     })
     public Object getAllCourses(
-            @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit,
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
             @ApiIgnore @RequestHeader("host") String host)
-            throws CourseNotFoundException {
+            throws CourseNotFoundException, InvalidParameterException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/courses");
         return ApiResponseBuilder
@@ -68,10 +69,10 @@ public class CourseController {
     public Object getClassesForCourse(
             @ApiParam(value = "SourcedId of Course to select Classes from", required = true)
             @PathVariable("id") String id,
-            @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit,
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
             @ApiIgnore @RequestHeader("host") String host)
-            throws ClassOfCourseNotFoundException, CourseNotFoundException {
+            throws ClassOfCourseNotFoundException, CourseNotFoundException, InvalidParameterException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/courses/" + id + "/classes");
         return ApiResponseBuilder

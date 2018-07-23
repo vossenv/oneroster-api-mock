@@ -1,8 +1,6 @@
 package com.dm.onerosterapi.apiconfig;
 
 import com.dm.onerosterapi.exceptions.*;
-import com.dm.onerosterapi.apiconfig.ApiError;
-import com.dm.onerosterapi.apiconfig.ApiMessages;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -17,40 +15,47 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 //@ControllerAdvice(basePackages = "com.dm.onerosterapi")
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(InvalidParameterException.class)
+    protected ResponseEntity<Object> handleInvalidParameterException( InvalidParameterException e ) {
+        return buildResponseEntity(e, ApiMessages.INVALID_PARAMETER, HttpStatus.BAD_REQUEST, e.getErrorList());
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     protected ResponseEntity<Object> handleUserNotFound( UserNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_USER_MESSAGE, HttpStatus.NOT_FOUND);
+        return buildResponseEntity(e, ApiMessages.NO_USER_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @ExceptionHandler(ClassOfCourseNotFoundException.class)
     protected ResponseEntity<Object> handleSchoolClassNotFound( ClassOfCourseNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_CLASS_MESSAGE, HttpStatus.NOT_FOUND);
+        return buildResponseEntity(e, ApiMessages.NO_CLASS_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @ExceptionHandler(CourseNotFoundException.class)
     protected ResponseEntity<Object> handleCourseNotFound( CourseNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_COURSE_MESSAGE, HttpStatus.NOT_FOUND);
+        return buildResponseEntity(e, ApiMessages.NO_COURSE_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @ExceptionHandler(SchoolNotFoundException.class)
     protected ResponseEntity<Object> handleSchoolNotFound( SchoolNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_SCHOOL_MESSAGE, HttpStatus.NOT_FOUND);
+        return buildResponseEntity(e, ApiMessages.NO_SCHOOL_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @ExceptionHandler(EnrollmentNotFoundException.class)
     protected ResponseEntity<Object> handleEnrollmentNotFound( EnrollmentNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_ENROLLMENT_MESSAGE, HttpStatus.NOT_FOUND);
+        return buildResponseEntity(e, ApiMessages.NO_ENROLLMENT_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     protected ResponseEntity<Object> handleResourceNotFound( ResourceNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_RESULTS, HttpStatus.NOT_FOUND);
+        return buildResponseEntity(e, ApiMessages.NO_RESULTS, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @Override
@@ -63,9 +68,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object>  handleNoHandlerFoundException(
             NoHandlerFoundException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-        String debugMessage = "The URL is invalid: " + e.getRequestURL();
+        List<String> errorDetails = new ArrayList<>();
+        errorDetails.add("The URL is invalid: " + e.getRequestURL());
 
-        return buildResponseEntity(e, ApiMessages.RESOURCE_NOT_FOUND, HttpStatus.NOT_FOUND, debugMessage);
+        return buildResponseEntity(e, ApiMessages.RESOURCE_NOT_FOUND, HttpStatus.NOT_FOUND, errorDetails);
     }
 
     @ExceptionHandler
@@ -75,21 +81,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-    private ResponseEntity<Object> buildResponseEntity(Exception e, String message, HttpStatus status, String debugMessage) {
-
-        if (debugMessage.equals("default")) {
-            debugMessage = ExceptionUtils.getRootCauseMessage(e);
-        }
+    private ResponseEntity<Object> buildResponseEntity(Exception e, String message, HttpStatus status, List<String> errorDetails) {
 
         ApiError apiError = new ApiError(status);
         apiError.setMessage(message);
-        apiError.setDebugMessage(debugMessage);
-
+        apiError.getErrorMessageList().addAll(errorDetails);
         return new ResponseEntity<>(apiError, apiError.getStatus());
+
     }
 
     private ResponseEntity<Object> buildResponseEntity(Exception e, String message, HttpStatus status) {
-        return buildResponseEntity(e, message, status, "default");
+        List<String> errorDetails = new ArrayList<>();
+        errorDetails.add(ExceptionUtils.getRootCauseMessage(e));
+        return buildResponseEntity(e, message, status, errorDetails);
     }
 
 

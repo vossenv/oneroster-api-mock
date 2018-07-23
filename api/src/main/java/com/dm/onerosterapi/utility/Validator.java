@@ -32,19 +32,6 @@ public class Validator {
         this.enrollmentRepository = enrollmentRepository;
     }
 
-//    public boolean validateParams(Optional<Integer> off, Optional<Integer> lim) throws InvalidParameterException {
-//
-//
-//    }
-//
-//    public boolean validateParams(Integer off, Integer lim) throws InvalidParameterException{
-//
-//        try {
-//            Integer.parseInt(off);
-//        }
-//
-//    }
-
     public void validateUser(String sourcedId, String role) throws UserNotFoundException {
         if ((role.equals("student") || role.equals("teacher")) && !userRepository.existsBySourcedIdAndRoleIgnoreCase(sourcedId, role)) {
             throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);

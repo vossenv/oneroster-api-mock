@@ -1,6 +1,7 @@
 package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
+import com.dm.onerosterapi.exceptions.InvalidParameterException;
 import com.dm.onerosterapi.exceptions.TermNotFoundException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.service.interfaces.ClassService;
@@ -34,10 +35,10 @@ public class TermController {
     public Object getClassesForTerm(
             @ApiParam(value = "String of Term to select Classes from", required = true)
             @PathVariable("term") String term,
-            @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit,
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
             @ApiIgnore @RequestHeader("host") String host)
-            throws ClassOfCourseNotFoundException, TermNotFoundException {
+            throws ClassOfCourseNotFoundException, TermNotFoundException, InvalidParameterException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/terms/" + term + "/classes");
         return ApiResponseBuilder

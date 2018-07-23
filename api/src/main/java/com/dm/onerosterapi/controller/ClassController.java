@@ -1,6 +1,7 @@
 package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
+import com.dm.onerosterapi.exceptions.InvalidParameterException;
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.User;
@@ -36,10 +37,10 @@ public class ClassController {
                     response = ClassOfCourse.class, responseContainer = "List")
     })
     public Object getAllClasses(
-            @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit,
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
             @ApiIgnore @RequestHeader("host") String host)
-            throws ClassOfCourseNotFoundException {
+            throws ClassOfCourseNotFoundException, InvalidParameterException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/classes");
         return ApiResponseBuilder
@@ -67,10 +68,10 @@ public class ClassController {
     public Object getStudentsForClass(
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
             @PathVariable("id") String id,
-            @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit,
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
             @ApiIgnore @RequestHeader("host") String host)
-            throws UserNotFoundException, ClassOfCourseNotFoundException {
+            throws UserNotFoundException, ClassOfCourseNotFoundException, InvalidParameterException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/classes/" + id + "/students");
         return ApiResponseBuilder
@@ -86,10 +87,10 @@ public class ClassController {
     public Object getTeachersForClass(
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
             @PathVariable("id") String id,
-            @RequestParam("offset") Optional<Integer> offset,
-            @RequestParam("limit") Optional<Integer> limit,
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
             @ApiIgnore @RequestHeader("host") String host)
-            throws UserNotFoundException, ClassOfCourseNotFoundException {
+            throws UserNotFoundException, ClassOfCourseNotFoundException, InvalidParameterException {
 
         SimplePage p = new SimplePage(offset, limit, host +  "/classes/" + id + "/teachers");
         return ApiResponseBuilder
