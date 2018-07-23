@@ -42,7 +42,7 @@ public class ClassController {
             @ApiIgnore @RequestHeader("host") String host)
             throws ClassOfCourseNotFoundException, InvalidParameterException {
 
-        SimplePage p = new SimplePage(offset, limit, host +  "/classes");
+        SimplePage p = new SimplePage(offset, limit, host + "/classes");
         return ApiResponseBuilder
                 .buildApiResponse(classService.getAllClasses(p.getOffset(), p.getLimit()), p);
     }
@@ -73,7 +73,7 @@ public class ClassController {
             @ApiIgnore @RequestHeader("host") String host)
             throws UserNotFoundException, ClassOfCourseNotFoundException, InvalidParameterException {
 
-        SimplePage p = new SimplePage(offset, limit, host +  "/classes/" + id + "/students");
+        SimplePage p = new SimplePage(offset, limit, host + "/classes/" + id + "/students");
         return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersByClass(id, "student", p.getOffset(), p.getLimit()), p);
     }
@@ -92,7 +92,7 @@ public class ClassController {
             @ApiIgnore @RequestHeader("host") String host)
             throws UserNotFoundException, ClassOfCourseNotFoundException, InvalidParameterException {
 
-        SimplePage p = new SimplePage(offset, limit, host +  "/classes/" + id + "/teachers");
+        SimplePage p = new SimplePage(offset, limit, host + "/classes/" + id + "/teachers");
         return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersByClass(id, "teacher", p.getOffset(), p.getLimit()), p);
     }

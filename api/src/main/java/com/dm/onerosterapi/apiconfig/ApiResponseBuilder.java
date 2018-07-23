@@ -4,8 +4,6 @@ import com.dm.onerosterapi.model.SimplePage;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.util.Collection;
 import java.util.List;
 
 public class ApiResponseBuilder {

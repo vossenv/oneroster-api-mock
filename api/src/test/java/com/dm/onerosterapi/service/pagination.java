@@ -1,6 +1,5 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.service.interfaces.UserService;
@@ -11,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.util.List;
 
 @RunWith(SpringRunner.class)

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
-//@ControllerAdvice(basePackages = "com.dm.onerosterapi")
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
