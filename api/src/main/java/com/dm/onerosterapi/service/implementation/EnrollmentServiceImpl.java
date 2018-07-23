@@ -5,6 +5,10 @@ import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.EnrollmentRepository;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
+import com.dm.onerosterapi.utility.AllowedTypes;
+import com.dm.onerosterapi.apiconfig.ApiMessages;
+import com.dm.onerosterapi.utility.AttributeTransformer;
+import com.dm.onerosterapi.utility.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +18,8 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class EnrollmentServiceImpl implements EnrollmentService {
 
-    private HelperService h;
+    private AttributeTransformer h;
+    private Validator v;
     private RosterDao rosterDao;
     private EnrollmentRepository enrollmentRepository;
 
@@ -22,17 +27,19 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     public EnrollmentServiceImpl(
             RosterDao rosterDao,
             EnrollmentRepository enrollmentRepository,
-            HelperService h
+            AttributeTransformer h,
+            Validator v
     ) {
+        this.v = v;
         this.h = h;
         this.rosterDao = rosterDao;
         this.enrollmentRepository = enrollmentRepository;
     }
 
     @Override
-    public List<Enrollment> getAllEnrollments() throws EnrollmentNotFoundException {
+    public List<Enrollment> getAllEnrollments(int offset, int limit) throws EnrollmentNotFoundException {
         try {
-            return (List<Enrollment>) h.processResults(enrollmentRepository.findAll());
+            return (List<Enrollment>) h.processResults(rosterDao.getAll(AllowedTypes.Enrollment, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e){
             throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
         }
@@ -49,10 +56,10 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
 
     @Override
-    public List<Enrollment> getEnrollmentsForSchool(String schoolId) throws EnrollmentNotFoundException, SchoolNotFoundException {
+    public List<Enrollment> getEnrollmentsForSchool(String schoolId, int offset, int limit) throws EnrollmentNotFoundException, SchoolNotFoundException {
         try {
-            h.validateSchool(schoolId);
-            return (List<Enrollment>) h.processResults(rosterDao.getEnrollmentsBySchool(schoolId));
+            v.validateSchool(schoolId);
+            return (List<Enrollment>) h.processResults(rosterDao.getEnrollmentsBySchool(schoolId, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e){
             throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
         }
@@ -60,15 +67,15 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public List<Enrollment> getEnrollmentsForClassInSchool(String classId, String schoolId) throws
+    public List<Enrollment> getEnrollmentsForClassInSchool(String classId, String schoolId, int offset, int limit) throws
             EnrollmentNotFoundException,
             SchoolNotFoundException,
             ClassOfCourseNotFoundException {
 
         try {
-            h.validateClass(classId);
-            h.validateSchool(schoolId);
-            return (List<Enrollment>) h.processResults(rosterDao.getEnrollmentsForClassInSchool(classId, schoolId));
+            v.validateClass(classId);
+            v.validateSchool(schoolId);
+            return (List<Enrollment>) h.processResults(rosterDao.getEnrollmentsForClassInSchool(classId, schoolId, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e){
             throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
         }

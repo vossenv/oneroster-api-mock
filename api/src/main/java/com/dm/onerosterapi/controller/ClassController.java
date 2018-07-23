@@ -1,22 +1,21 @@
 package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
+import com.dm.onerosterapi.exceptions.InvalidParameterException;
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
+import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
+import com.dm.onerosterapi.model.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
+import java.util.Optional;
 
-@CrossOrigin
 @RestController
 @Api(tags = "Class Controller", description = "Set of endpoints for reading Classes")
 public class ClassController {
@@ -30,55 +29,71 @@ public class ClassController {
         this.classService = classService;
     }
 
-    @RequestMapping(value="/classes", method=RequestMethod.GET, produces="application/json")
-    @ApiOperation(value="Return collection of classes.",
-            response=ClassOfCourse.class, responseContainer="List")
+    @RequestMapping(value = "/classes", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation(value = "Return collection of classes.",
+            response = ClassOfCourse.class, responseContainer = "List")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success",
-                    response = ClassOfCourse.class, responseContainer="List")
+                    response = ClassOfCourse.class, responseContainer = "List")
     })
-    @ResponseBody
-    public List<?> getAllClasses() throws ClassOfCourseNotFoundException {
-        return classService.getAllClasses();
+    public Object getAllClasses(
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
+            @ApiIgnore @RequestHeader("host") String host)
+            throws ClassOfCourseNotFoundException, InvalidParameterException {
+
+        SimplePage p = new SimplePage(offset, limit, host + "/classes");
+        return ApiResponseBuilder
+                .buildApiResponse(classService.getAllClasses(p.getOffset(), p.getLimit()), p);
     }
 
-    @RequestMapping(value="/classes/{id}", method=RequestMethod.GET, produces="application/json")
-    @ApiOperation(value="Return specific class.", response=ClassOfCourse.class)
+    @RequestMapping(value = "/classes/{id}", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation(value = "Return specific class.", response = ClassOfCourse.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = ClassOfCourse.class)
     })
-    @ResponseBody
     public Object getClassById(
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
-                @PathVariable("id") String id
+            @PathVariable("id") String id
     ) throws ClassOfCourseNotFoundException {
         return classService.getBySourcedId(id);
     }
 
-    @RequestMapping(value="/classes/{id}/students", method=RequestMethod.GET, produces="application/json")
-    @ApiOperation(value="Return the collection of students that are taking this class.",
-            response=User.class, responseContainer="List")
+    @RequestMapping(value = "/classes/{id}/students", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation(value = "Return the collection of students that are taking this class.",
+            response = User.class, responseContainer = "List")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = User.class, responseContainer="List")
+            @ApiResponse(code = 200, message = "Success", response = User.class, responseContainer = "List")
     })
-    @ResponseBody
-    public List<?> getStudentsForClass(
+    public Object getStudentsForClass(
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
-                @PathVariable("id") String id
-    ) throws UserNotFoundException, ClassOfCourseNotFoundException {
-        return userService.getStudentsByClass(id);
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
+            @ApiIgnore @RequestHeader("host") String host)
+            throws UserNotFoundException, ClassOfCourseNotFoundException, InvalidParameterException {
+
+        SimplePage p = new SimplePage(offset, limit, host + "/classes/" + id + "/students");
+        return ApiResponseBuilder
+                .buildApiResponse(userService.getUsersByClass(id, "student", p.getOffset(), p.getLimit()), p);
     }
 
-    @RequestMapping(value="/classes/{id}/teachers", method=RequestMethod.GET, produces="application/json")
-    @ApiOperation(value="Return the collection of teachers that are teaching this class.",
-            response=User.class, responseContainer="List")
+    @RequestMapping(value = "/classes/{id}/teachers", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation(value = "Return the collection of teachers that are teaching this class.",
+            response = User.class, responseContainer = "List")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Success", response = User.class, responseContainer="List")
+            @ApiResponse(code = 200, message = "Success", response = User.class, responseContainer = "List")
     })
-    @ResponseBody
-    public List<?> getTeachersForClass(
-            @ApiParam(value = "SourcedId of Class to be selected", required = true) @PathVariable("id") String id
-    ) throws UserNotFoundException, ClassOfCourseNotFoundException {
-        return userService.getTeachersByClass(id);
+    public Object getTeachersForClass(
+            @ApiParam(value = "SourcedId of Class to be selected", required = true)
+            @PathVariable("id") String id,
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
+            @ApiIgnore @RequestHeader("host") String host)
+            throws UserNotFoundException, ClassOfCourseNotFoundException, InvalidParameterException {
+
+        SimplePage p = new SimplePage(offset, limit, host + "/classes/" + id + "/teachers");
+        return ApiResponseBuilder
+                .buildApiResponse(userService.getUsersByClass(id, "teacher", p.getOffset(), p.getLimit()), p);
     }
 }

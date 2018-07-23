@@ -1,15 +1,17 @@
 package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
+import com.dm.onerosterapi.exceptions.InvalidParameterException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
+import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
+import com.dm.onerosterapi.model.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
+import java.util.Optional;
 
-import java.util.List;
-
-@CrossOrigin
 @RestController
 @Api(tags = "Enrollment Controller", description = "Set of endpoints for reading Enrollments")
 public class EnrollmentController {
@@ -27,9 +29,15 @@ public class EnrollmentController {
             @ApiResponse(code = 200, message = "Success",
                     response = Enrollment.class, responseContainer="List")
     })
-    @ResponseBody
-    public List<?> getAllEnrollments() throws EnrollmentNotFoundException {
-        return enrollmentService.getAllEnrollments();
+    public Object getAllEnrollments(
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
+            @ApiIgnore @RequestHeader("host") String host)
+            throws EnrollmentNotFoundException, InvalidParameterException {
+
+        SimplePage p = new SimplePage(offset, limit, host +  "/courses");
+        return ApiResponseBuilder
+                .buildApiResponse(enrollmentService.getAllEnrollments( p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value="/enrollments/{id}", method=RequestMethod.GET, produces="application/json")
@@ -37,7 +45,6 @@ public class EnrollmentController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Enrollment.class)
     })
-    @ResponseBody
     public Object getEnrollmentById(
             @ApiParam(value = "SourcedId of Enrollment to be selected", required = true)
                 @PathVariable("id") String id

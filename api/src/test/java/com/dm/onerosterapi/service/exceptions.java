@@ -5,6 +5,7 @@ import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.CourseService;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import com.dm.onerosterapi.service.interfaces.UserService;
+import com.dm.onerosterapi.apiconfig.ApiMessages;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,6 @@ public class exceptions {
     private static final String classId = "dca81f5a-1d99-491a-85fb-ad9591d4b96d";
     private static final String studentId = "8057df9d-72a3-419a-98b5-6eab87ec0a6d";
     private static final String teacherId = "f1e4b385-b0c9-4054-ad08-95c580ac715d";
-    private static final String courseId = "2441eeb2-4df0-4726-a882-f0e722d129c6";
-    private static final String enrollmentId = "44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb";
     private static final String schoolId = "f9a75f84-130b-419e-bbe6-463585e930e9";
 
     @Test
@@ -58,25 +57,25 @@ public class exceptions {
         }
 
         try {
-            userService.getUsersByClass("x");
+            userService.getUsersByClass("x","y",0,Integer.MAX_VALUE);
         } catch (ClassOfCourseNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_CLASS + "x"));
         }
 
         try {
-            userService.getUsersBySchool("x");
+            userService.getUsersBySchool("x","y", 0, Integer.MAX_VALUE);
         } catch (SchoolNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_SCHOOL + "x"));
         }
 
         try {
-            userService.getUsersForClassInSchool("x", "y");
+            userService.getUsersForClassInSchool("x", "y", "any", 0, Integer.MAX_VALUE);
         } catch (ClassOfCourseNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_CLASS + "x"));
         }
 
         try {
-            userService.getUsersForClassInSchool(classId, "y");
+            userService.getUsersForClassInSchool(classId, "y", "any", 0, Integer.MAX_VALUE);
         } catch (SchoolNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_SCHOOL + "y"));
         }
@@ -95,42 +94,30 @@ public class exceptions {
         }
 
         try {
-            classService.getClassesByTerm("x");
+            classService.getClassesByTerm("x", 0, Integer.MAX_VALUE);
         } catch (TermNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_TERM + "x"));
         }
 
         try {
-            classService.getClassesBySchool("x");
+            classService.getClassesBySchool("x", 0, Integer.MAX_VALUE);
         } catch (SchoolNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_SCHOOL + "x"));
         }
 
         try {
-            classService.getClassesByCourse("x");
+            classService.getClassesByCourse("x", 0, Integer.MAX_VALUE);
         } catch (CourseNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_COURSE + "x"));
         }
 
         try {
-            classService.getClassesByUser("x");
+            classService.getClassesByUser("x", "any",0, Integer.MAX_VALUE);
         } catch (UserNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "x"));
         }
 
-        try {
-            classService.getClassesByTeacher(studentId);
-        } catch (UserNotFoundException e) {
-            assertTrue(e.getMessage().contains(ApiMessages.NOT_A_TEACHER + studentId));
-        }
-
-        try {
-            classService.getClassesByStudent(teacherId);
-        } catch (UserNotFoundException e) {
-            assertTrue(e.getMessage().contains(ApiMessages.NOT_A_STUDENT + teacherId));
-        }
-
-        classService.getClassesByStudent(studentId);
+        classService.getClassesByUser(studentId, "student",0, Integer.MAX_VALUE);
 
     }
 
@@ -139,7 +126,7 @@ public class exceptions {
     public void testCourseExceptions() throws CourseNotFoundException {
 
         try {
-            courseService.getCoursesBySchool("x");
+            courseService.getCoursesBySchool("x", 0, Integer.MAX_VALUE);
         } catch (SchoolNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_SCHOOL + "x"));
         }
@@ -154,24 +141,24 @@ public class exceptions {
             EnrollmentNotFoundException {
 
         try {
-            enrollmentService.getEnrollmentsForSchool("x");
+            enrollmentService.getEnrollmentsForSchool("x",0, Integer.MAX_VALUE);
         } catch (SchoolNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_SCHOOL + "x"));
         }
 
         try {
-            enrollmentService.getEnrollmentsForClassInSchool("x", "y");
+            enrollmentService.getEnrollmentsForClassInSchool("x", "y", 0, Integer.MAX_VALUE);
         } catch (ClassOfCourseNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_CLASS + "x"));
         }
 
         try {
-            enrollmentService.getEnrollmentsForClassInSchool(classId, "y");
+            enrollmentService.getEnrollmentsForClassInSchool(classId, "y", 0, Integer.MAX_VALUE);
         } catch (SchoolNotFoundException e) {
             assertTrue(e.getMessage().contains(ApiMessages.INVALID_SCHOOL + "y"));
         }
 
-        enrollmentService.getEnrollmentsForClassInSchool(classId, schoolId);
+        enrollmentService.getEnrollmentsForClassInSchool(classId, schoolId, 0, Integer.MAX_VALUE);
 
     }
 

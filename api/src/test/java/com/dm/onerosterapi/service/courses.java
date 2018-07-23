@@ -33,14 +33,14 @@ public class courses {
 
 	@Test
 	public void getAllCourses() throws CourseNotFoundException {
-        List<Course> courseList = courseService.getAllCourses();
+        List<Course> courseList = courseService.getAllCourses(0,Integer.MAX_VALUE);
         assertEquals(courseList.size(),42);
         assertTrue(checkValues(courseList.get(10)));
 	}
 
 	@Test
     public void getCoursesBySchool() throws CourseNotFoundException, SchoolNotFoundException {
-        List<Course> courseList = courseService.getCoursesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9");
+        List<Course> courseList = courseService.getCoursesBySchool("f9a75f84-130b-419e-bbe6-463585e930e9",0,Integer.MAX_VALUE);
         assertEquals(courseList.size(),21);
     }
 

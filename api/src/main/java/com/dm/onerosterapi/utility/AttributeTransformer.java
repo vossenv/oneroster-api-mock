@@ -1,4 +1,4 @@
-package com.dm.onerosterapi.service.implementation;
+package com.dm.onerosterapi.utility;
 
 import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.repository.jpa.*;
@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.List;
 
 @Service
-public class HelperService {
+public class AttributeTransformer {
 
     private SchoolRepository schoolRepository;
     private ClassRepository classRepository;
@@ -18,7 +19,7 @@ public class HelperService {
     private EnrollmentRepository enrollmentRepository;
 
     @Autowired
-    public HelperService (
+    public AttributeTransformer(
             SchoolRepository schoolRepository,
             ClassRepository classRepository,
             UserRepository userRepository,
@@ -42,6 +43,10 @@ public class HelperService {
     }
 
     public Object processResults(Object o) throws ResourceNotFoundException{
+
+        if (o instanceof Collection<?>) {
+            return processResults((List<?>) o);
+        }
 
         if (o == null) { throw new ResourceNotFoundException(NO_RESULTS_MESSAGE) ; }
 
@@ -73,36 +78,6 @@ public class HelperService {
         return o;
     }
 
-    public void validateUser(String sourcedId) throws UserNotFoundException{
-        if (!userRepository.existsBySourcedIdIgnoreCase(sourcedId)) {throw new UserNotFoundException(ApiMessages.INVALID_USER + sourcedId);}
-    }
 
-    public void validateTeacher(String sourcedId) throws UserNotFoundException{
-        if (!userRepository.existsBySourcedIdAndRoleIgnoreCase(sourcedId, "teacher")) {throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + sourcedId);}
-    }
-
-    public void validateStudent(String sourcedId) throws UserNotFoundException{
-        if (!userRepository.existsBySourcedIdAndRoleIgnoreCase(sourcedId, "student")) {throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + sourcedId);}
-    }
-
-    public void validateClass(String sourcedId) throws ClassOfCourseNotFoundException {
-        if (!classRepository.existsBySourcedIdIgnoreCase(sourcedId)) {throw new ClassOfCourseNotFoundException(ApiMessages.INVALID_CLASS + sourcedId);}
-    }
-
-    public void validateCourse(String sourcedId) throws CourseNotFoundException {
-        if (!courseRepository.existsBySourcedIdIgnoreCase(sourcedId)) {throw new CourseNotFoundException(ApiMessages.INVALID_COURSE + sourcedId);}
-    }
-
-    public void validateSchool(String sourcedId) throws SchoolNotFoundException {
-        if (!schoolRepository.existsBySourcedIdIgnoreCase(sourcedId)) {throw new SchoolNotFoundException(ApiMessages.INVALID_SCHOOL + sourcedId);}
-    }
-
-    public void validateEnrollment(String sourcedId) throws EnrollmentNotFoundException {
-        if (!enrollmentRepository.existsBySourcedId(sourcedId)) {throw new EnrollmentNotFoundException(ApiMessages.INVALID_ENROLLMENT + sourcedId);}
-    }
-
-    public void validateClassTerm(String term) throws TermNotFoundException {
-        if (!classRepository.existsByTermIgnoreCase(term)) {throw new TermNotFoundException(ApiMessages.INVALID_TERM + term);}
-    }
 
 }

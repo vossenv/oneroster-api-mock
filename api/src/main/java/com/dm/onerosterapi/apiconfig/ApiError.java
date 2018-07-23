@@ -1,8 +1,11 @@
-package com.dm.onerosterapi.exceptions;
+package com.dm.onerosterapi.apiconfig;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApiError {
 
@@ -10,14 +13,10 @@ public class ApiError {
     private LocalDateTime timestamp;
     private HttpStatus status;
     private String message;
-    private String debugMessage;
-
-    private ApiError() {
-        timestamp = LocalDateTime.now();
-    }
+    private List<String> errorMessageList = new ArrayList<>();
 
     ApiError(HttpStatus status) {
-        this();
+        this.timestamp = LocalDateTime.now();
         this.status = status;
     }
 
@@ -27,8 +26,13 @@ public class ApiError {
     public void setTimestamp(LocalDateTime timestamp) {this.timestamp = timestamp;}
     public String getMessage() {return message;}
     public void setMessage(String message) {this.message = message;}
-    public String getDebugMessage() {return debugMessage;}
-    public void setDebugMessage(String debugMessage) {this.debugMessage = debugMessage;}
 
+    public List<String> getErrorMessageList() {
+        return errorMessageList;
+    }
+
+    public void setErrorMessageList(List<String> errorMessageList) {
+        this.errorMessageList = errorMessageList;
+    }
 }
 
