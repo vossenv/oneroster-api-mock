@@ -5,71 +5,34 @@ import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
 import com.dm.onerosterapi.service.interfaces.UserService;
+import com.dm.onerosterapi.apiconfig.ApiMessages;
+import com.dm.onerosterapi.utility.AttributeTransformer;
+import com.dm.onerosterapi.utility.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @SuppressWarnings("unchecked")
 public class UserServiceImpl implements UserService {
 
-    private HelperService h;
+    private Validator v;
+    private AttributeTransformer h;
     private RosterDao rosterDao;
     private UserRepository userRepository;
 
+
     @Autowired
     public UserServiceImpl(
-            HelperService h,
+            AttributeTransformer h,
             RosterDao rosterDao,
-            UserRepository userRepository
+            UserRepository userRepository,
+            Validator v
     ) {
+        this.v = v;
         this.h = h;
         this.rosterDao = rosterDao;
         this.userRepository = userRepository;
-    }
-
-    @Override
-    public List<User> getStudentsByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException {
-        return userTypeFilter(getUsersByClass(classSourcedId), "student");
-    }
-
-    @Override
-    public List<User> getTeachersByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException {
-        return userTypeFilter(getUsersByClass(classSourcedId), "teacher");
-    }
-
-    @Override
-    public List<User> getAllStudents() throws UserNotFoundException {
-        return userTypeFilter(getAllUsers(), "student");
-    }
-
-    @Override
-    public List<User> getAllTeachers() throws UserNotFoundException {
-        return userTypeFilter(getAllUsers(), "teacher");
-    }
-
-    @Override
-    public List<User> getStudentsBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException {
-        return userTypeFilter(getUsersBySchool(schoolId), "student");
-    }
-
-    @Override
-    public List<User> getTeachersBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException {
-        return userTypeFilter(getUsersBySchool(schoolId), "teacher");
-    }
-
-    @Override
-    public List<User> getStudentsForClassInSchool(String classId, String schoolId)
-            throws UserNotFoundException, ClassOfCourseNotFoundException, SchoolNotFoundException {
-        return userTypeFilter(getUsersForClassInSchool(classId, schoolId), "student");
-    }
-
-    @Override
-    public List<User> getTeachersForClassInSchool(String classId, String schoolId)
-            throws UserNotFoundException, ClassOfCourseNotFoundException, SchoolNotFoundException {
-        return userTypeFilter(getUsersForClassInSchool(classId, schoolId), "teacher");
     }
 
     @Override
@@ -84,68 +47,63 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getStudentBySourcedId(String userId) throws UserNotFoundException {
         User u = getUserBySourcedId(userId);
-        if (u.getRole().equals("student")) return u; else
+        if (u.getRole().equals("student")) return u;
+        else
             throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + userId);
     }
 
     @Override
     public User getTeacherBySourcedId(String userId) throws UserNotFoundException {
         User u = getUserBySourcedId(userId);
-        if (u.getRole().equals("teacher")) return u; else
+        if (u.getRole().equals("teacher")) return u;
+        else
             throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + userId);
     }
 
     @Override
-    public List<User> getAllUsers() throws UserNotFoundException {
+    public List<User> getAllUsers(String role, int offset, int limit) throws UserNotFoundException {
         try {
-            return (List<User>) h.processResults(userRepository.findAll());
+            return (List<User>) h.processResults(rosterDao.getAllUsersOfType(role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
     }
 
     @Override
-    public List<User> getUsersByClass(String classSourcedId) throws UserNotFoundException, ClassOfCourseNotFoundException {
+    public List<User> getUsersByClass(String classSourcedId, String role, int offset, int limit) throws UserNotFoundException, ClassOfCourseNotFoundException {
         try {
-            h.validateClass(classSourcedId);
-            return (List<User>) h.processResults(rosterDao.getUsersByClass(classSourcedId));
+            v.validateClass(classSourcedId);
+            return (List<User>) h.processResults(rosterDao.getUsersByClass(classSourcedId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_CLASS + classSourcedId);
         }
     }
 
     @Override
-    public List<User> getUsersBySchool(String schoolId) throws UserNotFoundException, SchoolNotFoundException {
+    public List<User> getUsersBySchool(String schoolId, String role, int offset, int limit) throws UserNotFoundException, SchoolNotFoundException {
         try {
-            h.validateSchool(schoolId);
-            return (List<User>) h.processResults(rosterDao.getUsersBySchool(schoolId));
+            v.validateSchool(schoolId);
+            return (List<User>) h.processResults(rosterDao.getUsersBySchool(schoolId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_SCHOOL + schoolId);
         }
     }
 
     @Override
-    public List<User> getUsersForClassInSchool(String classId, String schoolId) throws UserNotFoundException,
+    public List<User> getUsersForClassInSchool(String classId, String schoolId, String role, int offset, int limit) throws UserNotFoundException,
             ClassOfCourseNotFoundException,
-            SchoolNotFoundException{
+            SchoolNotFoundException {
 
         try {
-            h.validateClass(classId);
-            h.validateSchool(schoolId);
-            return (List<User>) h.processResults(rosterDao.getUsersForClassInSchool(classId, schoolId));
+            v.validateClass(classId);
+            v.validateSchool(schoolId);
+            return (List<User>) h.processResults(rosterDao.getUsersForClassInSchool(classId, schoolId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new UserNotFoundException(ApiMessages.NO_RESULTS);
         }
 
     }
 
-    private static List<User> userTypeFilter(List<User> userList, String role) throws UserNotFoundException {
-        List<User> results = userList.stream()
-                .filter(u -> u.getRole().equals(role))
-                .collect(Collectors.toList());
-        if (results.isEmpty()) { throw new UserNotFoundException(ApiMessages.NO_RESULTS); }
-        return results;
-    }
 
 }
 

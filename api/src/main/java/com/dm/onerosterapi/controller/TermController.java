@@ -1,14 +1,17 @@
 package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
+import com.dm.onerosterapi.exceptions.InvalidParameterException;
 import com.dm.onerosterapi.exceptions.TermNotFoundException;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.service.interfaces.ClassService;
+import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
+import com.dm.onerosterapi.model.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import springfox.documentation.annotations.ApiIgnore;
+import java.util.Optional;
 
 @RestController
 @Api(tags = "Term Controller", description = "Set of endpoints for reading Terms")
@@ -28,10 +31,17 @@ public class TermController {
             @ApiResponse(code = 200, message = "Success",
                     response = ClassOfCourse.class, responseContainer="List")
     })
-    public List<?> getClassesForTerm(
+    public Object getClassesForTerm(
             @ApiParam(value = "String of Term to select Classes from", required = true)
-                @PathVariable("term") String term
-    ) throws ClassOfCourseNotFoundException, TermNotFoundException {
-        return classService.getClassesByTerm(term);
+            @PathVariable("term") String term,
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
+            @ApiIgnore @RequestHeader("host") String host)
+            throws ClassOfCourseNotFoundException, TermNotFoundException, InvalidParameterException {
+
+        SimplePage p = new SimplePage(offset, limit, host +  "/terms/" + term + "/classes");
+        return ApiResponseBuilder
+                .buildApiResponse(classService.getClassesByTerm(term,p.getOffset(), p.getLimit()), p);
+
     }
 }

@@ -1,13 +1,16 @@
 package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
+import com.dm.onerosterapi.exceptions.InvalidParameterException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
+import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
+import com.dm.onerosterapi.model.SimplePage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import springfox.documentation.annotations.ApiIgnore;
+import java.util.Optional;
 
 @RestController
 @Api(tags = "Enrollment Controller", description = "Set of endpoints for reading Enrollments")
@@ -26,8 +29,15 @@ public class EnrollmentController {
             @ApiResponse(code = 200, message = "Success",
                     response = Enrollment.class, responseContainer="List")
     })
-    public List<?> getAllEnrollments() throws EnrollmentNotFoundException {
-        return enrollmentService.getAllEnrollments();
+    public Object getAllEnrollments(
+            @RequestParam("offset") Optional<String> offset,
+            @RequestParam("limit") Optional<String> limit,
+            @ApiIgnore @RequestHeader("host") String host)
+            throws EnrollmentNotFoundException, InvalidParameterException {
+
+        SimplePage p = new SimplePage(offset, limit, host +  "/courses");
+        return ApiResponseBuilder
+                .buildApiResponse(enrollmentService.getAllEnrollments( p.getOffset(), p.getLimit()), p);
     }
 
     @RequestMapping(value="/enrollments/{id}", method=RequestMethod.GET, produces="application/json")

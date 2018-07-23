@@ -1,11 +1,14 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions.ApiMessages;
+import com.dm.onerosterapi.repository.dao.RosterDao;
+import com.dm.onerosterapi.utility.AllowedTypes;
+import com.dm.onerosterapi.apiconfig.ApiMessages;
 import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.School;
 import com.dm.onerosterapi.repository.jpa.SchoolRepository;
 import com.dm.onerosterapi.service.interfaces.SchoolService;
+import com.dm.onerosterapi.utility.AttributeTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -14,22 +17,25 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class SchoolServiceImpl implements SchoolService {
 
-    private HelperService h;
+    private AttributeTransformer h;
     private SchoolRepository schoolRepository;
+    private RosterDao rosterDao;
 
     @Autowired
     public SchoolServiceImpl(
             SchoolRepository schoolRepository,
-            HelperService h
+            AttributeTransformer h,
+            RosterDao rosterDao
     ) {
         this.schoolRepository = schoolRepository;
         this.h = h;
+        this.rosterDao = rosterDao;
     }
 
     @Override
-    public List<School> getAllSchools() throws SchoolNotFoundException {
+    public List<School> getAllSchools(int offset, int limit) throws SchoolNotFoundException {
         try {
-            return (List<School>) h.processResults(schoolRepository.findAll());
+            return (List<School>) h.processResults(rosterDao.getAll(AllowedTypes.School, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
             throw new SchoolNotFoundException(ApiMessages.NO_RESULTS);
         }

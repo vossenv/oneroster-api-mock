@@ -7,13 +7,12 @@ import java.util.List;
 
 public interface ClassService {
 
-    public ClassOfCourse getBySourcedId(String classId) throws ClassOfCourseNotFoundException;
-    public List<ClassOfCourse> getAllClasses() throws ClassOfCourseNotFoundException;
-    public List<ClassOfCourse> getClassesByUser(String userSourcedId) throws ClassOfCourseNotFoundException, UserNotFoundException;
-    public List<ClassOfCourse> getClassesByStudent(String userSourcedId) throws ClassOfCourseNotFoundException, UserNotFoundException;
-    public List<ClassOfCourse> getClassesByTeacher(String userSourcedId) throws ClassOfCourseNotFoundException , UserNotFoundException;
-    public List<ClassOfCourse> getClassesByCourse(String courseSourcedId) throws ClassOfCourseNotFoundException, CourseNotFoundException;
-    public List<ClassOfCourse> getClassesByTerm(String term) throws ClassOfCourseNotFoundException, TermNotFoundException;
-    public List<ClassOfCourse> getClassesBySchool(String schoolSourcedId) throws ClassOfCourseNotFoundException, SchoolNotFoundException;
+    ClassOfCourse getBySourcedId(String classId) throws ClassOfCourseNotFoundException;
+    
+    List<ClassOfCourse> getAllClasses(int offset, int limit) throws ClassOfCourseNotFoundException;
+    List<ClassOfCourse> getClassesByUser(String userSourcedId, String role, int offset, int limit) throws ClassOfCourseNotFoundException, UserNotFoundException;
+    List<ClassOfCourse> getClassesByCourse(String courseSourcedId, int offset, int limit) throws ClassOfCourseNotFoundException, CourseNotFoundException;
+    List<ClassOfCourse> getClassesByTerm(String term, int offset, int limit) throws ClassOfCourseNotFoundException, TermNotFoundException;
+    List<ClassOfCourse> getClassesBySchool(String schoolSourcedId, int offset, int limit) throws ClassOfCourseNotFoundException, SchoolNotFoundException;
 
 }

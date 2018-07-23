@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CourseService {
 
-    public Course getBySourcedId(String sourcedId) throws CourseNotFoundException;
-    public List<Course> getAllCourses() throws CourseNotFoundException;
-    public List<Course> getCoursesBySchool(String schoolSourcedId) throws CourseNotFoundException, SchoolNotFoundException;
+    Course getBySourcedId(String sourcedId) throws CourseNotFoundException;
+    List<Course> getAllCourses(int offset, int limit) throws CourseNotFoundException;
+    List<Course> getCoursesBySchool(String schoolSourcedId, int offset, int limit) throws CourseNotFoundException, SchoolNotFoundException;
 }

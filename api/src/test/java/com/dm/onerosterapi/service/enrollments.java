@@ -34,17 +34,17 @@ public class enrollments {
 
 	@Test
 	public void getAllEnrollments() throws EnrollmentNotFoundException {
-        List<Enrollment> enrollmentList = enrollmentService.getAllEnrollments();
+        List<Enrollment> enrollmentList = enrollmentService.getAllEnrollments(0, Integer.MAX_VALUE);
         assertEquals(enrollmentList.size(),4200);
         assertTrue(checkValues(enrollmentList.get(649)));
 	}
 
 	@Test
     public void getEnrollmentsForSchool() throws EnrollmentNotFoundException, SchoolNotFoundException {
-        List<Enrollment> enrollmentList = enrollmentService.getEnrollmentsForSchool("f9a75f84-130b-419e-bbe6-463585e930e9");
+        List<Enrollment> enrollmentList = enrollmentService.getEnrollmentsForSchool("f9a75f84-130b-419e-bbe6-463585e930e9",0, Integer.MAX_VALUE);
         assertEquals(enrollmentList.size(),2076);
 
-        enrollmentList = enrollmentService.getEnrollmentsForSchool("f5897384-9488-466f-b049-1992f7a53f15");
+        enrollmentList = enrollmentService.getEnrollmentsForSchool("f5897384-9488-466f-b049-1992f7a53f15",0, Integer.MAX_VALUE);
         assertEquals(enrollmentList.size(),2124);
 
     }
@@ -58,7 +58,7 @@ public class enrollments {
         String schoolId = "f9a75f84-130b-419e-bbe6-463585e930e9";
         String classId = "2ba9f25c-ef54-4072-85ab-2db066988091";
 
-        List<Enrollment> enrollmentList = enrollmentService.getEnrollmentsForClassInSchool(classId,schoolId);
+        List<Enrollment> enrollmentList = enrollmentService.getEnrollmentsForClassInSchool(classId,schoolId,0, Integer.MAX_VALUE);
         assertEquals(enrollmentList.size(),47);
     }
 

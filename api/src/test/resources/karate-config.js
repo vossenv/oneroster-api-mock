@@ -131,7 +131,7 @@ function() {
         {   timestamp: '#string',
             status: '#string',
             message: '#string',
-            debugMessage: '#string'
+            errorMessageList: '#array'
         };
 
     var invalidIdString = 'potato';
