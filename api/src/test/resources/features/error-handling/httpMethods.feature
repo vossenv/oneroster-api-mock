@@ -1,6 +1,7 @@
 Feature: Validate the HTTP Method permissions on each endpoint
 
   Background:
+
     * def classId = '5fbd34b6-ea52-4a4a-b6ae-e43f60139695'
     * def courseId = 'f492e547-a9af-4094-8e06-0d9acf9945a0'
     * def enrollmentId = '6d58aac9-bb8a-40e0-8525-3f6474b1b0fa'
@@ -57,7 +58,8 @@ Feature: Validate the HTTP Method permissions on each endpoint
   Scenario: Validate that allowed HTTP Methods are accepted
 
     * def result = call read('read/allowed.feature') single_endpoints
-    * def response = $result[*].response
-
     * def result = call read('read/allowed.feature') list_endpoints
-    * def response = $result[*].response
+
+  Scenario: Validate paging requests
+
+    * def result = call read('pagination/pagination.feature') list_endpoints

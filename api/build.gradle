@@ -50,12 +50,9 @@ task unitTest ( type: Test ) {
 
 task karateTest( type: Test ) {
 	include 'features/**'
-//	testLogging {
-//		events = ["passed", "skipped", "failed"]
-//	}
-
-	testLogging.showStandardStreams = true
-
+	testLogging {
+		events = ["passed", "skipped", "failed"]
+	}
 
 	// pull cucumber options into the cucumber jvm
 	systemProperty "cucumber.options", System.properties.getProperty("cucumber.options")
