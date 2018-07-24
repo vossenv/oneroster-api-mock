@@ -31,7 +31,7 @@ public class SimplePage {
         try {
             int p = Integer.parseInt(param);
             if (p < min || p > max){
-                errors.add("Valid range exceeded. " + type + " must be between " + min + " and " + max);
+                errors.add("Valid range exceeded for " + type + ". Must be between " + min + " and " + max);
                 return 0;
             } else return p;
         }
