@@ -68,7 +68,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             NoHandlerFoundException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
         List<String> errorDetails = new ArrayList<>();
-        errorDetails.add("The URL is invalid: " + e.getRequestURL());
+        errorDetails.add("The URL is invalid: " + e.getHeaders().getHost() + e.getRequestURL());
 
         return buildResponseEntity(e, ApiMessages.RESOURCE_NOT_FOUND, HttpStatus.NOT_FOUND, errorDetails);
     }
