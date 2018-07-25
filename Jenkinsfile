@@ -39,8 +39,14 @@ pipeline {
 		}
 		stage('Deploy') {
             steps {
-				sh 'scp api/build/libs/oneroster-api-1.0.jar deployment@thenewcarag.com:/usr/springboot/oneroster'
-                sh 'ssh deployment@thenewcarag.com sudo service oneroster-api restart'
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        sh 'scp api/build/libs/oneroster-api-1.0.jar deployment@thenewcarag.com:/usr/springboot/oneroster'
+                        sh 'ssh deployment@thenewcarag.com sudo service oneroster-api restart'
+                    } else {
+                        echo 'Not on master branch; Skipping Deploy.'
+                    }
+                }
             }
         }
     }
