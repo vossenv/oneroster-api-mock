@@ -20,7 +20,7 @@ public class AuthController {
     public void testAPI(HttpServletResponse response, HttpServletRequest request,
                         @RequestHeader HttpHeaders headers) throws NoHandlerFoundException, IOException {
         try {
-            String redirect = request.getRequestURL().toString().split("/oa")[1];
+            String redirect = request.getRequestURL().append('?').append(request.getQueryString()).toString().split("/oa")[1];
             if (redirect.length() > 1) {
                 response.sendRedirect(redirect);
             }
