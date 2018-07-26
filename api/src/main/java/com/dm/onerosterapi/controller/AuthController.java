@@ -1,5 +1,6 @@
 package com.dm.onerosterapi.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,14 +21,17 @@ import java.util.List;
 @Controller
 public class AuthController {
 
-    @RequestMapping(value = "/oa/**", method = {RequestMethod.GET, RequestMethod.POST})
+    @Value("${secure.endpoint.uri}")
+    private String secureURI;
+
+    @RequestMapping(value ="${secure.endpoint.uri}/**", method = RequestMethod.GET)
     public void testAPI(HttpServletResponse response, HttpServletRequest request,
                         @RequestHeader HttpHeaders headers) throws ServletException, IOException {
 
         try {
-            String redirect = request.getRequestURL().toString().split("/oa")[1];
+            String redirect = request.getRequestURL().toString().split(secureURI)[1];
             if (redirect.length() > 1) {
-                request.setAttribute("Auth-URL","/oa");
+                request.setAttribute("Auth-URL",secureURI);
                 request.getRequestDispatcher(redirect).forward(request,response);
             }
         } catch (ArrayIndexOutOfBoundsException e) { /* do nothing */ }
