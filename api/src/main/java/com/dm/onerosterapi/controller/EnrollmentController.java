@@ -10,6 +10,8 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
@@ -32,10 +34,10 @@ public class EnrollmentController {
     public Object getAllEnrollments(
             @RequestParam("offset") Optional<String> offset,
             @RequestParam("limit") Optional<String> limit,
-            @ApiIgnore @RequestHeader("host") String host)
+            @ApiIgnore HttpServletRequest request)
             throws EnrollmentNotFoundException, InvalidParameterException {
 
-        SimplePage p = new SimplePage(offset, limit, host +  "/courses");
+        SimplePage p = new SimplePage(request);
         return ApiResponseBuilder
                 .buildApiResponse(enrollmentService.getAllEnrollments( p.getOffset(), p.getLimit()), p);
     }

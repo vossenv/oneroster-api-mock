@@ -13,6 +13,8 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
@@ -38,10 +40,10 @@ public class CourseController {
     public Object getAllCourses(
             @RequestParam("offset") Optional<String> offset,
             @RequestParam("limit") Optional<String> limit,
-            @ApiIgnore @RequestHeader("host") String host)
+            @ApiIgnore HttpServletRequest request)
             throws CourseNotFoundException, InvalidParameterException {
 
-        SimplePage p = new SimplePage(offset, limit, host +  "/courses");
+        SimplePage p = new SimplePage(request);
         return ApiResponseBuilder
                 .buildApiResponse(courseService.getAllCourses( p.getOffset(), p.getLimit()), p);
     }
@@ -70,10 +72,10 @@ public class CourseController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<String> offset,
             @RequestParam("limit") Optional<String> limit,
-            @ApiIgnore @RequestHeader("host") String host)
+            @ApiIgnore HttpServletRequest request)
             throws ClassOfCourseNotFoundException, CourseNotFoundException, InvalidParameterException {
 
-        SimplePage p = new SimplePage(offset, limit, host +  "/courses/" + id + "/classes");
+        SimplePage p = new SimplePage(request);
         return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesByCourse(id, p.getOffset(), p.getLimit()), p);
     }

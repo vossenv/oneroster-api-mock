@@ -2,6 +2,7 @@ package com.dm.onerosterapi.model;
 
 import com.dm.onerosterapi.exceptions.InvalidParameterException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,18 +14,33 @@ public class SimplePage {
     private String URL;
     private List<String> errors = new ArrayList<>();
 
-    public SimplePage(Optional<String> off, Optional<String> lim, String URL) throws InvalidParameterException {
+    public SimplePage(HttpServletRequest request) throws InvalidParameterException {
 
-        lim.ifPresent(s -> this.limit = validateParameter("limit", s, 1, 1000));
-        off.ifPresent(s -> this.offset = validateParameter("offset", s, 0, Integer.MAX_VALUE));
+        String lim = request.getParameter("limit");
+        String off = request.getParameter("offset");
+        String host = request.getHeader("host");
+
+        this.URL = request.getRequestURL().toString();
+        try {
+            String [] urlParts = URL.split(host);
+            if (urlParts.length > 2) { host = urlParts[0] + host; }
+            this.URL = host + request.getAttribute("Auth-URL").toString() + urlParts[urlParts.length - 1];
+        } catch (NullPointerException e) {/* Do nothing - No attribute */}
+
+
+        if (lim != null) {
+            this.limit = validateParameter("limit", lim, 1, 1000);
+        }
+
+        if (off != null) {
+            this.offset = validateParameter("offset", off, 0, Integer.MAX_VALUE);
+        }
 
         if (errors.size() > 0) {
             InvalidParameterException e = new InvalidParameterException();
             e.getErrorList().addAll(errors);
             throw e;
         }
-
-        this.URL = URL;
     }
 
     private int validateParameter (String type, String param, int min, int max){
@@ -35,7 +51,7 @@ public class SimplePage {
                 return 0;
             } else return p;
         }
-        catch (NumberFormatException | NullPointerException e){
+        catch (NumberFormatException e){
            errors.add("Error parsing " + type + ": '" + param + "'.  Please enter a valid integer between " + min + " and " + max);
            return 0;
         }

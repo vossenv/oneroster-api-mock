@@ -11,6 +11,8 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
@@ -36,10 +38,10 @@ public class TermController {
             @PathVariable("term") String term,
             @RequestParam("offset") Optional<String> offset,
             @RequestParam("limit") Optional<String> limit,
-            @ApiIgnore @RequestHeader("host") String host)
+            @ApiIgnore HttpServletRequest request)
             throws ClassOfCourseNotFoundException, TermNotFoundException, InvalidParameterException {
 
-        SimplePage p = new SimplePage(offset, limit, host +  "/terms/" + term + "/classes");
+        SimplePage p = new SimplePage(request);
         return ApiResponseBuilder
                 .buildApiResponse(classService.getClassesByTerm(term,p.getOffset(), p.getLimit()), p);
 

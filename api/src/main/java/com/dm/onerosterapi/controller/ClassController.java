@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
@@ -39,10 +40,10 @@ public class ClassController {
     public Object getAllClasses(
             @RequestParam("offset") Optional<String> offset,
             @RequestParam("limit") Optional<String> limit,
-            @ApiIgnore @RequestHeader("host") String host)
+            @ApiIgnore HttpServletRequest request)
             throws ClassOfCourseNotFoundException, InvalidParameterException {
 
-        SimplePage p = new SimplePage(offset, limit, host + "/classes");
+        SimplePage p = new SimplePage(request);
         return ApiResponseBuilder
                 .buildApiResponse(classService.getAllClasses(p.getOffset(), p.getLimit()), p);
     }
@@ -70,10 +71,10 @@ public class ClassController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<String> offset,
             @RequestParam("limit") Optional<String> limit,
-            @ApiIgnore @RequestHeader("host") String host)
+            @ApiIgnore HttpServletRequest request)
             throws UserNotFoundException, ClassOfCourseNotFoundException, InvalidParameterException {
 
-        SimplePage p = new SimplePage(offset, limit, host + "/classes/" + id + "/students");
+        SimplePage p = new SimplePage(request);
         return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersByClass(id, "student", p.getOffset(), p.getLimit()), p);
     }
@@ -89,10 +90,10 @@ public class ClassController {
             @PathVariable("id") String id,
             @RequestParam("offset") Optional<String> offset,
             @RequestParam("limit") Optional<String> limit,
-            @ApiIgnore @RequestHeader("host") String host)
+            @ApiIgnore HttpServletRequest request)
             throws UserNotFoundException, ClassOfCourseNotFoundException, InvalidParameterException {
 
-        SimplePage p = new SimplePage(offset, limit, host + "/classes/" + id + "/teachers");
+        SimplePage p = new SimplePage(request);
         return ApiResponseBuilder
                 .buildApiResponse(userService.getUsersByClass(id, "teacher", p.getOffset(), p.getLimit()), p);
     }

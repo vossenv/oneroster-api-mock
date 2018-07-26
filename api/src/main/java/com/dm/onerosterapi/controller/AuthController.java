@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,11 +20,13 @@ public class AuthController {
 
     @RequestMapping(value = "/oa/**", method = {RequestMethod.GET, RequestMethod.POST})
     public void testAPI(HttpServletResponse response, HttpServletRequest request,
-                        @RequestHeader HttpHeaders headers) throws NoHandlerFoundException, IOException {
+                        @RequestHeader HttpHeaders headers) throws ServletException, IOException {
+
         try {
-            String redirect = request.getRequestURL().append('?').append(request.getQueryString()).toString().split("/oa")[1];
+            String redirect = request.getRequestURL().toString().split("/oa")[1];
             if (redirect.length() > 1) {
-                response.sendRedirect(redirect);
+                request.setAttribute("Auth-URL","/oa");
+                request.getRequestDispatcher(redirect).forward(request,response);
             }
         } catch (ArrayIndexOutOfBoundsException e) { /* do nothing */ }
         throw new NoHandlerFoundException(request.getMethod(), request.getRequestURL().toString(), headers);
