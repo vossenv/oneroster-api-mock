@@ -21,10 +21,13 @@ public class SimplePage {
         String host = request.getHeader("host");
 
         this.URL = request.getRequestURL().toString();
+
         try {
+
             String [] urlParts = URL.split(host);
-            if (urlParts.length > 2) { host = urlParts[0] + host; }
-            this.URL = host + request.getAttribute("Auth-URL").toString() + urlParts[urlParts.length - 1];
+            this.URL = urlParts[0] + host + request.getAttribute("Auth-URL").toString();
+            if (urlParts.length > 1) {this.URL += urlParts[1];}
+
         } catch (NullPointerException e) {/* Do nothing - No attribute */}
 
 

@@ -5,14 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApiIgnore
 @Controller
@@ -31,5 +33,22 @@ public class AuthController {
         } catch (ArrayIndexOutOfBoundsException e) { /* do nothing */ }
         throw new NoHandlerFoundException(request.getMethod(), request.getRequestURL().toString(), headers);
     }
+
+
+    @RequestMapping(value="/info", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getInfo(HttpServletRequest request){
+
+        List<String> info = new ArrayList<>();
+
+        info.add(request.getRequestURI());
+        info.add(request.getRequestURL().toString());
+        info.add(request.getHeader("host"));
+        info.add(request.getScheme());
+
+        return info;
+
+    }
+
 
 }
