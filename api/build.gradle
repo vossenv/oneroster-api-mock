@@ -60,8 +60,8 @@ task unitTest ( type: Test ) {
 task karateTest( type: Test ) {
 	include 'features/**'
 	testLogging {
-        showStandardStreams = true
-//		events = ['passed', 'skipped', 'failed']
+   //     showStandardStreams = true
+		events = ['passed', 'skipped', 'failed']
 	}
 
 	// pull cucumber options into the cucumber jvm
