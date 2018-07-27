@@ -1,4 +1,4 @@
-CREATE TABLE Schools(
+CREATE TABLE schools(
 	schoolId INT NOT NULL AUTO_INCREMENT,
     sourcedId VARCHAR(512) NOT NULL,
     `status` VARCHAR(255) NULL DEFAULT 'active',
@@ -13,7 +13,7 @@ CREATE TABLE Schools(
 );
 
 
-CREATE TABLE Users (
+CREATE TABLE users (
 	userId INT NOT NULL AUTO_INCREMENT,
 	sourcedId VARCHAR(512) NOT NULL,
     `status` VARCHAR(255) NULL DEFAULT 'active',
@@ -36,11 +36,11 @@ CREATE TABLE Users (
     PRIMARY KEY (userId),
     UNIQUE (sourcedId),
     UNIQUE (identifier),
-    FOREIGN KEY (schoolId) REFERENCES Schools(schoolId)
+    FOREIGN KEY (schoolId) REFERENCES schools(schoolId)
 );
 
 
-CREATE TABLE Courses(
+CREATE TABLE courses(
 	courseId INT NOT NULL AUTO_INCREMENT,
 	sourcedId VARCHAR(512) NOT NULL,
     `status` VARCHAR(255) NULL DEFAULT 'active',
@@ -54,11 +54,11 @@ CREATE TABLE Courses(
     schoolId INT NULL,
     PRIMARY KEY (courseId),
     UNIQUE (sourcedId),
-    FOREIGN KEY (schoolId) REFERENCES Schools(schoolId)
+    FOREIGN KEY (schoolId) REFERENCES schools(schoolId)
 );
 
 
-CREATE TABLE Classes(
+CREATE TABLE classes(
 	classId INT NOT NULL AUTO_INCREMENT,
     sourcedId VARCHAR(512) NOT NULL,
     `status` VARCHAR(255) NULL DEFAULT 'active',
@@ -73,12 +73,12 @@ CREATE TABLE Classes(
     periods VARCHAR(255) NULL,
     PRIMARY KEY (classId),
     UNIQUE (sourcedId),
-    FOREIGN KEY (schoolId) REFERENCES Schools(schoolId),
-    FOREIGN KEY (courseId) REFERENCES Courses(courseId)
+    FOREIGN KEY (schoolId) REFERENCES schools(schoolId),
+    FOREIGN KEY (courseId) REFERENCES courses(courseId)
 );
 
 
-CREATE TABLE Enrollments(
+CREATE TABLE enrollments(
 	enrollmentId INT NOT NULL AUTO_INCREMENT,
     sourcedId VARCHAR(512) NOT NULL,
     `status` VARCHAR(255) NULL DEFAULT 'active',
@@ -91,6 +91,6 @@ CREATE TABLE Enrollments(
     endDate DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
 	PRIMARY KEY (enrollmentId),
     UNIQUE (sourcedId),
-    FOREIGN KEY (classId) REFERENCES Classes(classId),
-	FOREIGN KEY (userId) REFERENCES Users(userId)
+    FOREIGN KEY (classId) REFERENCES classes(classId),
+	FOREIGN KEY (userId) REFERENCES users(userId)
 );
