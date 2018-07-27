@@ -1,12 +1,14 @@
 function() {
     var env = karate.env;
     if (env == 'dev') {
-        var apiURL = 'http://127.0.0.1:9090/'
+        var apiURL = 'https://127.0.0.1:9090/'
     } else if (env == 'stg') {
-        var apiURL = 'http://192.168.33.10:9090/'
+        var apiURL = 'https://192.168.33.10:9090/'
     } else if (env == 'local') {
-        var apiURL = 'http://localhost:9090/'
+        var apiURL = 'https://localhost:9090/'
     }
+
+    karate.configure('ssl', true);
 
     var userObject =
         {   userId: '#string',
