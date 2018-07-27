@@ -20,6 +20,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Value("${spring.security.client.id}")
     private String CLIENT_ID;
 
+    @Value("${spring.security.expiration.days}")
+    private int token_valid_days;
+
     @Value("${spring.security.client.secret}")
     private String CLIENT_SECRET;
 
@@ -39,7 +42,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .secret(new BCryptPasswordEncoder().encode(CLIENT_SECRET))
                 .authorizedGrantTypes("client_credentials")
                 .scopes("all")
-                .accessTokenValiditySeconds(86400);
+                .accessTokenValiditySeconds(86400*token_valid_days);
     }
 
     @Override
