@@ -1,7 +1,7 @@
 package com.dm.onerosterapi.service.interfaces;
 
 import com.dm.onerosterapi.exceptions.*;
-import com.dm.onerosterapi.model.*;
+import com.dm.onerosterapi.model.ClassOfCourse;
 
 import java.util.List;
 

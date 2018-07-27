@@ -1,7 +1,11 @@
 package com.dm.onerosterapi.repository.dao;
 
-import com.dm.onerosterapi.model.*;
+import com.dm.onerosterapi.model.ClassOfCourse;
+import com.dm.onerosterapi.model.Course;
+import com.dm.onerosterapi.model.Enrollment;
+import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.utility.AllowedTypes;
+
 import java.util.List;
 
 public interface RosterDao {

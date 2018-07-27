@@ -1,7 +1,7 @@
 package com.dm.onerosterapi.service.interfaces;
 
 import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
-import com.dm.onerosterapi.model.*;
+import com.dm.onerosterapi.model.School;
 
 import java.util.List;
 

@@ -1,16 +1,17 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.repository.dao.RosterDao;
-import com.dm.onerosterapi.utility.AllowedTypes;
-import com.dm.onerosterapi.apiconfig.ApiMessages;
+import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
 import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.School;
+import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.SchoolRepository;
 import com.dm.onerosterapi.service.interfaces.SchoolService;
+import com.dm.onerosterapi.utility.AllowedTypes;
 import com.dm.onerosterapi.utility.AttributeTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -37,7 +38,7 @@ public class SchoolServiceImpl implements SchoolService {
         try {
             return (List<School>) h.processResults(rosterDao.getAll(AllowedTypes.School, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new SchoolNotFoundException(ApiMessages.NO_RESULTS);
+            throw new SchoolNotFoundException(ApiMessageConfig.NO_RESULTS);
         }
     }
 
@@ -46,7 +47,7 @@ public class SchoolServiceImpl implements SchoolService {
         try {
             return (School) h.processResults(schoolRepository.findBySourcedIdIgnoreCase(schoolId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new SchoolNotFoundException(ApiMessages.NO_SCHOOLS_FOR_ID + schoolId);
+            throw new SchoolNotFoundException(ApiMessageConfig.NO_SCHOOLS_FOR_ID + schoolId);
         }
     }
 }

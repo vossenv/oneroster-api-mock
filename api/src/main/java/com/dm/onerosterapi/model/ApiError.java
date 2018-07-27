@@ -1,4 +1,4 @@
-package com.dm.onerosterapi.apiconfig;
+package com.dm.onerosterapi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ public class ApiError {
     private String message;
     private List<String> errorMessageList = new ArrayList<>();
 
-    ApiError(HttpStatus status) {
+    public ApiError(HttpStatus status) {
         this.timestamp = LocalDateTime.now();
         this.status = status;
     }
@@ -26,13 +26,12 @@ public class ApiError {
     public void setTimestamp(LocalDateTime timestamp) {this.timestamp = timestamp;}
     public String getMessage() {return message;}
     public void setMessage(String message) {this.message = message;}
-
     public List<String> getErrorMessageList() {
         return errorMessageList;
     }
-
     public void setErrorMessageList(List<String> errorMessageList) {
         this.errorMessageList = errorMessageList;
     }
+
 }
 

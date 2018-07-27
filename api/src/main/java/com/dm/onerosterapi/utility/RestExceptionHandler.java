@@ -1,6 +1,9 @@
-package com.dm.onerosterapi.apiconfig;
+package com.dm.onerosterapi.utility;
 
+import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
 import com.dm.onerosterapi.exceptions.*;
+import com.dm.onerosterapi.model.ApiError;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
@@ -24,43 +26,43 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(InvalidParameterException.class)
     protected ResponseEntity<Object> handleInvalidParameterException( InvalidParameterException e ) {
-        return buildResponseEntity(e, ApiMessages.INVALID_PARAMETER, HttpStatus.BAD_REQUEST, e.getErrorList());
+        return buildResponseEntity(e, ApiMessageConfig.INVALID_PARAMETER, HttpStatus.BAD_REQUEST, e.getErrorList());
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     protected ResponseEntity<Object> handleUserNotFound( UserNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_USER_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
+        return buildResponseEntity(e, ApiMessageConfig.NO_USER_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @ExceptionHandler(ClassOfCourseNotFoundException.class)
     protected ResponseEntity<Object> handleSchoolClassNotFound( ClassOfCourseNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_CLASS_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
+        return buildResponseEntity(e, ApiMessageConfig.NO_CLASS_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @ExceptionHandler(CourseNotFoundException.class)
     protected ResponseEntity<Object> handleCourseNotFound( CourseNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_COURSE_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
+        return buildResponseEntity(e, ApiMessageConfig.NO_COURSE_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @ExceptionHandler(SchoolNotFoundException.class)
     protected ResponseEntity<Object> handleSchoolNotFound( SchoolNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_SCHOOL_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
+        return buildResponseEntity(e, ApiMessageConfig.NO_SCHOOL_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @ExceptionHandler(EnrollmentNotFoundException.class)
     protected ResponseEntity<Object> handleEnrollmentNotFound( EnrollmentNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_ENROLLMENT_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
+        return buildResponseEntity(e, ApiMessageConfig.NO_ENROLLMENT_MESSAGE, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     protected ResponseEntity<Object> handleResourceNotFound( ResourceNotFoundException e ) {
-        return buildResponseEntity(e, ApiMessages.NO_RESULTS, HttpStatus.NOT_FOUND, e.getErrorList());
+        return buildResponseEntity(e, ApiMessageConfig.NO_RESULTS, HttpStatus.NOT_FOUND, e.getErrorList());
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported (
             HttpRequestMethodNotSupportedException e, HttpHeaders headers, HttpStatus status, WebRequest request){
-        return buildResponseEntity(e, ApiMessages.UNSUPPORTED_MESSAGE, HttpStatus.BAD_REQUEST);
+        return buildResponseEntity(e, ApiMessageConfig.UNSUPPORTED_MESSAGE, HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -70,7 +72,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> errorDetails = new ArrayList<>();
         errorDetails.add("The URL is invalid: " + e.getHeaders().getHost() + e.getRequestURL());
 
-        return buildResponseEntity(e, ApiMessages.RESOURCE_NOT_FOUND, HttpStatus.NOT_FOUND, errorDetails);
+        return buildResponseEntity(e, ApiMessageConfig.RESOURCE_NOT_FOUND, HttpStatus.NOT_FOUND, errorDetails);
     }
 
     @ExceptionHandler

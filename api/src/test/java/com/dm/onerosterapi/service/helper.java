@@ -6,7 +6,7 @@ import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
-import com.dm.onerosterapi.apiconfig.ApiMessages;
+import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
 import com.dm.onerosterapi.utility.AttributeTransformer;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import com.dm.onerosterapi.utility.Validator;
@@ -179,7 +179,7 @@ public class helper {
 	        validator.validateUser("x","any");
 	        fail ("Id should be invalid");
         } catch (UserNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "x"));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.INVALID_USER + "x"));
         }
 
         validator.validateUser("f1e4b385-b0c9-4054-ad08-95c580ac715d", "teacher");
@@ -187,7 +187,7 @@ public class helper {
             validator.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d", "teacher");
             fail ("Id student - should be invalid");
         } catch (UserNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "8057df9d-72a3-419a-98b5-6eab87ec0a6d"));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.INVALID_USER + "8057df9d-72a3-419a-98b5-6eab87ec0a6d"));
         }
 
         validator.validateUser("8057df9d-72a3-419a-98b5-6eab87ec0a6d", "student");
@@ -195,7 +195,7 @@ public class helper {
             validator.validateUser("f1e4b385-b0c9-4054-ad08-95c580ac715d", "student");
             fail ("Id teacher - should be invalid");
         } catch (UserNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_USER + "f1e4b385-b0c9-4054-ad08-95c580ac715d"));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.INVALID_USER + "f1e4b385-b0c9-4054-ad08-95c580ac715d"));
         }
 
         validator.validateClass("dca81f5a-1d99-491a-85fb-ad9591d4b96d");
@@ -203,7 +203,7 @@ public class helper {
             validator.validateClass("x");
             fail ("Id should be invalid");
         } catch (ClassOfCourseNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_CLASS + "x"));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.INVALID_CLASS + "x"));
         }
 
         validator.validateCourse("2441eeb2-4df0-4726-a882-f0e722d129c6");
@@ -211,7 +211,7 @@ public class helper {
             validator.validateCourse("x");
             fail ("Id should be invalid");
         } catch (CourseNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_COURSE + "x"));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.INVALID_COURSE + "x"));
         }
 
         validator.validateSchool("f9a75f84-130b-419e-bbe6-463585e930e9");
@@ -219,7 +219,7 @@ public class helper {
             validator.validateSchool("x");
             fail ("Id should be invalid");
         } catch (SchoolNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_SCHOOL + "x"));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.INVALID_SCHOOL + "x"));
         }
 
         validator.validateEnrollment("44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb");
@@ -227,7 +227,7 @@ public class helper {
             validator.validateEnrollment("x");
             fail ("Id should be invalid");
         } catch (EnrollmentNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_ENROLLMENT + "x"));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.INVALID_ENROLLMENT + "x"));
         }
 
         validator.validateClassTerm("Fall");
@@ -235,7 +235,7 @@ public class helper {
             validator.validateClassTerm("x");
             fail ("Id should be invalid");
         } catch (TermNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.INVALID_TERM));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.INVALID_TERM));
         }
 
     }

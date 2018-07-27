@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.service;
 
-import com.dm.onerosterapi.apiconfig.ApiMessages;
+import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
 import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
 import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
@@ -40,7 +40,7 @@ public class users {
             userService.getStudentBySourcedId("f1e4b385-b0c9-4054-ad08-95c580ac715d");
             fail ("Exception expected");
         } catch (UserNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.NOT_A_STUDENT));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.NOT_A_STUDENT));
         }
 
     }
@@ -54,7 +54,7 @@ public class users {
             userService.getTeacherBySourcedId(tstSId);
             fail ("Exception expected");
         } catch (UserNotFoundException e){
-            assertTrue(e.getMessage().contains(ApiMessages.NOT_A_TEACHER));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.NOT_A_TEACHER));
         }
 
     }
@@ -94,7 +94,7 @@ public class users {
             userService.getUsersByClass("2ba9f25c-ef54-4072-85ab-2db066988091","teacher",0, Integer.MAX_VALUE);
             fail("Class has no teachers");
         } catch (UserNotFoundException e) {
-            assertTrue(e.getMessage().contains(ApiMessages.NO_USERS_FOR_CLASS));
+            assertTrue(e.getMessage().contains(ApiMessageConfig.NO_USERS_FOR_CLASS));
         }
     }
 

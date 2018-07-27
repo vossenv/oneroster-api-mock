@@ -1,6 +1,5 @@
 package com.dm.onerosterapi.controller;
 
-import com.dm.onerosterapi.apiconfig.ApiResponseBuilder;
 import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
 import com.dm.onerosterapi.exceptions.InvalidParameterException;
 import com.dm.onerosterapi.exceptions.UserNotFoundException;
@@ -9,6 +8,7 @@ import com.dm.onerosterapi.model.SimplePage;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
+import com.dm.onerosterapi.utility.ApiResponseBuilder;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

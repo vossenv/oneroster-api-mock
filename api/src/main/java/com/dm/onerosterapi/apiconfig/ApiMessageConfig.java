@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.apiconfig;
 
-public class ApiMessages {
+public class ApiMessageConfig {
 
     public final static String NO_RESULTS = "Request returned no results";
     public final static String UNSUPPORTED_MESSAGE = "The request method is not supported";

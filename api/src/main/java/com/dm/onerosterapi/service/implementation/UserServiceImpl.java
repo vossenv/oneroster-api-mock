@@ -1,15 +1,19 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions.*;
+import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
+import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
+import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
+import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
+import com.dm.onerosterapi.exceptions.UserNotFoundException;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
 import com.dm.onerosterapi.service.interfaces.UserService;
-import com.dm.onerosterapi.apiconfig.ApiMessages;
 import com.dm.onerosterapi.utility.AttributeTransformer;
 import com.dm.onerosterapi.utility.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -40,7 +44,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (User) h.processResults(userRepository.findBySourcedIdIgnoreCase(userId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_ID + userId);
+            throw new UserNotFoundException(ApiMessageConfig.NO_USERS_FOR_ID + userId);
         }
     }
 
@@ -49,7 +53,7 @@ public class UserServiceImpl implements UserService {
         User u = getUserBySourcedId(userId);
         if (u.getRole().equals("student")) return u;
         else
-            throw new UserNotFoundException(ApiMessages.NOT_A_STUDENT + userId);
+            throw new UserNotFoundException(ApiMessageConfig.NOT_A_STUDENT + userId);
     }
 
     @Override
@@ -57,7 +61,7 @@ public class UserServiceImpl implements UserService {
         User u = getUserBySourcedId(userId);
         if (u.getRole().equals("teacher")) return u;
         else
-            throw new UserNotFoundException(ApiMessages.NOT_A_TEACHER + userId);
+            throw new UserNotFoundException(ApiMessageConfig.NOT_A_TEACHER + userId);
     }
 
     @Override
@@ -65,7 +69,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (List<User>) h.processResults(rosterDao.getAllUsersOfType(role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
+            throw new UserNotFoundException(ApiMessageConfig.NO_RESULTS);
         }
     }
 
@@ -75,7 +79,7 @@ public class UserServiceImpl implements UserService {
             v.validateClass(classSourcedId);
             return (List<User>) h.processResults(rosterDao.getUsersByClass(classSourcedId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_CLASS + classSourcedId);
+            throw new UserNotFoundException(ApiMessageConfig.NO_USERS_FOR_CLASS + classSourcedId);
         }
     }
 
@@ -85,7 +89,7 @@ public class UserServiceImpl implements UserService {
             v.validateSchool(schoolId);
             return (List<User>) h.processResults(rosterDao.getUsersBySchool(schoolId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_USERS_FOR_SCHOOL + schoolId);
+            throw new UserNotFoundException(ApiMessageConfig.NO_USERS_FOR_SCHOOL + schoolId);
         }
     }
 
@@ -99,7 +103,7 @@ public class UserServiceImpl implements UserService {
             v.validateSchool(schoolId);
             return (List<User>) h.processResults(rosterDao.getUsersForClassInSchool(classId, schoolId, role, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new UserNotFoundException(ApiMessages.NO_RESULTS);
+            throw new UserNotFoundException(ApiMessageConfig.NO_RESULTS);
         }
 
     }

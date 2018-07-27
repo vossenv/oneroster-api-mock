@@ -1,14 +1,14 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.utility.AllowedTypes;
-import com.dm.onerosterapi.apiconfig.ApiMessages;
-import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
+import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
 import com.dm.onerosterapi.exceptions.CourseNotFoundException;
+import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.CourseRepository;
 import com.dm.onerosterapi.service.interfaces.CourseService;
+import com.dm.onerosterapi.utility.AllowedTypes;
 import com.dm.onerosterapi.utility.AttributeTransformer;
 import com.dm.onerosterapi.utility.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             return (List<Course>) h.processResults(rosterDao.getAll(AllowedTypes.Course, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new CourseNotFoundException(ApiMessages.NO_RESULTS);
+            throw new CourseNotFoundException(ApiMessageConfig.NO_RESULTS);
         }
     }
 
@@ -52,7 +52,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             return (Course) h.processResults(courseRepository.findBySourcedIdIgnoreCase(sourcedId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new CourseNotFoundException(ApiMessages.NO_COURSES_FOR_ID);
+            throw new CourseNotFoundException(ApiMessageConfig.NO_COURSES_FOR_ID);
         }
     }
 
@@ -62,7 +62,7 @@ public class CourseServiceImpl implements CourseService {
             v.validateSchool(schoolSourcedId);
             return (List<Course>) h.processResults(rosterDao.getCoursesBySchool(schoolSourcedId, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new CourseNotFoundException(ApiMessages.NO_RESULTS);
+            throw new CourseNotFoundException(ApiMessageConfig.NO_RESULTS);
         }
     }
 }

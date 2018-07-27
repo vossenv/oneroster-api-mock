@@ -1,12 +1,15 @@
 package com.dm.onerosterapi.service.implementation;
 
-import com.dm.onerosterapi.exceptions.*;
+import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
+import com.dm.onerosterapi.exceptions.ClassOfCourseNotFoundException;
+import com.dm.onerosterapi.exceptions.EnrollmentNotFoundException;
+import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
+import com.dm.onerosterapi.exceptions.SchoolNotFoundException;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.repository.dao.RosterDao;
 import com.dm.onerosterapi.repository.jpa.EnrollmentRepository;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import com.dm.onerosterapi.utility.AllowedTypes;
-import com.dm.onerosterapi.apiconfig.ApiMessages;
 import com.dm.onerosterapi.utility.AttributeTransformer;
 import com.dm.onerosterapi.utility.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +44,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (List<Enrollment>) h.processResults(rosterDao.getAll(AllowedTypes.Enrollment, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e){
-            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
+            throw new EnrollmentNotFoundException(ApiMessageConfig.NO_RESULTS);
         }
     }
 
@@ -50,7 +53,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         try {
             return (Enrollment) h.processResults(enrollmentRepository.findBySourcedId(enrollmentId));
         } catch (NullPointerException | ResourceNotFoundException e) {
-            throw new EnrollmentNotFoundException(ApiMessages.NO_ENROLLMENTS_FOR_ID);
+            throw new EnrollmentNotFoundException(ApiMessageConfig.NO_ENROLLMENTS_FOR_ID);
         }
     }
 
@@ -61,7 +64,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             v.validateSchool(schoolId);
             return (List<Enrollment>) h.processResults(rosterDao.getEnrollmentsBySchool(schoolId, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e){
-            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
+            throw new EnrollmentNotFoundException(ApiMessageConfig.NO_RESULTS);
         }
 
     }
@@ -77,7 +80,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             v.validateSchool(schoolId);
             return (List<Enrollment>) h.processResults(rosterDao.getEnrollmentsForClassInSchool(classId, schoolId, offset, limit));
         } catch (NullPointerException | ResourceNotFoundException e){
-            throw new EnrollmentNotFoundException(ApiMessages.NO_RESULTS);
+            throw new EnrollmentNotFoundException(ApiMessageConfig.NO_RESULTS);
         }
     }
 }

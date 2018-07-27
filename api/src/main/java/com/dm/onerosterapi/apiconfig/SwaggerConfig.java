@@ -1,4 +1,4 @@
-package com.dm.onerosterapi.doc;
+package com.dm.onerosterapi.apiconfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,9 +37,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-//        registry.addResourceHandler("test.html")
-//                .addResourceLocations("classpath:/BOOT-INF/classes/");
 
         registry.addResourceHandler("swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");

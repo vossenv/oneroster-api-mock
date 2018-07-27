@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -40,7 +39,7 @@ public class AuthController {
 
 
     @RequestMapping(value="/info", method = RequestMethod.GET)
-    @ResponseBody
+  //  @ResponseBody
     public Object getInfo(HttpServletRequest request){
 
         List<String> info = new ArrayList<>();
@@ -50,7 +49,7 @@ public class AuthController {
         info.add(request.getHeader("host"));
         info.add(request.getScheme());
 
-        return info;
+        return "index.html";
 
     }
 
