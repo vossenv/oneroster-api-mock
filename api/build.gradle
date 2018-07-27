@@ -37,6 +37,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security:2.0.3.RELEASE')
 	compile('org.springframework.security.oauth:spring-security-oauth2:2.3.3.RELEASE')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('mysql:mysql-connector-java:8.0.11')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('com.intuit.karate:karate-junit4:0.7.0')
