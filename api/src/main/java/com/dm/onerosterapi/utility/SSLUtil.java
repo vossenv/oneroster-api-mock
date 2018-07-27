@@ -1,6 +1,7 @@
 package com.dm.onerosterapi.utility;
 
 import org.springframework.stereotype.Component;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 

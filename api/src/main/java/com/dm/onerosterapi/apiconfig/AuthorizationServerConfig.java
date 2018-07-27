@@ -1,8 +1,12 @@
 package com.dm.onerosterapi.apiconfig;
 
+import com.dm.onerosterapi.utility.SSLUtil;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -11,6 +15,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.web.client.RestTemplate;
+
+import java.nio.charset.Charset;
+import java.util.Map;
 
 @Configuration
 @EnableAuthorizationServer
@@ -20,11 +28,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Value("${spring.security.client.id}")
     private String CLIENT_ID;
 
+    @Value("${spring.security.client.secret}")
+    private String CLIENT_SECRET;
+
+    @Value("${server.port}")
+    private int sslPort;
+
     @Value("${spring.security.expiration.days}")
     private int token_valid_days;
 
-    @Value("${spring.security.client.secret}")
-    private String CLIENT_SECRET;
+    @Autowired
+    private SSLUtil sslUtil;
 
     @Autowired
     private TokenStore tokenStore;
@@ -51,4 +65,32 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler)
                 .authenticationManager(authenticationManager);
     }
+
+    public Map<String, String> getToken() {
+
+        String auth = CLIENT_ID + ":" + CLIENT_SECRET;
+        String encodedAuth = new String (Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII"))));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type","application/x-www-form-urlencoded");
+        headers.add("Authorization","Basic " + encodedAuth);
+
+        HttpEntity<Object> request = new HttpEntity<>("grant_type=client_credentials",headers);
+
+        sslUtil.disableSSLCheck();
+
+        try {
+
+            Map<String, String> authData = new RestTemplate()
+                    .postForObject("https://localhost:" + sslPort + "/oauth/token", request, Map.class);
+            sslUtil.enableSSLCheck();
+            return authData;
+
+        } catch (Exception e) {
+            sslUtil.enableSSLCheck();
+            throw e;
+        }
+
+    }
+
 }

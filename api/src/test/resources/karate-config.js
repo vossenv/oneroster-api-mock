@@ -1,4 +1,4 @@
-function() {
+function karateKARATEKATERATE () {
     var env = karate.env;
     if (env == 'dev') {
         var apiURL = 'https://127.0.0.1:9090/'
