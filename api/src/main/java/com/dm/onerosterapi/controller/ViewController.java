@@ -2,6 +2,7 @@ package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.apiconfig.AuthorizationServerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,15 @@ import java.util.Map;
 @Controller
 public class ViewController {
 
+    @Value("${version}")
+    private String version;
+
+    @Value("${build_date}")
+    private String date;
+
+    @Value("${commit_message}")
+    private String message;
+
     @Autowired
     AuthorizationServerConfig authConfig;
 
@@ -32,7 +42,10 @@ public class ViewController {
 
         Map<String, String> info = new LinkedHashMap<>();
 
-        info.put("requested resource",request.getRequestURI());
+        info.put("version",this.version);
+        info.put("build_date",this.date);
+        info.put("commit_message",this.message);
+
         info.put("full URL", request.getRequestURL().toString());
         info.putAll(authConfig.getToken());
 
