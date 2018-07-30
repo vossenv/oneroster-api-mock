@@ -7,6 +7,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                dir("api/src/main/resources"){
+                    echo 'Creating version stamp...'
+                    writeFile file: "test.txt", text: "ARRRRRRRRRRR"
+                }
                 echo 'Building..'
 				dir("api") {
 					sh 'chmod +x gradlew'
