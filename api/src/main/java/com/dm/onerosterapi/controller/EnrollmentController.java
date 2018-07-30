@@ -32,7 +32,9 @@ public class EnrollmentController {
                     response = Enrollment.class, responseContainer="List")
     })
     public Object getAllEnrollments(
+            @ApiParam(value = "Specify the offset of the first result to return.", required = false)
             @RequestParam("offset") Optional<String> offset,
+            @ApiParam(value = "Specify the number of results to return.", required = false)
             @RequestParam("limit") Optional<String> limit,
             @ApiIgnore HttpServletRequest request)
             throws EnrollmentNotFoundException, InvalidParameterException {

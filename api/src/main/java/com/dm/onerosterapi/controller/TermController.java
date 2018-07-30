@@ -36,7 +36,9 @@ public class TermController {
     public Object getClassesForTerm(
             @ApiParam(value = "String of Term to select Classes from", required = true)
             @PathVariable("term") String term,
+            @ApiParam(value = "Specify the offset of the first result to return.", required = false)
             @RequestParam("offset") Optional<String> offset,
+            @ApiParam(value = "Specify the number of results to return.", required = false)
             @RequestParam("limit") Optional<String> limit,
             @ApiIgnore HttpServletRequest request)
             throws ClassOfCourseNotFoundException, TermNotFoundException, InvalidParameterException {

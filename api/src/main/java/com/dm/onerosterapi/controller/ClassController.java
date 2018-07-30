@@ -38,7 +38,9 @@ public class ClassController {
                     response = ClassOfCourse.class, responseContainer = "List")
     })
     public Object getAllClasses(
+            @ApiParam(value = "Specify the offset of the first result to return.", required = false)
             @RequestParam("offset") Optional<String> offset,
+            @ApiParam(value = "Specify the number of results to return.", required = false)
             @RequestParam("limit") Optional<String> limit,
             @ApiIgnore HttpServletRequest request)
             throws ClassOfCourseNotFoundException, InvalidParameterException {
@@ -69,7 +71,9 @@ public class ClassController {
     public Object getStudentsForClass(
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
             @PathVariable("id") String id,
+            @ApiParam(value = "Specify the offset of the first result to return.", required = false)
             @RequestParam("offset") Optional<String> offset,
+            @ApiParam(value = "Specify the number of results to return.", required = false)
             @RequestParam("limit") Optional<String> limit,
             @ApiIgnore HttpServletRequest request)
             throws UserNotFoundException, ClassOfCourseNotFoundException, InvalidParameterException {
@@ -88,7 +92,9 @@ public class ClassController {
     public Object getTeachersForClass(
             @ApiParam(value = "SourcedId of Class to be selected", required = true)
             @PathVariable("id") String id,
+            @ApiParam(value = "Specify the offset of the first result to return.", required = false)
             @RequestParam("offset") Optional<String> offset,
+            @ApiParam(value = "Specify the number of results to return.", required = false)
             @RequestParam("limit") Optional<String> limit,
             @ApiIgnore HttpServletRequest request)
             throws UserNotFoundException, ClassOfCourseNotFoundException, InvalidParameterException {

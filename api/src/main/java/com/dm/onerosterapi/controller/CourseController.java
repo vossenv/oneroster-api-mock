@@ -38,7 +38,9 @@ public class CourseController {
                     response = Course.class, responseContainer="List")
     })
     public Object getAllCourses(
+            @ApiParam(value = "Specify the offset of the first result to return.", required = false)
             @RequestParam("offset") Optional<String> offset,
+            @ApiParam(value = "Specify the number of results to return.", required = false)
             @RequestParam("limit") Optional<String> limit,
             @ApiIgnore HttpServletRequest request)
             throws CourseNotFoundException, InvalidParameterException {
@@ -70,7 +72,9 @@ public class CourseController {
     public Object getClassesForCourse(
             @ApiParam(value = "SourcedId of Course to select Classes from", required = true)
             @PathVariable("id") String id,
+            @ApiParam(value = "Specify the offset of the first result to return.", required = false)
             @RequestParam("offset") Optional<String> offset,
+            @ApiParam(value = "Specify the number of results to return.", required = false)
             @RequestParam("limit") Optional<String> limit,
             @ApiIgnore HttpServletRequest request)
             throws ClassOfCourseNotFoundException, CourseNotFoundException, InvalidParameterException {
