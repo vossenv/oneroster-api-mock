@@ -47,19 +47,19 @@ Feature: Validate the HTTP Method permissions on each endpoint
 
   Scenario: Validate that disallowed HTTP Methods are not accepted
 
-    * def result = call read('read/disallowed.feature') single_endpoints
+    * def result = call read('read/http_disallowed.feature') single_endpoints
     * def response = $result[*].response
     * match each response contains { status: 'BAD_REQUEST', message: 'The request method is not supported' }
 
-    * def result = call read('read/disallowed.feature') list_endpoints
+    * def result = call read('read/http_disallowed.feature') list_endpoints
     * def response = $result[*].response
     * match each response contains { status: 'BAD_REQUEST', message: 'The request method is not supported' }
 
   Scenario: Validate that allowed HTTP Methods are accepted
 
-    * def result = call read('read/allowed.feature') single_endpoints
-    * def result = call read('read/allowed.feature') list_endpoints
+    * def result = call read('read/http_allowed.feature') single_endpoints
+    * def result = call read('read/http_allowed.feature') list_endpoints
 
   Scenario: Validate paging requests
 
-    * def result = call read('pagination/pagination.feature') list_endpoints
+    * def result = call read('read/pagination.feature') list_endpoints
