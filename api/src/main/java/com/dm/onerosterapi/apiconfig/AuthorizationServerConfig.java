@@ -41,9 +41,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private int token_valid_days;
 
     @Autowired
-    private SSLUtil sslUtil;
-
-    @Autowired
     private TokenStore tokenStore;
 
     @Autowired
@@ -51,6 +48,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    private HostnameVerifier defaultVerifier = HttpsURLConnection.getDefaultHostnameVerifier();
+    private HostnameVerifier bypassVerifier = (hostname, sslSession) -> true;
+
+    void disableSSLCheck() { HttpsURLConnection.setDefaultHostnameVerifier(this.bypassVerifier); }
+    void enableSSLCheck(){
+        HttpsURLConnection.setDefaultHostnameVerifier(this.defaultVerifier);
+    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
@@ -79,27 +84,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         headers.add("Authorization","Basic " + encodedAuth);
 
         HttpEntity<Object> request = new HttpEntity<>("grant_type=client_credentials",headers);
-        sslUtil.disableSSLCheck();
+        disableSSLCheck();
+
         try {
             return new RestTemplate().postForObject
                     ("https://localhost:" + sslPort + "/oauth/token", request, Map.class);
         } finally {
-            sslUtil.enableSSLCheck();
+            enableSSLCheck();
         }
-
     }
 
 }
 
-@Component
-class SSLUtil {
-
-    private HostnameVerifier defaultVerifier = HttpsURLConnection.getDefaultHostnameVerifier();
-    private HostnameVerifier bypassVerifier = (hostname, sslSession) -> true;
-
-    void disableSSLCheck() { HttpsURLConnection.setDefaultHostnameVerifier(this.bypassVerifier); }
-    void enableSSLCheck(){
-        HttpsURLConnection.setDefaultHostnameVerifier(this.defaultVerifier);
-    }
-
-}
