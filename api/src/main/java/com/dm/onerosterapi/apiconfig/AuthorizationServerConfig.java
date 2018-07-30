@@ -1,6 +1,6 @@
 package com.dm.onerosterapi.apiconfig;
 
-import com.dm.onerosterapi.utility.SSLUtil;
+
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,8 +15,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
 import java.nio.charset.Charset;
 import java.util.Map;
 
@@ -76,21 +79,27 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         headers.add("Authorization","Basic " + encodedAuth);
 
         HttpEntity<Object> request = new HttpEntity<>("grant_type=client_credentials",headers);
-
         sslUtil.disableSSLCheck();
-
         try {
-
-            Map<String, String> authData = new RestTemplate()
-                    .postForObject("https://localhost:" + sslPort + "/oauth/token", request, Map.class);
+            return new RestTemplate().postForObject
+                    ("https://localhost:" + sslPort + "/oauth/token", request, Map.class);
+        } finally {
             sslUtil.enableSSLCheck();
-            return authData;
-
-        } catch (Exception e) {
-            sslUtil.enableSSLCheck();
-            throw e;
         }
 
+    }
+
+}
+
+@Component
+class SSLUtil {
+
+    private HostnameVerifier defaultVerifier = HttpsURLConnection.getDefaultHostnameVerifier();
+    private HostnameVerifier bypassVerifier = (hostname, sslSession) -> true;
+
+    void disableSSLCheck() { HttpsURLConnection.setDefaultHostnameVerifier(this.bypassVerifier); }
+    void enableSSLCheck(){
+        HttpsURLConnection.setDefaultHostnameVerifier(this.defaultVerifier);
     }
 
 }
