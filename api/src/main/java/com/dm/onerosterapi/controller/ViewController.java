@@ -1,8 +1,8 @@
 package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.apiconfig.AuthorizationServerConfig;
+import com.dm.onerosterapi.utility.PropertyGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,18 +19,6 @@ import java.util.Map;
 @Controller
 public class ViewController {
 
-    @Value("${version}")
-    private String version;
-
-    @Value("${build_date}")
-    private String date;
-
-    @Value("${commit_message}")
-    private String message;
-
-    @Value("${commit_user}")
-    private String user;
-
     @Autowired
     AuthorizationServerConfig authConfig;
 
@@ -43,12 +31,9 @@ public class ViewController {
     @ResponseBody
     public Object getInfo(HttpServletRequest request) {
 
-        Map<String, String> info = new LinkedHashMap<>();
+        PropertyGenerator pg = new PropertyGenerator();
 
-        info.put("version",this.version);
-        info.put("build_date",this.date);
-        info.put("commit_message",this.message);
-        info.put("commit_user",this.user);
+        Map<String, String> info = new LinkedHashMap<>(pg.generateProperties());
         info.put("full URL", request.getRequestURL().toString());
         info.putAll(authConfig.getToken());
 
