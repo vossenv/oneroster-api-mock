@@ -28,7 +28,7 @@ public class ViewController {
     @Value("${commit_message}")
     private String message;
 
-    @Value("${commit_message}")
+    @Value("${commit_user}")
     private String user;
 
     @Autowired
