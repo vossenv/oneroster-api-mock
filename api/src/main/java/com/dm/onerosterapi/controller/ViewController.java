@@ -4,6 +4,7 @@ import com.dm.onerosterapi.apiconfig.AuthorizationServerConfig;
 import com.dm.onerosterapi.utility.PropertyGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +24,11 @@ public class ViewController {
     AuthorizationServerConfig authConfig;
 
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
-    public Object indexPage()  {
+    public Object indexPage(Model model)  {
+
+        PropertyGenerator pg = new PropertyGenerator();
+        model.addAllAttributes(pg.generateProperties());
+
         return "index.html";
     }
 
@@ -47,9 +52,11 @@ public class ViewController {
 
     @RequestMapping(value = {"/static/**"}, method = RequestMethod.GET)
     public Object fetchStaticResource(HttpServletRequest request) {
-        String requestURL = request.getRequestURL().toString();
-        String path = requestURL.split("/static/")[1];
+        String path = request.getRequestURL().toString().split("/static/")[1];
+
+        if (path.endsWith(".map")) { return "../static/js/empty.js" ; }
         return "../static/" + path;
+
     }
 
 }
