@@ -15,7 +15,6 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource("classpath:version.properties")
 public class pagination {
 
 	@Autowired

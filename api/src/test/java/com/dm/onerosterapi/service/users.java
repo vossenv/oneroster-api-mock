@@ -20,7 +20,6 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource("classpath:version.properties")
 public class users {
 
 	@Autowired
