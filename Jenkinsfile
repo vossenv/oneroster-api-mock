@@ -2,14 +2,18 @@ pipeline {
     agent { label 'local' }
 	environment {
 		jar_file = 'oneroster-api-1.0.jar'
+		commit_hash = sh(returnStdout: true, script: "git log -1 --pretty=format:'%H'").trim()
+		commit_user = sh(returnStdout: true, script: "git log -1 --pretty=format:'%ce'").trim()
+		commit_title = sh(returnStdout: true, script: "git log -1 --pretty=format:'%s'").trim()
+		build_date = sh(returnStdout: true, script: "date +%m-%d-%Y' '%H:%M:%S").trim()
+		full_message = "version = ${commit_hash}\ncommit_message = ${commit_title}\ncommit_user = ${commit_user}\nbuild_date = ${build_date}"
 	}
-	
     stages {
         stage('Build') {
             steps {
                 dir("api/src/main/resources"){
                     echo 'Creating version stamp...'
-                    writeFile file: "test.txt", text: "ARRRRRRRRRRR"
+                    writeFile file: "version.properties", text: full_message
                 }
                 echo 'Building..'
 				dir("api") {

@@ -28,6 +28,9 @@ public class ViewController {
     @Value("${commit_message}")
     private String message;
 
+    @Value("${commit_message}")
+    private String user;
+
     @Autowired
     AuthorizationServerConfig authConfig;
 
@@ -45,7 +48,7 @@ public class ViewController {
         info.put("version",this.version);
         info.put("build_date",this.date);
         info.put("commit_message",this.message);
-
+        info.put("commit_user",this.user);
         info.put("full URL", request.getRequestURL().toString());
         info.putAll(authConfig.getToken());
 
