@@ -1,23 +1,17 @@
 pipeline {
     agent { label 'local' }
 	environment {
-		jar_file = 'oneroster-api-1.0.jar'
-		commit_hash = sh(returnStdout: true, script: "git log -1 --pretty=format:'%H'").trim()
-		commit_user = sh(returnStdout: true, script: "git log -1 --pretty=format:'%ce'").trim()
-		commit_title = sh(returnStdout: true, script: "git log -1 --pretty=format:'%s'").trim()
-		build_date = sh(returnStdout: true, script: "date +%m-%d-%Y' '%H:%M:%S").trim()
-		full_message = "version = ${commit_hash}\ncommit_message = ${commit_title}\ncommit_user = ${commit_user}\nbuild_date = ${build_date}"
+		jar_file = 'oneroster-api-1.0.jar'		
 	}
     stages {
         stage('Build') {
             steps {
-                dir("api/src/main/resources"){
-                    echo 'Creating version stamp...'
-                    writeFile file: "version.properties", text: full_message
-                }
+				echo 'Creating version stamp...'
+				sh 'chmod +x infostamp.sh'	
+				sh './infostamp.sh'
                 echo 'Building..'
 				dir("api") {
-					sh 'chmod +x gradlew'
+					sh 'chmod +x gradlew'					
 					sh './gradlew clean unitTest'
 					sh './gradlew clean assemble'
 					dir("build/libs") {

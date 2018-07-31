@@ -26,7 +26,6 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource("classpath:version.properties")
 public class helper {
 
     @Autowired
