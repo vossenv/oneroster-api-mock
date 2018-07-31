@@ -7,10 +7,11 @@ pipeline {
         stage('Build') {
             steps {
 				echo 'Creating version stamp...'
+				sh 'chmod +x infostamp.sh'	
 				sh './infostamp.sh'
                 echo 'Building..'
 				dir("api") {
-					sh 'chmod +x gradlew'
+					sh 'chmod +x gradlew'					
 					sh './gradlew clean unitTest'
 					sh './gradlew clean assemble'
 					dir("build/libs") {
