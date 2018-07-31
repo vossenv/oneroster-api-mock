@@ -32,8 +32,8 @@ public class ViewController {
     public Object getInfo(HttpServletRequest request) {
 
         PropertyGenerator pg = new PropertyGenerator();
-        Map<String, String> info = new LinkedHashMap<>();
-        info.putAll(pg.generateProperties());
+
+        Map<String, String> info = new LinkedHashMap<>(pg.generateProperties());
         info.put("full URL", request.getRequestURL().toString());
         info.putAll(authConfig.getToken());
 
