@@ -1,9 +1,11 @@
 package com.dm.onerosterapi.utility;
 
 import com.dm.onerosterapi.exceptions.FileIOException;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -27,10 +29,11 @@ class FileHandler {
             Scanner scanner =
                     new Scanner(
                     new BufferedReader(
-                    new FileReader(
-                             getClass()
-                            .getClassLoader()
-                            .getResource(filename).getFile())));
+                            new InputStreamReader(new ClassPathResource(filename).getInputStream())));
+//                    new FileReader(
+//                             getClass()
+//                            .getClassLoader()
+//                            .getResource(filename).getFile())));
 
             Map<String, String> propsMap = new LinkedHashMap<>();
             while (scanner.hasNextLine()) {
