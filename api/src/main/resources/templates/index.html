@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Oneroster Mock API</title>
 </head>
 <body>
 
+
 <a href="/docs">Swagger</a>
+
+<div class="row">
+    <div class="flex-column-m">
+        Commit: <span th:text="${commit_hash}">commit_hash</span><br/>
+        Committer: <span th:text="${committer_email}">committer_email</span><br/>
+        Subject: <span th:text="${commit_subject}">commit_subject</span><br/>
+        Body: <span th:text="${commit_body}">commit_body</span><br/>
+        Date: <span th:text="${build_timestamp}">build_timestamp</span><br/>
+    </div>
+</div>
+
 <div class="markmedown">Loading Readme</div>
+
 
 <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
