@@ -27,18 +27,6 @@ public class ViewController {
         return "index.html";
     }
 
-    @RequestMapping(value = {"/js/homepage.js"}, method = RequestMethod.GET)
-    public Object thingsJavascript() { return "../static/js/homepage.js"; }
-
-    @RequestMapping(value = {"/js/jquery-3.3.1.min.js"}, method = RequestMethod.GET)
-    public Object jQueryJavascript() { return "../static/js/jquery-3.3.1.min.js"; }
-
-    @RequestMapping(value = {"/js/bootstrap.min.js"}, method = RequestMethod.GET)
-    public Object bootstrapJavascript() { return "../static/js/bootstrap.min.js"; }
-
-    @RequestMapping(value = {"/js/showdown.min.js"}, method = RequestMethod.GET)
-    public Object showdownJavascript() { return "../static/js/showdown.min.js"; }
-
     @RequestMapping(value="/info", method = RequestMethod.GET)
     @ResponseBody
     public Object getInfo(HttpServletRequest request) {
@@ -55,6 +43,13 @@ public class ViewController {
     @RequestMapping(value = {"/docs"})
     void handleSwagger(HttpServletResponse response) throws IOException {
         response.sendRedirect("/swagger-ui.html");
+    }
+
+    @RequestMapping(value = {"/static/**"}, method = RequestMethod.GET)
+    public Object fetchStaticResource(HttpServletRequest request) {
+        String requestURL = request.getRequestURL().toString();
+        String path = requestURL.split("/static/")[1];
+        return "../static/" + path;
     }
 
 }

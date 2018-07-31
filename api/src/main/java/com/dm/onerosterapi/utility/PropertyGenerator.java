@@ -30,10 +30,7 @@ class FileHandler {
                     new Scanner(
                     new BufferedReader(
                             new InputStreamReader(new ClassPathResource(filename).getInputStream())));
-//                    new FileReader(
-//                             getClass()
-//                            .getClassLoader()
-//                            .getResource(filename).getFile())));
+
 
             Map<String, String> propsMap = new LinkedHashMap<>();
             while (scanner.hasNextLine()) {
