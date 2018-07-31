@@ -3,3 +3,4 @@ commit_hash = default
 build_timestamp = default
 commit_subject = default
 commit_body = default
+commit_url = default

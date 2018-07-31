@@ -16,6 +16,7 @@ hash=$(trim "$(${gitcmd}'%H')")
 subject=$(trim "$(${gitcmd}'%s')")
 body=$(trim "$(${gitcmd}'%b')")
 date=$(date +%m-%d-%Y' '%H:%M:%S)
+url="https://github.com/janssenda-adobe/oneroster-api-mock/commit/${hash}"
 
 cat > $path << EOF
 committer_email = $name
@@ -23,5 +24,6 @@ commit_hash = $hash
 build_timestamp = $date
 commit_subject = $subject
 commit_body = $body
+commit_url = $url
 EOF
 

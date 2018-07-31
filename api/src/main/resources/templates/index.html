@@ -6,16 +6,20 @@
 </head>
 <body>
 
-
-<a href="/docs">Swagger</a>
-
 <div class="row">
     <div class="flex-column-m">
-        Commit: <span th:text="${commit_hash}">commit_hash</span><br/>
-        Committer: <span th:text="${committer_email}">committer_email</span><br/>
-        Subject: <span th:text="${commit_subject}">commit_subject</span><br/>
-        Body: <span th:text="${commit_body}">commit_body</span><br/>
-        Date: <span th:text="${build_timestamp}">build_timestamp</span><br/>
+        <span th:if="${!info.commit_hash.isEmpty()}" th:text="'Commit: ' + ${info.commit_hash}">commit_hash</span><br/>
+        <span th:if="${!info.committer_email.isEmpty()}" th:text="'Comitter: ' + ${info.committer_email}">committer_email</span><br/>
+
+        <span th:if="${!info.commit_subject.isEmpty()}" th:text="'Subject: ' + ${info.commit_subject}">commit_subject</span><br/>
+        <span th:if="${!info.commit_body.isEmpty()}" th:text="'Body: ' + ${info.commit_body}">commit_body</span><br/>
+
+        <span th:if="${!info.build_timestamp.isEmpty()}" th:text="'Date: ' + ${info.build_timestamp}">build_timestamp</span><br/>
+        <span th:if="${!info.commit_url.isEmpty()}" th:text="'Link: ' + ${info.commit_url}">commit_URL</span><br/>
+
+        <span th:if="${!info.access_token.isEmpty()}" th:text="'Current access token: ' + ${info.access_token}">access_tokenL</span><br/>
+        <span th:if="${!#strings.isEmpty(info.expires_in)}" th:text="' Expires in (s): ' + ${info.expires_in}">expires_in</span><br/>
+        <span th:if="${!info.token_type.isEmpty()}" th:text="'Type: ' + ${info.token_type}">token_type</span><br/>
     </div>
 </div>
 

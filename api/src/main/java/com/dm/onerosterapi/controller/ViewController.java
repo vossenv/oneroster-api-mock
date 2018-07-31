@@ -23,12 +23,12 @@ public class ViewController {
     @Autowired
     AuthorizationServerConfig authConfig;
 
+    @Autowired
+    PropertyGenerator propertyGenerator;
+
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
-    public Object indexPage(Model model)  {
-
-        PropertyGenerator pg = new PropertyGenerator();
-        model.addAllAttributes(pg.generateProperties());
-
+    public Object indexPage(Model model, HttpServletRequest request)  {
+        model.addAttribute("info", getInfo(request));
         return "index.html";
     }
 
@@ -36,9 +36,9 @@ public class ViewController {
     @ResponseBody
     public Object getInfo(HttpServletRequest request) {
 
-        PropertyGenerator pg = new PropertyGenerator();
+        Map<String, String> info =
+                new LinkedHashMap<>(propertyGenerator.generateProperties());
 
-        Map<String, String> info = new LinkedHashMap<>(pg.generateProperties());
         info.put("full URL", request.getRequestURL().toString());
         info.putAll(authConfig.getToken());
 
