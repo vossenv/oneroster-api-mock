@@ -1,7 +1,6 @@
-.orimage {height: 50px}
-
-.markmedown{
-
+.orimage {
+    height: 50px;
+    margin: 20px 0 20px 0;
 }
 
 .img-header{
@@ -13,30 +12,17 @@
     display:block;
     margin-left:auto;
     margin-right:auto;
-    min-width: 400px;
     text-align: center;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    padding: 20px 80px 0 80px;
+    width: 90%;
+    min-width: 400px;
+    max-width: 1000px;
 }
 
 @media all and (min-width: 0px) and (max-width: 900px){
     .container-custom {
         width: 100%;
         border: 0;
-        padding: 15px;
+        padding: 50px;
     }
 }
 
-@media all and (min-width: 901px) and (max-width: 1200px){
-    .container-custom {
-        width: 90%;
-    }
-}
-
-@media all and (min-width: 1201px){
-    .container-custom {
-        width: 70%;
-
-    }
-}
