@@ -3,28 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Oneroster Mock API</title>
+    <link rel="stylesheet" type="text/css" href="./static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/bootstrap.min.css">
 </head>
 <body>
 
-<div class="row">
-    <div class="flex-column-m">
-        <span th:if="${!info.commit_hash.isEmpty()}" th:text="'Commit: ' + ${info.commit_hash}">commit_hash</span><br/>
-        <span th:if="${!info.committer_email.isEmpty()}" th:text="'Comitter: ' + ${info.committer_email}">committer_email</span><br/>
 
-        <span th:if="${!info.commit_subject.isEmpty()}" th:text="'Subject: ' + ${info.commit_subject}">commit_subject</span><br/>
-        <span th:if="${!info.commit_body.isEmpty()}" th:text="'Body: ' + ${info.commit_body}">commit_body</span><br/>
-
-        <span th:if="${!info.build_timestamp.isEmpty()}" th:text="'Date: ' + ${info.build_timestamp}">build_timestamp</span><br/>
-        <span th:if="${!info.commit_url.isEmpty()}" th:text="'Link: ' + ${info.commit_url}">commit_URL</span><br/>
-
-        <span th:if="${!info.access_token.isEmpty()}" th:text="'Current access token: ' + ${info.access_token}">access_tokenL</span><br/>
-        <span th:if="${!#strings.isEmpty(info.expires_in)}" th:text="' Expires in (s): ' + ${info.expires_in}">expires_in</span><br/>
-        <span th:if="${!info.token_type.isEmpty()}" th:text="'Type: ' + ${info.token_type}">token_type</span><br/>
+<div class="container-custom text-center">
+    <div class="img-header">
+        <img class="orimage" src="https://www.imsglobal.org/sites/default/files/OneRoster/onerosterreg.png"/>
     </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <div class="markmedown text-left">Loading Readme</div>
+
 </div>
-
-<div class="markmedown">Loading Readme</div>
-
 
 <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"

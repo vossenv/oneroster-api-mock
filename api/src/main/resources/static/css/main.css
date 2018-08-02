@@ -1,0 +1,42 @@
+.orimage {height: 50px}
+
+.markmedown{
+
+}
+
+.img-header{
+    width: 100%;
+    text-align: left;
+}
+
+.container-custom {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    min-width: 400px;
+    text-align: center;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 20px 80px 0 80px;
+}
+
+@media all and (min-width: 0px) and (max-width: 900px){
+    .container-custom {
+        width: 100%;
+        border: 0;
+        padding: 15px;
+    }
+}
+
+@media all and (min-width: 901px) and (max-width: 1200px){
+    .container-custom {
+        width: 90%;
+    }
+}
+
+@media all and (min-width: 1201px){
+    .container-custom {
+        width: 70%;
+
+    }
+}
