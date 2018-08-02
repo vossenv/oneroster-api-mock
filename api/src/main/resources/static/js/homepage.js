@@ -3,7 +3,7 @@ $(document).ready(function(){
     var converter = new showdown.Converter();
     $.ajax({
         type: "GET",
-        url: '/static/readme.txt',
+        url: '/static/readme.md',
         success: function (response) {
             var text = response;
             var html = converter.makeHtml(text);

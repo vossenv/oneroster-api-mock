@@ -50,13 +50,5 @@ public class ViewController {
         response.sendRedirect("/swagger-ui.html");
     }
 
-    @RequestMapping(value = {"/static/**"}, method = RequestMethod.GET)
-    public Object fetchStaticResource(HttpServletRequest request) {
-        String path = request.getRequestURL().toString().split("/static/")[1];
-
-        if (path.endsWith(".map")) { return "../static/js/empty.js" ; }
-        return "../static/" + path;
-
-    }
 
 }
