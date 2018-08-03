@@ -30,7 +30,7 @@ If you want to try out the secured, `oa/` endpoints, you'll need to use an appli
 * [Jenkins](https://jenkins.io/) - CI/CD platform.
 * [Karate](https://github.com/intuit/karate) - REST API testing framework.
 * [Swagger](https://swagger.io/) - REST API documentation generator.
-* [Showdown] (http://showdownjs.com/), [jQuery](https://jquery.com/), [Bootstrap](https://getbootstrap.com/) - Frontend shenanigans.
+* [Showdown](http://showdownjs.com/), [jQuery](https://jquery.com/), [Bootstrap](https://getbootstrap.com/) - Frontend shenanigans.
 
 ## Structure
 
