@@ -1,11 +1,33 @@
 
 #header-div {
     width: 100%;
+    padding: 10px 0px 10px 0;
 }
 
 nav.navbar-light {
     text-align:left;
     padding: 0;
+}
+
+#menu {
+    margin-right: 20px;
+    text-align: left;
+}
+
+
+.menu-link, .menu-link:visited {
+    cursor: pointer;
+    margin-right: 20px;
+    color: #41608d;
+}
+
+.selected {
+    color: #8a1e28;
+}
+
+.menu-link:hover, .menu-link:active {
+    color:#f26920;
+    text-decoration: none;
 }
 
 #header-div,
@@ -14,12 +36,13 @@ nav.navbar-light{
 }
 
 .markmedown {
-    margin-bottom: 5em
+    margin-bottom: 5em;
+    margin-top: 2em;
 }
 
 .orimage {
     height: 50px;
-    margin: 10px 0 0 0;
+    margin: 0px 0 10px -5px;
 }
 
 .img-header{
@@ -37,22 +60,28 @@ nav.navbar-light{
     max-width: 1000px;
 }
 
-@media all and (min-width: 0px) and (max-width: 900px){
+@media all and (min-width: 0px) and (max-width: 900px) {
     .container-custom {
         width: 100%;
         border: 0;
         padding: 50px;
     }
-}
 
-.container-custom h1,
-.container-custom h2,
-.container-custom h3 {
-    margin: 20px 0 20px 0;
-    font-family: Arial, sans-serif;
-}
+    #menu, #header-div, #header-container {
+        margin: 0;
+        padding: 10px 5px 5px 10px;
+    }
 
-.container-custom li,
-.container-custom p {
-    font-family: "Times New Roman", Times, serif;
+    .container-custom h1,
+    .container-custom h2,
+    .container-custom h3 {
+        margin: 20px 0 20px 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .container-custom li,
+    .container-custom p {
+        font-family: "Times New Roman", Times, serif;
+    }
+
 }
