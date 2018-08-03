@@ -13,3 +13,12 @@ $(document).ready(function(){
     });
 });
 
+function showinfo() {
+    $("#readme").hide();
+    $("#info").show();
+}
+
+function showreadme() {
+    $("#info").hide();
+    $("#readme").show();
+}

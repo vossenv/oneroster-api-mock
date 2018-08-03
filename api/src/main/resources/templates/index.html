@@ -21,42 +21,29 @@
 <body>
 
 <div id="header-div">
-    <div class="container-custom text-center">
+    <div id="header-container" class="container-custom text-center">
         <div class="img-header">
             <img class="orimage" src="/static/images/onerosterreg.png"/>
         </div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/swagger-ui.html" target="_blank">API Documentation <span
-                                class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/janssenda-adobe/oneroster-api-mock"
-                           target="_blank">Source Code<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://www.imsglobal.org/activity/onerosterlis#publicdocuments"
-                           target="_blank">Specification <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/adobe-apiplatform/user-sync.py" target="_blank">User
-                            Sync Tool</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <div id="menu">
+            <span class="menu-link selected" onclick="showreadme()">Home</span>
+            <a class="menu-link"  href="/swagger-ui.html" target="_blank">API Documentation</a>
+            <a class="menu-link"  href="https://github.com/janssenda-adobe/oneroster-api-mock"
+               target="_blank">Source Code</a>
+            <a class="menu-link"  href="https://www.imsglobal.org/activity/onerosterlis#publicdocuments"
+               target="_blank">Specification</a>
+            <a class="menu-link"  href="https://github.com/adobe-apiplatform/user-sync.py" target="_blank">User
+                Sync Tool</a>
+            <span class="menu-link" onclick="showinfo()">Build Info</span>
+        </div>
+
     </div>
 </div>
 
 <div class="container-custom text-center">
-    <div class="markmedown text-left">Loading Readme</div>
+    <div class="markmedown text-left" id="readme">Loading Readme</div>
+    <div id="info" style="display: none;"></div>
 </div>
 
 <script
