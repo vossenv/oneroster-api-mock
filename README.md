@@ -1,6 +1,6 @@
 # oneroster-api-mock
 
-A mock API built to the [OneRoster specification](https://www.imsglobal.org/activity/onerosterlis#publicdocuments), for use in developing a OneRoster connector for the [Adobe User Sync Tool](https://github.com/adobe-apiplatform/user-sync.py). Visit the live [production server](https://oneroster.thenewcarag.com/) for the latest successful build. Read the [docs](https://oneroster.thenewcarag.com/swagger-ui.html) for endpoint details. 
+A RESTful API built to the [OneRoster specification](https://www.imsglobal.org/activity/onerosterlis#publicdocuments), for use in developing a OneRoster connector for the [Adobe User Sync Tool](https://github.com/adobe-apiplatform/user-sync.py). Visit the live [production server](https://oneroster.thenewcarag.com/) for the latest successful build. Read the [docs](https://oneroster.thenewcarag.com/swagger-ui.html) for endpoint details. 
 
 This API exists to facilitate an update the User Sync Tool to be able to read from OneRoster implementations like it does other directories. Now that this API is created, building the python connector for the User Sync Tool becomes feasible as this API provides a set of endpoints to test new UST code against.
 
@@ -14,7 +14,11 @@ The [documentation](https://oneroster.thenewcarag.com/swagger-ui.html) describes
 
 ## How to Use
 
-This API makes available a suite of read-only endpoints that respond with sample data meant to simulate a live OneRoster system. There are many ways to call the API
+This API makes available a suite of read-only endpoints that respond with sample data meant to simulate a live OneRoster system. To quickly sample an API endpoint, you can enter a resource endpoint URL (found in the [documentation](https://oneroster.thenewcarag.com/swagger-ui.html)) into a browser window or use the documentation's 'Try it out!' feature. 
+
+If you want to try out the secured, `oa/` endpoints, you'll need to use an application such as Postman. Here's how:
+
+**1 Obtain OAuth Token**
 
 
 
