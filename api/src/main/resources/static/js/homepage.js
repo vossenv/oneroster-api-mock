@@ -11,7 +11,7 @@ function loadReadme() {
 
     $.ajax({
         type: "GET",
-        url: '/static/readme.md',
+        url: '/static/README.md',
         success: function (response) {
             markmedown.html(converter.makeHtml(response));
         },
@@ -19,6 +19,7 @@ function loadReadme() {
             markmedown.html("<p>Something went wrong</p>");
         }
     });
+
 }
 
 function changePage(newPage) {
