@@ -32,6 +32,10 @@ Lastly, under the Body tab, select x-www-form-urlencoded and enter a key-value p
 
 ![Step03](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step03.PNG)
 
+Submit the POST request, and you will receive a response that contains your token:
+
+![Step04](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step04.PNG)
+
 ## Built With
 
 * [Spring Boot](https://spring.io/projects/spring-boot) - Core application framework.
