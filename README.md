@@ -42,12 +42,18 @@ The API response will be the same as the unsecured resource endpoint as long as 
 
 ## Built With
 
-* [Spring Boot](https://spring.io/projects/spring-boot) - Core application framework.
+* [Spring Boot 2.0](https://spring.io/projects/spring-boot) - Core application framework.
 * [Gradle](https://gradle.org/) - Java build tool.
-* [H2 Database Engine](http://www.h2database.com/html/main.html) - In-memory SQL database.
+* [Hibernate/JPA](http://hibernate.org/orm/) - ORM for data management.
+* [H2 Database Engine](http://www.h2database.com/html/main.html) - In-memory/Testing SQL database.
+* [MySQL Database](https://www.mysql.com/) - Deployment database.
+* [Spring OAuth2](https://spring.io/projects/spring-security-oauth) - Optional OAuth secured endpoint.
+* [Thymeleaf](https://www.thymeleaf.org/) - Template resolver and content delivery.
 * [Jenkins](https://jenkins.io/) - CI/CD platform.
 * [Karate](https://github.com/intuit/karate) - REST API testing framework.
+* [Letsencrypt](https://letsencrypt.org/) - SSL CA free certificate generation for Spring Boot / Apache.
 * [Swagger](https://swagger.io/) - REST API documentation generator.
+* [Linode](https://www.linode.com/), [Apache](https://httpd.apache.org/), [Ubuntu](https://www.ubuntu.com/) - Deployment environment.
 * [Showdown](http://showdownjs.com/), [jQuery](https://jquery.com/), [Bootstrap](https://getbootstrap.com/) - Frontend shenanigans.
 
 ## Structure
