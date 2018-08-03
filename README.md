@@ -20,7 +20,9 @@ If you want to try out the secured, `oa/` endpoints, you'll need to use an appli
 
 **1 Obtain OAuth Token**
 
+Prepare a POST request in Postman:
 
+![Step01](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step01.PNG)
 
 ## Built With
 
