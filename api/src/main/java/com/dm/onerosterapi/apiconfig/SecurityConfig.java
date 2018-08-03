@@ -1,6 +1,5 @@
 package com.dm.onerosterapi.apiconfig;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,14 +21,20 @@ import org.springframework.security.oauth2.provider.request.DefaultOAuth2Request
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
+import javax.inject.Inject;
+
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private ClientDetailsService clientDetailsService;
+    private final ClientDetailsService clientDetailsService;
+
+    @Inject
+    public SecurityConfig(ClientDetailsService clientDetailsService) {
+        this.clientDetailsService = clientDetailsService;
+    }
 
     @Override
     @Bean
@@ -48,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @Autowired
+    @Inject
     public TokenStoreUserApprovalHandler userApprovalHandler(TokenStore tokenStore) {
         TokenStoreUserApprovalHandler handler = new TokenStoreUserApprovalHandler();
         handler.setTokenStore(tokenStore);
@@ -58,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @Autowired
+    @Inject
     public ApprovalStore approvalStore(TokenStore tokenStore) {
         TokenApprovalStore store = new TokenApprovalStore();
         store.setTokenStore(tokenStore);
@@ -67,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/static/**");
     }
 

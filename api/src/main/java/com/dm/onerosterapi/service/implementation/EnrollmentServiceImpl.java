@@ -12,21 +12,21 @@ import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import com.dm.onerosterapi.utility.AllowedTypes;
 import com.dm.onerosterapi.utility.AttributeTransformer;
 import com.dm.onerosterapi.utility.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Service
 @SuppressWarnings("unchecked")
 public class EnrollmentServiceImpl implements EnrollmentService {
 
-    private AttributeTransformer h;
-    private Validator v;
-    private RosterDao rosterDao;
-    private EnrollmentRepository enrollmentRepository;
+    final private AttributeTransformer h;
+    final private Validator v;
+    final private RosterDao rosterDao;
+    final private EnrollmentRepository enrollmentRepository;
 
-    @Autowired
+    @Inject
     public EnrollmentServiceImpl(
             RosterDao rosterDao,
             EnrollmentRepository enrollmentRepository,

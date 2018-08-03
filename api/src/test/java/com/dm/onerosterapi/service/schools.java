@@ -5,22 +5,19 @@ import com.dm.onerosterapi.model.School;
 import com.dm.onerosterapi.service.interfaces.SchoolService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.inject.Inject;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class schools {
 
-	@Autowired
+	@Inject
     SchoolService schoolService;
 
     private static final String tstSId = "f9a75f84-130b-419e-bbe6-463585e930e9";

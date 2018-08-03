@@ -1,22 +1,21 @@
 package com.dm.onerosterapi.service;
 
+import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
 import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.model.Course;
 import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.repository.jpa.UserRepository;
-import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
-import com.dm.onerosterapi.utility.AttributeTransformer;
 import com.dm.onerosterapi.service.interfaces.UserService;
+import com.dm.onerosterapi.utility.AttributeTransformer;
 import com.dm.onerosterapi.utility.Validator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,16 +27,16 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class helper {
 
-    @Autowired
+    @Inject
     Validator validator;
 
-	@Autowired
+	@Inject
     AttributeTransformer attributeTransformer;
 
-	@Autowired
+	@Inject
     UserService userService;
 
-	@Autowired
+	@Inject
     UserRepository userRepository;
 
 	@Test

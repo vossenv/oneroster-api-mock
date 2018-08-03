@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+@SuppressWarnings("Duplicates")
 public class ApiResponseBuilder {
 
     public static ResponseEntity<Object> buildApiResponse(Object body, SimplePage p){

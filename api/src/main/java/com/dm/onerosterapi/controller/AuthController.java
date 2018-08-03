@@ -1,7 +1,6 @@
 package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.apiconfig.AuthorizationServerConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -12,11 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 
 @ApiIgnore
@@ -28,7 +27,7 @@ public class AuthController {
 
     final private AuthorizationServerConfig authConfig;
 
-    @Autowired
+    @Inject
     public AuthController(AuthorizationServerConfig authConfig) {
         this.authConfig = authConfig;
     }

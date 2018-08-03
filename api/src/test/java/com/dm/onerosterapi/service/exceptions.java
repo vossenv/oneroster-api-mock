@@ -1,31 +1,31 @@
 package com.dm.onerosterapi.service;
 
+import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
 import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.CourseService;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import com.dm.onerosterapi.service.interfaces.UserService;
-import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class exceptions {
 
-    @Autowired
+    @Inject
     ClassService classService;
-    @Autowired
+    @Inject
     UserService userService;
-    @Autowired
+    @Inject
     CourseService courseService;
-    @Autowired
+    @Inject
     EnrollmentService enrollmentService;
 
     private static final String classId = "dca81f5a-1d99-491a-85fb-ad9591d4b96d";

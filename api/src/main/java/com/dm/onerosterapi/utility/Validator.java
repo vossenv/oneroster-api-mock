@@ -3,19 +3,20 @@ package com.dm.onerosterapi.utility;
 import com.dm.onerosterapi.apiconfig.ApiMessageConfig;
 import com.dm.onerosterapi.exceptions.*;
 import com.dm.onerosterapi.repository.jpa.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 
 @Service
 public class Validator {
 
-    private SchoolRepository schoolRepository;
-    private ClassRepository classRepository;
-    private UserRepository userRepository;
-    private CourseRepository courseRepository;
-    private EnrollmentRepository enrollmentRepository;
+    final private SchoolRepository schoolRepository;
+    final private ClassRepository classRepository;
+    final private UserRepository userRepository;
+    final private CourseRepository courseRepository;
+    final private EnrollmentRepository enrollmentRepository;
 
-    @Autowired
+    @Inject
     public Validator(
             SchoolRepository schoolRepository,
             ClassRepository classRepository,

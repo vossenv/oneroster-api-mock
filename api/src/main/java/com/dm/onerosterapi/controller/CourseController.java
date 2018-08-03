@@ -10,21 +10,22 @@ import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.CourseService;
 import com.dm.onerosterapi.utility.ApiResponseBuilder;
 import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
+@SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "DefaultAnnotationParam"})
 @Api(tags = "Course Controller", description = "Set of endpoints for reading Courses")
 public class CourseController {
 
     final private CourseService courseService;
     final private ClassService classService;
 
-    @Autowired
+    @Inject
     CourseController(CourseService courseService, ClassService classService) {
         this.courseService = courseService;
         this.classService = classService;

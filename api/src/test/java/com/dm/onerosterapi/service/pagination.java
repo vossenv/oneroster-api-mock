@@ -6,21 +6,21 @@ import com.dm.onerosterapi.service.interfaces.UserService;
 import com.dm.onerosterapi.utility.AllowedTypes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import static org.junit.Assert.assertEquals;
+
+import javax.inject.Inject;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class pagination {
 
-	@Autowired
+	@Inject
     UserService userService;
 
-	@Autowired
+	@Inject
     RosterDao rosterDao;
 
 

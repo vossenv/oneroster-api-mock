@@ -2,10 +2,10 @@ package com.dm.onerosterapi.utility;
 
 import com.dm.onerosterapi.exceptions.ResourceNotFoundException;
 import com.dm.onerosterapi.repository.jpa.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
@@ -13,13 +13,13 @@ import java.util.List;
 @Service
 public class AttributeTransformer {
 
-    private SchoolRepository schoolRepository;
-    private ClassRepository classRepository;
-    private UserRepository userRepository;
-    private CourseRepository courseRepository;
-    private EnrollmentRepository enrollmentRepository;
+    final private SchoolRepository schoolRepository;
+    final private ClassRepository classRepository;
+    final private UserRepository userRepository;
+    final private CourseRepository courseRepository;
+    final private EnrollmentRepository enrollmentRepository;
 
-    @Autowired
+    @Inject
     public AttributeTransformer(
             SchoolRepository schoolRepository,
             ClassRepository classRepository,

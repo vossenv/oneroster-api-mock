@@ -9,22 +9,22 @@ import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.utility.AllowedTypes;
 import com.dm.onerosterapi.utility.AttributeTransformer;
 import com.dm.onerosterapi.utility.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Service
 @SuppressWarnings("unchecked")
 public class ClassServiceImpl implements ClassService {
 
-    private Validator v;
-    private AttributeTransformer h;
-    private RosterDao rosterDao;
-    private ClassRepository classRepository;
+    final private Validator v;
+    final private AttributeTransformer h;
+    final private RosterDao rosterDao;
+    final private ClassRepository classRepository;
 
 
-    @Autowired
+    @Inject
     public ClassServiceImpl(
             RosterDao rosterDao,
             ClassRepository classRepository,

@@ -2,7 +2,6 @@ package com.dm.onerosterapi.controller;
 
 import com.dm.onerosterapi.apiconfig.AuthorizationServerConfig;
 import com.dm.onerosterapi.utility.PropertyGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,12 +18,13 @@ import java.util.Map;
 
 @ApiIgnore
 @Controller
+@SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "DefaultAnnotationParam"})
 public class ViewController {
 
     final private AuthorizationServerConfig authConfig;
     final private PropertyGenerator propertyGenerator;
 
-    @Autowired
+    @Inject
     public ViewController(AuthorizationServerConfig authConfig, PropertyGenerator propertyGenerator) {
         this.authConfig = authConfig;
         this.propertyGenerator = propertyGenerator;

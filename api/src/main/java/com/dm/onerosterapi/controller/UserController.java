@@ -10,16 +10,17 @@ import com.dm.onerosterapi.service.interfaces.ClassService;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import com.dm.onerosterapi.utility.ApiResponseBuilder;
 import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
 @Validated
+@SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "DefaultAnnotationParam"})
 @Api(tags = "User Controller", description = "Set of endpoints for reading Users")
 public class UserController {
 
@@ -27,7 +28,7 @@ public class UserController {
     final private ClassService classService;
 
 
-    @Autowired
+    @Inject
     UserController(UserService userService, ClassService classService) {
         this.userService = userService;
         this.classService = classService;

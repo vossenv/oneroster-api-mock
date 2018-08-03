@@ -8,12 +8,10 @@ import com.dm.onerosterapi.model.User;
 import com.dm.onerosterapi.service.interfaces.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-
+import javax.inject.Inject;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -22,7 +20,7 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class users {
 
-	@Autowired
+	@Inject
     UserService userService;
 
     private static final String tstSId = "8057df9d-72a3-419a-98b5-6eab87ec0a6d";

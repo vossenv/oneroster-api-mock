@@ -5,13 +5,11 @@ $(document).ready(function(){
         type: "GET",
         url: '/static/readme.md',
         success: function (response) {
-            var text = response;
-            var html = converter.makeHtml(text);
-            $(".markmedown").empty().append(html);
+            $(".markmedown").empty().append(converter.makeHtml(response));
         },
         error: function () {
-            var html = "<p>Something went wrong</p>";
-            $(".markmedown").empty().append(html);
+            $(".markmedown").empty().append("<p>Something went wrong</p>");
         }
     });
 });
+

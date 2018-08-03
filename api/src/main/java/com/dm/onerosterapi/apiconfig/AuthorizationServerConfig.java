@@ -1,8 +1,6 @@
 package com.dm.onerosterapi.apiconfig;
 
-
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
@@ -15,9 +13,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import javax.inject.Inject;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import java.nio.charset.Charset;
@@ -40,20 +38,22 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Value("${spring.security.expiration.days}")
     private int token_valid_days;
 
-    @Autowired
-    private TokenStore tokenStore;
+    private final TokenStore tokenStore;
+    private final UserApprovalHandler userApprovalHandler;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserApprovalHandler userApprovalHandler;
+    final private HostnameVerifier defaultVerifier = HttpsURLConnection.getDefaultHostnameVerifier();
+    final private HostnameVerifier bypassVerifier = (hostname, sslSession) -> true;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    @Inject
+    public AuthorizationServerConfig(TokenStore tokenStore, UserApprovalHandler userApprovalHandler, AuthenticationManager authenticationManager) {
+        this.tokenStore = tokenStore;
+        this.userApprovalHandler = userApprovalHandler;
+        this.authenticationManager = authenticationManager;
+    }
 
-    private HostnameVerifier defaultVerifier = HttpsURLConnection.getDefaultHostnameVerifier();
-    private HostnameVerifier bypassVerifier = (hostname, sslSession) -> true;
-
-    void disableSSLCheck() { HttpsURLConnection.setDefaultHostnameVerifier(this.bypassVerifier); }
-    void enableSSLCheck(){
+    private void disableSSLCheck() { HttpsURLConnection.setDefaultHostnameVerifier(this.bypassVerifier); }
+    private void enableSSLCheck(){
         HttpsURLConnection.setDefaultHostnameVerifier(this.defaultVerifier);
     }
 
@@ -74,6 +74,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManager);
     }
 
+    @SuppressWarnings("unchecked")
     public Map<String, String> getToken() {
 
         String auth = CLIENT_ID + ":" + CLIENT_SECRET;

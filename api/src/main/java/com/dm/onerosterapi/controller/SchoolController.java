@@ -6,14 +6,15 @@ import com.dm.onerosterapi.model.*;
 import com.dm.onerosterapi.service.interfaces.*;
 import com.dm.onerosterapi.utility.ApiResponseBuilder;
 import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
+@SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "DefaultAnnotationParam"})
 @Api(tags = "School Controller", description = "Set of endpoints for reading Schools")
 public class SchoolController {
 
@@ -23,7 +24,7 @@ public class SchoolController {
     final private EnrollmentService enrollmentService;
     final private UserService userService;
 
-    @Autowired
+    @Inject
     SchoolController(SchoolService schoolService, ClassService classService, CourseService courseService,
                      EnrollmentService enrollmentService, UserService userService){
         this.schoolService = schoolService;

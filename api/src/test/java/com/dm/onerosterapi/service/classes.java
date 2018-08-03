@@ -5,22 +5,19 @@ import com.dm.onerosterapi.model.ClassOfCourse;
 import com.dm.onerosterapi.service.interfaces.ClassService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.inject.Inject;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class classes {
 
-    @Autowired
+    @Inject
     ClassService classService;
 
     private static final String tstSId = "dca81f5a-1d99-491a-85fb-ad9591d4b96d";

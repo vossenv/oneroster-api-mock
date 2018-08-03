@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CourseRepository extends JpaRepository<Course, String>{
 
-    public Course findByCourseIdIgnoreCase(String id);
-    public Course findBySourcedIdIgnoreCase(String id);
-    public boolean existsBySourcedIdIgnoreCase(String id);
+    Course findByCourseIdIgnoreCase(String id);
+    Course findBySourcedIdIgnoreCase(String id);
+    boolean existsBySourcedIdIgnoreCase(String id);
 
 }

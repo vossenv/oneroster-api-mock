@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EnrollmentRepository extends JpaRepository<Enrollment, String>{
 
-    public Enrollment findByEnrollmentId(String id);
-    public Enrollment findBySourcedId(String id);
-    public boolean existsBySourcedId(String id);
+    Enrollment findByEnrollmentId(String id);
+    Enrollment findBySourcedId(String id);
+    boolean existsBySourcedId(String id);
 
 }

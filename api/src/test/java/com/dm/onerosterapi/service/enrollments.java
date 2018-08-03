@@ -7,22 +7,19 @@ import com.dm.onerosterapi.model.Enrollment;
 import com.dm.onerosterapi.service.interfaces.EnrollmentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.inject.Inject;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class enrollments {
 
-	@Autowired
+	@Inject
     EnrollmentService enrollmentService;
 
     private static final String tstSId = "44e3d2cf-af91-4e2f-a5ec-5e304b5a66cb";

@@ -9,20 +9,20 @@ import com.dm.onerosterapi.repository.jpa.SchoolRepository;
 import com.dm.onerosterapi.service.interfaces.SchoolService;
 import com.dm.onerosterapi.utility.AllowedTypes;
 import com.dm.onerosterapi.utility.AttributeTransformer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Service
 @SuppressWarnings("unchecked")
 public class SchoolServiceImpl implements SchoolService {
 
-    private AttributeTransformer h;
-    private SchoolRepository schoolRepository;
-    private RosterDao rosterDao;
+    final private AttributeTransformer h;
+    final private SchoolRepository schoolRepository;
+    final private RosterDao rosterDao;
 
-    @Autowired
+    @Inject
     public SchoolServiceImpl(
             SchoolRepository schoolRepository,
             AttributeTransformer h,
