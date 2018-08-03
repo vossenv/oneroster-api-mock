@@ -20,9 +20,13 @@ If you want to try out the secured, `oa/` endpoints, you'll need to use an appli
 
 **1 Obtain OAuth Token**
 
-Prepare a POST request in Postman:
+Prepare a POST request in Postman to the URL `https://oneroster.thenewcarag.com/oauth/token`:
 
 ![Step01](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step01.PNG)
+
+Under the Authorization tab, select Basic Auth supplying the oa username and password. Your POST request should now look like this:
+
+![Step02](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step02.PNG)
 
 ## Built With
 
