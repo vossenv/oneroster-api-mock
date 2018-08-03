@@ -27,7 +27,7 @@
         </div>
 
         <div id="menu">
-            <span class="menu-link selected" onclick="showreadme()">Home</span>
+            <span id="readme-link" class="menu-link selected" onclick="changePage('readme')">Home</span>
             <a class="menu-link"  href="/swagger-ui.html" target="_blank">API Documentation</a>
             <a class="menu-link"  href="https://github.com/janssenda-adobe/oneroster-api-mock"
                target="_blank">Source Code</a>
@@ -35,15 +35,15 @@
                target="_blank">Specification</a>
             <a class="menu-link"  href="https://github.com/adobe-apiplatform/user-sync.py" target="_blank">User
                 Sync Tool</a>
-            <span class="menu-link" onclick="showinfo()">Build Info</span>
+            <span id="info-link" class="menu-link" onclick="changePage('info')">Build Info</span>
         </div>
 
     </div>
 </div>
 
 <div class="container-custom text-center">
-    <div class="markmedown text-left" id="readme">Loading Readme</div>
-    <div id="info" style="display: none;"></div>
+    <div class="markmedown text-left page" id="readme">Loading Readme</div>
+    <div class = "page" id="info" style="display: none;"></div>
 </div>
 
 <script

@@ -1,24 +1,33 @@
 $(document).ready(function(){
 
+    loadReadme();
+
+});
+
+function loadReadme() {
+
     var converter = new showdown.Converter();
+    var markmedown = $(".markmedown");
+
     $.ajax({
         type: "GET",
         url: '/static/readme.md',
         success: function (response) {
-            $(".markmedown").empty().append(converter.makeHtml(response));
+            markmedown.html(converter.makeHtml(response));
         },
         error: function () {
-            $(".markmedown").empty().append("<p>Something went wrong</p>");
+            markmedown.html("<p>Something went wrong</p>");
         }
     });
-});
-
-function showinfo() {
-    $("#readme").hide();
-    $("#info").show();
 }
 
-function showreadme() {
-    $("#info").hide();
-    $("#readme").show();
+function changePage(newPage) {
+
+    $(".menu-link").removeClass("selected");
+    $(".page").hide();
+
+    $("#" + newPage + "-link").addClass("selected");
+    $("#"+ newPage).show();
+
 }
+
