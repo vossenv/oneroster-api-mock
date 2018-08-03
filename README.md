@@ -1,12 +1,12 @@
 # oneroster-api-mock
 
-A RESTful API built to the [OneRoster specification](https://www.imsglobal.org/activity/onerosterlis#publicdocuments), for use in developing a OneRoster connector for the [Adobe User Sync Tool](https://github.com/adobe-apiplatform/user-sync.py). Visit the live [production server](https://oneroster.thenewcarag.com/) for the latest successful build. Read the [docs](https://oneroster.thenewcarag.com/swagger-ui.html) for endpoint details. 
+A RESTful API built to the [OneRoster specification](https://www.imsglobal.org/activity/onerosterlis#publicdocuments), for use in developing a OneRoster connector for the [Adobe User Sync Tool](https://github.com/adobe-apiplatform/user-sync.py). Visit the live [production server](https://mockroster.io/) for the latest successful build. Read the [docs](https://mockroster.io/swagger-ui.html) for endpoint details. 
 
 This API exists to facilitate an update the User Sync Tool to be able to read from OneRoster implementations like it does other directories. Now that this API is created, building the python connector for the User Sync Tool becomes feasible as this API provides a set of endpoints to test new UST code against.
 
 ## Documentation
 
-The [documentation](https://oneroster.thenewcarag.com/swagger-ui.html) describes the suite of resource endpoints, however the OAuth-related endpoints are discussed here instead:
+The [documentation](https://mockroster.io/swagger-ui.html) describes the suite of resource endpoints, however the OAuth-related endpoints are discussed here instead:
 
 `oa/{any resource endpoint}`: All resource endpoints  are also available as secured endpoints requiring authentication. 
 
@@ -14,11 +14,11 @@ The [documentation](https://oneroster.thenewcarag.com/swagger-ui.html) describes
 
 ## How to Use
 
-This API makes available a suite of read-only endpoints that respond with sample data meant to simulate a live OneRoster system. To quickly sample an API endpoint, you can enter a resource endpoint URL (found in the [documentation](https://oneroster.thenewcarag.com/swagger-ui.html)) into a browser window or use the documentation's 'Try it out!' feature. 
+This API makes available a suite of read-only endpoints that respond with sample data meant to simulate a live OneRoster system. To quickly sample an API endpoint, you can enter a resource endpoint URL (found in the [documentation](https://mockroster.io/swagger-ui.html)) into a browser window or use the documentation's 'Try it out!' feature. 
 
 If you want to try out the secured, `oa/` endpoints, you'll need to use an application such as Postman. Here's how:
 
-Prepare a POST request in Postman to the URL `https://oneroster.thenewcarag.com/oauth/token`:
+Prepare a POST request in Postman to the URL `https://mockroster.io/oauth/token`:
 
 ![Step01](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step01.PNG)
 

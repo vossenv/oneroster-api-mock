@@ -13,9 +13,13 @@ nav.navbar-light{
     background-color: #e2e2e2 !important;
 }
 
+.markmedown {
+    margin-bottom: 5em
+}
+
 .orimage {
     height: 50px;
-    margin: 10px 0 0px 0;
+    margin: 10px 0 0 0;
 }
 
 .img-header{
