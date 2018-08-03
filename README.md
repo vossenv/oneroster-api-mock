@@ -1,6 +1,22 @@
 # oneroster-api-mock
 
-A mock API built to the [OneRoster specification](https://www.imsglobal.org/activity/onerosterlis#publicdocuments), for use in developing a OneRoster connector for the [Adobe User Sync Tool](https://github.com/adobe-apiplatform/user-sync.py). Visit the live [production server](https://oneroster.thenewcarag.com/) for the latest successful build. Read the [docs](https://oneroster.thenewcarag.com/swagger-ui.html) for endpoint details.
+A mock API built to the [OneRoster specification](https://www.imsglobal.org/activity/onerosterlis#publicdocuments), for use in developing a OneRoster connector for the [Adobe User Sync Tool](https://github.com/adobe-apiplatform/user-sync.py). Visit the live [production server](https://oneroster.thenewcarag.com/) for the latest successful build. Read the [docs](https://oneroster.thenewcarag.com/swagger-ui.html) for endpoint details. 
+
+This API exists to facilitate an update the User Sync Tool to be able to read from OneRoster implementations like it does other directories. Now that this API is created, building the python connector for the User Sync Tool becomes feasible as this API provides a set of endpoints to test new UST code against.
+
+## Documentation
+
+The [documentation](https://oneroster.thenewcarag.com/swagger-ui.html) describes the suite of resource endpoints, however the OAuth-related endpoints are discussed here instead:
+
+`oa/{any resource endpoint}`: All resource endpoints  are also available as secured endpoints requiring authentication. 
+
+`/oauth/token`: POST Using basic authentication (Username: *oruser*, Password: *secret*) to obtain a token. This token is used to access the secured endpoints described above.
+
+## How to Use
+
+This API makes available a suite of read-only endpoints that respond with sample data meant to simulate a live OneRoster system. There are many ways to call the API
+
+
 
 ## Built With
 
@@ -10,8 +26,9 @@ A mock API built to the [OneRoster specification](https://www.imsglobal.org/acti
 * [Jenkins](https://jenkins.io/) - CI/CD platform.
 * [Karate](https://github.com/intuit/karate) - REST API testing framework.
 * [Swagger](https://swagger.io/) - REST API documentation generator.
+* [Showdown] (http://showdownjs.com/), [jQuery](https://jquery.com/), [Bootstrap](https://getbootstrap.com/) - Frontend shenanigans.
 
-## Project
+## Structure
 
 ```
 ├───api                                    # Core Spring Boot API Project
@@ -29,7 +46,7 @@ A mock API built to the [OneRoster specification](https://www.imsglobal.org/acti
 ```
 ## Tests
 
-**Unit Tests**: JUnit tests are found at ```api\src\test\java\com\dm\onerosterapi\service```. Run with `./gradlew unitTest`.
+**Unit Tests**: JUnit tests are found at ```api\src\test\java\com\dm\onerosterapi\service```. Run with `./gradlew unitTest` from the ```api``` directory.
 
 **Integration Tests**: Karate integration tests are found at `api\src\test\resources\features`. Run with `./gradlew karateTest -Dkarate.env={env}'` and supply the proper environment. See `karate-config.js` in the above directory for base URL details based on environment.
 
