@@ -1,4 +1,4 @@
-# oneroster-api-mock
+# Mockroster
 
 A RESTful API built to the [OneRoster specification](https://www.imsglobal.org/activity/onerosterlis#publicdocuments), for use in developing a OneRoster connector for the [Adobe User Sync Tool](https://github.com/adobe-apiplatform/user-sync.py). Visit the live [production server](https://mockroster.io/) for the latest successful build. Read the [docs](https://mockroster.io/swagger-ui.html) for endpoint details. 
 
