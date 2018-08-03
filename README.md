@@ -18,8 +18,6 @@ This API makes available a suite of read-only endpoints that respond with sample
 
 If you want to try out the secured, `oa/` endpoints, you'll need to use an application such as Postman. Here's how:
 
-**1 Obtain OAuth Token**
-
 Prepare a POST request in Postman to the URL `https://oneroster.thenewcarag.com/oauth/token`:
 
 ![Step01](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step01.PNG)
@@ -27,6 +25,20 @@ Prepare a POST request in Postman to the URL `https://oneroster.thenewcarag.com/
 Under the Authorization tab, select Basic Auth supplying the oa username and password. Your POST request should now look like this:
 
 ![Step02](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step02.PNG)
+
+Next, under the Body tab, select x-www-form-urlencoded and enter a key-value pair of **key**: *grant_type* and **value:** *client_credentials*, as such:
+
+![Step03](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step03.PNG)
+
+Submit the POST request, and you will receive a response that contains your token:
+
+![Step04](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step04.PNG)
+
+Now we'll create a GET request with the type Bearer Token pointed at a secured resource endpoint, such as `oa/teachers/`. Enter the "access_token" you received from the call to `oauth/token`:
+
+![Step05](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step05.PNG)
+
+The API response will be the same as the unsecured resource endpoint as long as the bearer_token is valid.
 
 ## Built With
 
