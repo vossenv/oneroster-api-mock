@@ -20,11 +20,14 @@ import java.util.Map;
 @Controller
 public class ViewController {
 
-    @Autowired
-    AuthorizationServerConfig authConfig;
+    final private AuthorizationServerConfig authConfig;
+    final private PropertyGenerator propertyGenerator;
 
     @Autowired
-    PropertyGenerator propertyGenerator;
+    public ViewController(AuthorizationServerConfig authConfig, PropertyGenerator propertyGenerator) {
+        this.authConfig = authConfig;
+        this.propertyGenerator = propertyGenerator;
+    }
 
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public Object indexPage(Model model, HttpServletRequest request)  {
@@ -41,7 +44,6 @@ public class ViewController {
 
         info.put("full URL", request.getRequestURL().toString());
         info.putAll(authConfig.getToken());
-
         return info;
     }
 

@@ -19,7 +19,7 @@ import java.util.Optional;
 @Api(tags = "Term Controller", description = "Set of endpoints for reading Terms")
 public class TermController {
 
-    private ClassService classService;
+    final private ClassService classService;
 
     @Autowired
     TermController(ClassService classService) {

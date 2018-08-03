@@ -23,8 +23,8 @@ import java.util.Optional;
 @Api(tags = "User Controller", description = "Set of endpoints for reading Users")
 public class UserController {
 
-    private UserService userService;
-    private ClassService classService;
+    final private UserService userService;
+    final private ClassService classService;
 
 
     @Autowired

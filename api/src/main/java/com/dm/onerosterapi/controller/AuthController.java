@@ -26,8 +26,12 @@ public class AuthController {
     @Value("${secure.endpoint.uri}")
     private String secureURI;
 
+    final private AuthorizationServerConfig authConfig;
+
     @Autowired
-    AuthorizationServerConfig authConfig;
+    public AuthController(AuthorizationServerConfig authConfig) {
+        this.authConfig = authConfig;
+    }
 
     @RequestMapping(value ="${secure.endpoint.uri}/**", method = RequestMethod.GET)
     public void handleSecureEntry(HttpServletResponse response, HttpServletRequest request,

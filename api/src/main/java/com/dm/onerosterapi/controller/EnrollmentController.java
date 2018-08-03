@@ -18,7 +18,7 @@ import java.util.Optional;
 @Api(tags = "Enrollment Controller", description = "Set of endpoints for reading Enrollments")
 public class EnrollmentController {
 
-    private EnrollmentService enrollmentService;
+    final private EnrollmentService enrollmentService;
 
     @Autowired
     EnrollmentController(EnrollmentService enrollmentService) {

@@ -21,8 +21,8 @@ import java.util.Optional;
 @Api(tags = "Course Controller", description = "Set of endpoints for reading Courses")
 public class CourseController {
 
-    private CourseService courseService;
-    private ClassService classService;
+    final private CourseService courseService;
+    final private ClassService classService;
 
     @Autowired
     CourseController(CourseService courseService, ClassService classService) {

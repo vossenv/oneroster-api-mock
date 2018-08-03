@@ -17,11 +17,11 @@ import java.util.Optional;
 @Api(tags = "School Controller", description = "Set of endpoints for reading Schools")
 public class SchoolController {
 
-    private SchoolService schoolService;
-    private ClassService classService;
-    private CourseService courseService;
-    private EnrollmentService enrollmentService;
-    private UserService userService;
+    final private SchoolService schoolService;
+    final private ClassService classService;
+    final private CourseService courseService;
+    final private EnrollmentService enrollmentService;
+    final private UserService userService;
 
     @Autowired
     SchoolController(SchoolService schoolService, ClassService classService, CourseService courseService,

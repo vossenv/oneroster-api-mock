@@ -1,6 +1,21 @@
+
+#header-div {
+    width: 100%;
+}
+
+nav.navbar-light {
+    text-align:left;
+    padding: 0;
+}
+
+#header-div,
+nav.navbar-light{
+    background-color: #e2e2e2 !important;
+}
+
 .orimage {
     height: 50px;
-    margin: 20px 0 20px 0;
+    margin: 10px 0 0px 0;
 }
 
 .img-header{
@@ -26,3 +41,14 @@
     }
 }
 
+.container-custom h1,
+.container-custom h2,
+.container-custom h3 {
+    margin: 20px 0 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.container-custom li,
+.container-custom p {
+    font-family: "Times New Roman", Times, serif;
+}
