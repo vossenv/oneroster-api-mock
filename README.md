@@ -28,6 +28,10 @@ Under the Authorization tab, select Basic Auth supplying the oa username and pas
 
 ![Step02](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step02.PNG)
 
+Lastly, under the Body tab, select x-www-form-urlencoded and enter a key-value pair of **key**: *grant_type* and **value:** *client_credentials*, as such:
+
+![Step03](https://raw.githubusercontent.com/janssenda-adobe/oneroster-api-mock/master/images/step03.PNG)
+
 ## Built With
 
 * [Spring Boot](https://spring.io/projects/spring-boot) - Core application framework.
