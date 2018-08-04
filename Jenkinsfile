@@ -10,7 +10,7 @@ pipeline {
 				sh 'chmod +x infostamp.sh'	
 				sh './infostamp.sh'
 				echo 'Storing local copy of readme...'
-				sh 'cp README.md api/src/main/resources/static/'
+				sh 'cp README.md api/src/main/resources/static/README.md'
                 echo 'Building..'
 				dir("api") {
 					sh 'chmod +x gradlew'					
