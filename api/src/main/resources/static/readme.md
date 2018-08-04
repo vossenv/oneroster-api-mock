@@ -50,6 +50,7 @@ The API response will be the same as the unsecured resource endpoint as long as 
 * [Spring OAuth2](https://spring.io/projects/spring-security-oauth) - Optional OAuth secured endpoint.
 * [Thymeleaf](https://www.thymeleaf.org/) - Template resolver and content delivery.
 * [Jenkins](https://jenkins.io/) - CI/CD platform.
+* [JUnit](https://junit.org/junit5/) - Unit testing.
 * [Karate](https://github.com/intuit/karate) - REST API testing framework.
 * [Letsencrypt](https://letsencrypt.org/) - SSL CA free certificate generation for Spring Boot / Apache.
 * [Swagger](https://swagger.io/) - REST API documentation generator.
