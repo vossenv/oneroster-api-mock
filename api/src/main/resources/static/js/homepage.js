@@ -39,7 +39,7 @@ function loadReadme() {
 
     $.ajax({
         type: "GET",
-        url: '/static/README.md',
+        url: '/static/readme.md',
         success: function (response) {
             markmedown.html(converter.makeHtml(response));
         },
