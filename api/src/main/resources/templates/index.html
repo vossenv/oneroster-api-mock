@@ -28,23 +28,36 @@
 
         <div id="menu">
             <span id="readme-link" class="menu-link selected" onclick="changePage('readme')">Home</span>
-            <a class="menu-link"  href="/swagger-ui.html" target="_blank">API Documentation</a>
-            <a class="menu-link"  href="https://github.com/janssenda-adobe/oneroster-api-mock"
+            <a class="menu-link" href="/swagger-ui.html" target="_blank">API Documentation</a>
+            <a class="menu-link" href="https://github.com/janssenda-adobe/oneroster-api-mock"
                target="_blank">Source Code</a>
-            <a class="menu-link"  href="https://www.imsglobal.org/activity/onerosterlis#publicdocuments"
+            <a class="menu-link" href="https://www.imsglobal.org/activity/onerosterlis#publicdocuments"
                target="_blank">Specification</a>
-            <a class="menu-link"  href="https://github.com/adobe-apiplatform/user-sync.py" target="_blank">User
+            <a class="menu-link" href="https://github.com/adobe-apiplatform/user-sync.py" target="_blank">User
                 Sync Tool</a>
-            <span id="info-link" class="menu-link" onclick="changePage('info')">Build Info</span>
+            <span id="info-link" class="menu-link" onclick="loadInfo()">Build Info</span>
         </div>
 
     </div>
 </div>
 
 <div class="container-custom text-center">
-    <div class="markmedown text-left page" id="readme">Loading Readme</div>
-    <div class = "page" id="info" style="display: none;"></div>
+    <div class="markmedown page" id="readme">Loading Readme</div>
+    <div class="page text-center" id="info" style="display: none;">
+
+        <div id="infotext">
+            <h1>Build Information</h1>
+            Below you can view real time information about the current build.  Please refer to the
+            <a href="https://github.com/janssenda-adobe/oneroster-api-mock">official Github</a> page if you want to
+            browse other commits. In addition, this page shows the current OAuth2 token for ease of use (normally, you need to post credentials
+            before obtaining this token. See the readme!).  Use this as a Bearer authenication for quick and easy authenticated
+            access.  The pertinent security token information is also supplied: the type, expiration, and scope.
+        </div>
+
+        <div id="infotable"></div>
+    </div>
 </div>
+
 
 <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"

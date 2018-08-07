@@ -1,4 +1,40 @@
 
+
+tr:nth-child(odd) {background: #e2e2e269}
+tr:nth-child(even) {background: white;}
+/*tr:hover{background: rgba(239, 133, 72, 0.1); }*/
+
+#infotable {
+
+    width: 60%;
+    text-align: left;
+    margin-top: 50px;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+#infotable td {
+    margin: 0;
+    padding: 5px;
+    padding-left:8px;
+}
+
+#infotext {
+    margin-top: 50px;
+    text-align:justify;
+    text-justify:inter-word;
+}
+
+.value {
+    width:20%;
+}
+
+.row-name{
+    width: 5%;
+}
+
 #header-div {
     width: 100%;
     padding: 10px 0px 10px 0;
@@ -21,6 +57,10 @@ nav.navbar-light {
     color: #41608d;
 }
 
+.page {
+    margin-bottom:5em;
+}
+
 .selected {
     color: #8a1e28;
 }
@@ -35,9 +75,10 @@ nav.navbar-light{
     background-color: #e2e2e2 !important;
 }
 
-.markmedown {
-    margin-bottom: 5em;
+.markmedown, #infotext {
     margin-top: 2em;
+    text-align:justify;
+    text-justify:inter-word;
 }
 
 .orimage {
@@ -50,6 +91,19 @@ nav.navbar-light{
     text-align: left;
 }
 
+
+.container-custom h1,
+.container-custom h2,
+.container-custom h3 {
+    margin: 20px 0 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.container-custom li,
+.container-custom p {
+    font-family: "Times New Roman", Times, serif;
+}
+
 .container-custom {
     display:block;
     margin-left:auto;
@@ -57,8 +111,9 @@ nav.navbar-light{
     text-align: center;
     width: 90%;
     min-width: 400px;
-    max-width: 1000px;
+    max-width: 850px;
 }
+
 
 @media all and (min-width: 0px) and (max-width: 900px) {
     .container-custom {
@@ -66,22 +121,12 @@ nav.navbar-light{
         border: 0;
         padding: 50px;
     }
-
     #menu, #header-div, #header-container {
         margin: 0;
         padding: 10px 5px 5px 10px;
     }
 
-    .container-custom h1,
-    .container-custom h2,
-    .container-custom h3 {
-        margin: 20px 0 20px 0;
-        font-family: Arial, sans-serif;
-    }
-
-    .container-custom li,
-    .container-custom p {
-        font-family: "Times New Roman", Times, serif;
-    }
 
 }
+
+
