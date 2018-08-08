@@ -17,7 +17,6 @@ import java.io.IOException;
 
 @ApiIgnore
 @Controller
-@CrossOrigin
 public class AuthController {
 
     @Value("${secure.endpoint.uri}")

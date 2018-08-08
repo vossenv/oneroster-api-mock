@@ -19,7 +19,6 @@ import java.util.Map;
 
 @ApiIgnore
 @Controller
-@CrossOrigin
 @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "DefaultAnnotationParam"})
 public class ViewController {
 
