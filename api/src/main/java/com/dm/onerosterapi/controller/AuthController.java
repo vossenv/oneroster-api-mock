@@ -4,10 +4,7 @@ import com.dm.onerosterapi.apiconfig.AuthorizationServerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -20,6 +17,7 @@ import java.io.IOException;
 
 @ApiIgnore
 @Controller
+@CrossOrigin
 public class AuthController {
 
     @Value("${secure.endpoint.uri}")

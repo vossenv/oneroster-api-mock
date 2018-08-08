@@ -17,6 +17,7 @@ tr:nth-child(even) {background: white;}
 }
 
 #infotable td {
+
     margin: 0;
     padding: 5px 5px 5px 8px;
 }
@@ -28,6 +29,7 @@ tr:nth-child(even) {background: white;}
 }
 
 .value {
+    width:100%;
     word-break: break-all;
 }
 

@@ -18,6 +18,7 @@ import java.util.Optional;
 @RestController
 @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "DefaultAnnotationParam"})
 @Api(tags = "Term Controller", description = "Set of endpoints for reading Terms")
+@CrossOrigin
 public class TermController {
 
     final private ClassService classService;

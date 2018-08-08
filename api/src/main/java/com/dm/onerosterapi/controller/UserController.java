@@ -22,6 +22,7 @@ import java.util.Optional;
 @Validated
 @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "DefaultAnnotationParam"})
 @Api(tags = "User Controller", description = "Set of endpoints for reading Users")
+@CrossOrigin
 public class UserController {
 
     final private UserService userService;
