@@ -1,6 +1,6 @@
-committer_email = default
-commit_hash = default
-build_timestamp = default
-commit_subject = default
-commit_body = default
-commit_url = default
+committer_email = janssenda@gmail.com
+commit_hash = 13805339bb0459fa44dabef81647b8c1be470504
+build_timestamp = 11-08-2018 16:31:07
+commit_subject = update ssl cert
+commit_body = 
+commit_url = https://github.com/janssenda-adobe/oneroster-api-mock/commit/13805339bb0459fa44dabef81647b8c1be470504
