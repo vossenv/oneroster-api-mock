@@ -13,10 +13,10 @@ public class ApiResponseBuilder {
     public static ResponseEntity<Object> buildApiResponse(Object body, SimplePage p){
 
         String urlNext = p.getURL() + "?limit=" + p.getLimit().toString()
-                + "&offset=" + String.valueOf(p.getOffset() + p.getLimit()+1);
+                + "&offset=" + String.valueOf(p.getOffset() + p.getLimit());
 
         String urlPrev = p.getURL() + "?limit=" + p.getLimit().toString()
-                + "&offset=" + String.valueOf(Math.max(p.getOffset() - p.getLimit() - 1,0));
+                + "&offset=" + String.valueOf(Math.max(p.getOffset() - p.getLimit(),0));
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Limit", p.getLimit().toString());
